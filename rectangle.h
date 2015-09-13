@@ -1,3 +1,5 @@
+/* rectangle.h */
+
 #ifndef _Rectangle_H_
 #define _Rectangle_H_
 

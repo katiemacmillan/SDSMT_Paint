@@ -1,3 +1,5 @@
+/* shape.h */
+
 #ifndef _Shape_H_
 #define _Shape_H_
 

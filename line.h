@@ -1,3 +1,5 @@
+/* line.h */
+
 #ifndef _Line_H_
 #define _Line_H_
 

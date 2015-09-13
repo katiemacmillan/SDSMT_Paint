@@ -1,3 +1,5 @@
+/* ellipses.h */
+
 #ifndef _Ellipses_H_
 #define _Ellipses_H_
 

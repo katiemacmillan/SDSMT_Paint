@@ -1,8 +1,10 @@
+/* globals.h */
+
 #ifndef _Globals_H_
 #define _Globals_H_
 
 // keypresses
-const int ExcapeKey = 27;
+const int EscapeKey = 27;
 
 // colors
 const float Black[] = { 0.0, 0.0, 0.0 };

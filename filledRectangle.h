@@ -1,3 +1,5 @@
+/* filledRectangle.h */
+
 #ifndef _FilledRectangle_H_
 #define _FilledRectangle_H_
 
