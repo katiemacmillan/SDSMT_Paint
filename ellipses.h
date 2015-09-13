@@ -12,7 +12,7 @@ class Ellipses : public Shape
         ColorType c;
 
     public:
-        Ellipses( float x = 0.0, float y = 0.0, ColorType c = ColorType( 0 ); float xRaius = 1.0; float yRadius = 1.0 );
+        Ellipses( float x = 0.0, float y = 0.0, ColorType c = ColorType( 0 ), float xRaius = 1.0, float yRadius = 1.0 );
         ~Ellipses();
         void moveTo( float x, float y );
         void changeColor( ColorType c );
@@ -21,3 +21,5 @@ class Ellipses : public Shape
         void erase() const;
         void print( ostream& out ) const;
 };
+
+#endif

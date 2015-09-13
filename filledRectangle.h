@@ -4,18 +4,18 @@
 #define _FilledRectangle_H_
 
 #include "shape.h"
-#include "rectangle.h"
+//#include "rectangle.h"
 
 // Filled Rectangle class interface
 // Do we need all of these methods or do we just need to hold the fill color?
-class FilledRectangle : public Rectangle
+class FilledRectangle : public Shape
 {
     private:
         float width, height;
         ColorType cBorder, cFill;
 
     public:
-        FilledRectangle( float x = 0.0, float y = 0.0, ColorType cBorder = ColorType( 0 ), cFill = ColorType( 0 ), float x = 1.0, floah h = 1.0 );
+        FilledRectangle( float x = 0.0, float y = 0.0, ColorType cBorder = ColorType( 0 ), ColorType cFill = ColorType( 0 ), float w = 1.0, float h = 1.0 );
         ~FilledRectangle();
         void moveTo( float x, float y );
         void changeFillColor( ColorType c );

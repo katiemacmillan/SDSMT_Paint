@@ -14,7 +14,7 @@ class Rectangle : public Shape
         ColorType c;
 
     public:
-        Rectangle( float x = 0.0, float y = 0.0, ColorType c = ColorType( 0 ), float x = 1.0, floah h = 1.0 );
+        Rectangle( float x = 0.0, float y = 0.0, ColorType c = ColorType( 0 ), float w = 1.0, float h = 1.0 );
         ~Rectangle();
         void moveTo( float x, float y );
         void changeColor( ColorType c );
