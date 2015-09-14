@@ -17,7 +17,8 @@ void display( void )
     glClear( GL_COLOR_BUFFER_BIT );
 
     // draw stuffff
-    ///DrawLine( 10, 20, ScreenWidth - 10, ScreenHeight - 20, Yellow );
+    DrawLine( 10, 20, ScreenWidth - 10, ScreenHeight - 20, Yellow );
+    DrawRectangle( 500, 400, 700, 500, Cyan );
 
     // flush graphical output
     glFlush();

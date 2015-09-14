@@ -40,7 +40,7 @@ void initOpenGL( void )
     // window title
     glutCreateWindow( "Paint" );
 
-    // use blak for glClear command
+    // use black for glClear command
     glClearColor( 0.0, 0.0, 0.0, 0.0 );
 
     // callback routines
