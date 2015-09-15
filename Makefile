@@ -7,7 +7,7 @@
 
 # Usage: make target1 target2 ...
 
-#================================================
+#------------------------------------------------------------------------------
 
 # GNU C/C++ compiler and linker:
 LINK = g++
@@ -20,20 +20,17 @@ CXXFLAGS = $(CFLAGS)
 # OpenGL/Mesa libraries for Linux
 GL_LIBS = -lglut -lGLU -lGL -lm
 
-#================================================
+#------------------------------------------------------------------------------
 # Targets
 
-# By default, build everything:
-EXE = Paint
+all: paint
 
-all: $(EXE)
+#------------------------------------------------------------------------------
 
-#================================================
-
-Paint:	paint.o ellipses.o filledEllipses.o rectangle.o filledRectangle.o line.o callbacks.o globals.o
+paint:	paint.o callbacks.o globals.o graphics.o
 	$(LINK) -o $@ $^ $(GL_LIBS)
 
-#================================================
+#------------------------------------------------------------------------------
 
 clean:
 	rm -f *.o *~ core
