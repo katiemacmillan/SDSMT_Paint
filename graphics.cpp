@@ -29,3 +29,40 @@ void DrawRectangle( float x1, float y1, float x2, float y2, const float color[] 
     glEnd();
     glFlush();
 }
+
+void DrawFilledRectangle( float x1, float y1, float x2, float y2, const float color[] )
+{
+	glColor3fv( color );
+	glBegin( GL_POLYGON );
+        glVertex2f( x1, y1 );
+        glVertex2f( x2, y1 );
+        glVertex2f( x2, y2 );
+        glVertex2f( x1, y2 );
+    glEnd();
+    glFlush();
+}
+
+void DrawEllipse( float xRadius, float yRadius, int x, int y, const float color[] )
+{
+    float radius = xRadius < yRadius ? xRadius : yRadius;
+    glColor3fv( color );
+    glMatrixMode( GL_MODELVIEW );
+    glLoadIdentity();
+    glTranslatef( x, y, 0 );
+    glScalef( xRadius / radius, yRadius / radius, 1.0 );
+    GLUquadricObj *disk = gluNewQuadric();
+    gluDisk( disk, 0, radius, int( radius ), 1 );
+    gluDeleteQuadric( disk );
+    glLoadIdentity();
+    glFlush();
+}
+
+void DrawTextString( char* string, int x, int y, const float color[] )
+{
+    glColor3fv( color );
+    glRasterPos2i( x, y );
+    while( *string )
+    {
+        glutBitmapCharacter( GLUT_BITMAP_8_BY_13, *string++ );
+    }
+}

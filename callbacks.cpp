@@ -17,8 +17,8 @@ void display( void )
     glClear( GL_COLOR_BUFFER_BIT );
 
     // draw stuffff
-    DrawLine( 10, 20, ScreenWidth - 10, ScreenHeight - 20, Yellow );
-    DrawRectangle( 500, 400, 700, 500, Cyan );
+    DrawRectangle( 8.0, 500.0, 50.0, 200.0, White );    
+
 
     // flush graphical output
     glFlush();
@@ -68,9 +68,6 @@ void mouseclick( int button, int state, int x, int y )
     //correct for upside-down screen coordinates
     y = ScreenHeight - y;
 
-    ///Needed something to do in the if-else for texting
-    int temp;
-
     // handle mouse click events
     switch( button )
     {
@@ -78,21 +75,17 @@ void mouseclick( int button, int state, int x, int y )
         case GLUT_LEFT_BUTTON:
             // press
             if( state == GLUT_DOWN )
-                temp = 1;
-                //pressing at x,y
+                cerr << "mouse click: left down at (" << x << "," << y << ")\n";
             // release
             else if( state == GLUT_UP )
-                temp = 2;
-                //releaseing at x,y
+                cerr << "mouse click: left up at (" << x << ","<< y << ")\n";
             break;
         case GLUT_RIGHT_BUTTON:
             // press
             if( state == GLUT_DOWN )
-                //pressing stuff at x,y
-                temp = 3;
+                cerr << "mouse click: right down at (" << x << ","<< y << ")\n";
             else if( state == GLUT_UP )
-                //releasing at x,y
-                temp = 4;
+                cerr << "mouse click: right up at (" << x << ","<< y << ")\n";
             break;
     }
 }
