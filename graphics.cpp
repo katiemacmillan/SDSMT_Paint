@@ -10,7 +10,7 @@ using namespace std;
 
 void DrawLine( float x1, float y1, float x2, float y2, const float color[] )
 {
-    glColor3fv( color );
+    glColor4fv( color );
     glBegin( GL_LINES );
         glVertex2f( x1, y1 );
         glVertex2f( x2, y2 );
@@ -20,7 +20,7 @@ void DrawLine( float x1, float y1, float x2, float y2, const float color[] )
 
 void DrawRectangle( float x1, float y1, float x2, float y2, const float color[] )
 {
-    glColor3fv( color );
+    glColor4fv( color );
     glBegin( GL_LINE_LOOP );
         glVertex2f( x1, y1 );
         glVertex2f( x2, y1 );
@@ -32,7 +32,7 @@ void DrawRectangle( float x1, float y1, float x2, float y2, const float color[] 
 
 void DrawFilledRectangle( float x1, float y1, float x2, float y2, const float color[] )
 {
-	glColor3fv( color );
+	glColor4fv( color );
 	glBegin( GL_POLYGON );
         glVertex2f( x1, y1 );
         glVertex2f( x2, y1 );
@@ -45,7 +45,7 @@ void DrawFilledRectangle( float x1, float y1, float x2, float y2, const float co
 void DrawEllipse( float xRadius, float yRadius, int x, int y, const float color[] )
 {
     float radius = xRadius < yRadius ? xRadius : yRadius;
-    glColor3fv( color );
+    glColor4fv( color );
     glMatrixMode( GL_MODELVIEW );
     glLoadIdentity();
     glTranslatef( x, y, 0 );
@@ -59,7 +59,7 @@ void DrawEllipse( float xRadius, float yRadius, int x, int y, const float color[
 
 void DrawTextString( char* string, int x, int y, const float color[] )
 {
-    glColor3fv( color );
+    glColor4fv( color );
     glRasterPos2i( x, y );
     while( *string )
     {

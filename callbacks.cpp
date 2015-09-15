@@ -16,9 +16,42 @@ void display( void )
     // clear the display
     glClear( GL_COLOR_BUFFER_BIT );
 
-    // draw stuffff
-    DrawRectangle( 8.0, 500.0, 50.0, 200.0, White );    
+    int i;
+    int j = 0;
+    float x1 = 0.0;
+    float y1 = 46.0;
+    float x2 = 46.0;
+    float y2 = 0.0;
 
+    // draw the two color/shape pallette box columns
+    for( i = 0; i < 13; i++ )
+    {
+        DrawRectangle( x1, y1, x2, y2, White );
+        DrawFilledRectangle( x1, y1, x2, y2, ColorList[j] );
+        y2 = y1;
+        y1 = y1 + 46.0;
+        if( j < 9 )
+            j++;
+        else
+            j = 20;    
+    }
+
+    x1 = 46.0;
+    y1 = 46.0;
+    x2 = 46.0 * 2;
+    y2 = 0.0;
+    j = 10;
+    for( i = 0; i < 13; i++ )
+    {
+        DrawRectangle( x1, y1, x2, y2, White );
+        DrawFilledRectangle( x1, y1, x2, y2, ColorList[j] );
+        y2 = y1;
+        y1 = y1 + 46.0;
+        if( j < 19 )
+            j++;
+        else
+            j = 20;
+    }
 
     // flush graphical output
     glFlush();
