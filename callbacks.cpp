@@ -3,12 +3,14 @@
 // include files
 #include <cstdlib>
 #include <iostream>
+#include <cstring>
 using namespace std;
 
 #include <GL/freeglut.h>
 #include "globals.h"
 #include "callbacks.h"
 #include "graphics.h"
+#include "shape.h"
 
 // callback function to tell OpenGL how to redraw window
 void display( void )
@@ -23,11 +25,15 @@ void display( void )
     float x2 = 46.0;
     float y2 = 0.0;
 
+    // write the title on the top of the screen
+    DrawTextString( "Chrissy and Kate Paint!", ScreenWidth / 2 - 92, ScreenHeight - 20, White );
+
     // draw the two color/shape pallette box columns
-    for( i = 0; i < 13; i++ )
+    /*for( i = 0; i < 13; i++ )
     {
-        DrawRectangle( x1, y1, x2, y2, White );
+        //DrawRectangle( x1, y1, x2, y2, White );
         DrawFilledRectangle( x1, y1, x2, y2, ColorList[j] );
+        DrawRectangle( x1, y1, x2, y2, White );
         y2 = y1;
         y1 = y1 + 46.0;
         if( j < 9 )
@@ -43,8 +49,9 @@ void display( void )
     j = 10;
     for( i = 0; i < 13; i++ )
     {
+        DrawFilledRectangle( x1, y1, x2, y2, ColorList[j] );        
         DrawRectangle( x1, y1, x2, y2, White );
-        DrawFilledRectangle( x1, y1, x2, y2, ColorList[j] );
+        //DrawFilledRectangle( x1, y1, x2, y2, ColorList[j] );
         y2 = y1;
         y1 = y1 + 46.0;
         if( j < 19 )
@@ -52,7 +59,7 @@ void display( void )
         else
             j = 20;
     }
-
+*/
     // flush graphical output
     glFlush();
 }
