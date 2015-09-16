@@ -11,10 +11,9 @@ class Rectangle : public Shape
 {
     private:
         float width, height;
-        ColorType c;
 
     public:
-        Rectangle( float, float, ColorType, float, float );
+        Rectangle( float, float, ColorType, ColorType, float, float, bool);
         ~Rectangle();
         void moveTo( float, float );
         void changeColor( ColorType );

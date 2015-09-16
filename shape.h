@@ -18,20 +18,23 @@ class Shape
 {
     protected:
         float locX, locY;
-        ColorType color;
+        ColorType fColor;
+        ColorType bColor;
+        bool filled;
+
 
     public:
         // Constructor
-        Shape( float x = 0.0, float y = 0.0, ColorType c = ColorType( 0 ) );
+        Shape( float float, ColorType, ColorType, bool);
 
         // Destructor
         virtual ~Shape();
 
         // Move object
-        void moveTo( float x, float y );
+        void moveTo( float, float );
         
         // Change color of the object
-        void changeColor( ColorType c );
+        void changeColor( ColorType );
 
         // Print, draw, and erase methods:
         virtual void print( ostream& ) const = 0;

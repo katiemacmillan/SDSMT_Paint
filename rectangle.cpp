@@ -14,9 +14,12 @@ using namespace std;
 {
     int temp = 5;
 }*/
-Rectangle( float x = 0.0, float y = 0.0, ColorType c = ColorType( 0 ), float w = 1.0, float h = 1.0 );
-~Rectangle();
-void moveTo( float x, float y );
+Rectangle( float x = 0.0, float y = 0.0, ColorType fC = ColorType( 0 ), ColorType bC = ColorType( 0 ), float w = 1.0, float h = 1.0, bool fill = false )
+: Shape( x, y, fC, bC, fill), width(w), height(h)
+{}
+~Rectangle(){}
+void moveTo( float x, float y )
+{}
 void changeColor( ColorType color )
 {
 	c = color;
@@ -32,6 +35,10 @@ void changeDimensions( float w, float h )
 void draw() const;
 float x1, float y1, float x2, float y2, const float color[] )
 {
+    if (!fill)
+    {
+
+    }
     glColor3fv( color );
     glBegin( GL_LINE_LOOP );
         glVertex2f( x1, y1 );
