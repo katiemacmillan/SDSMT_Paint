@@ -5,21 +5,21 @@
 
 #include "shape.h"
 
-class Ellipses : public Shape
+class Ellipse : public Shape
 {
     private: 
         float xRadius, yRadius;
         ColorType c;
 
     public:
-        Ellipses( float x = 0.0, float y = 0.0, ColorType c = ColorType( 0 ), float xRaius = 1.0, float yRadius = 1.0 );
+        Ellipses( float, float, ColorType, float, float);
         ~Ellipses();
-        void moveTo( float x, float y );
-        void changeColor( ColorType c );
-        void changeDimensions( float xRadius, float yRadius );
+        void moveTo( float, float );
+        void changeColor( ColorType );
+        void changeDimensions( float, float );
         void draw() const;
         void erase() const;
-        void print( ostream& out ) const;
+        void print( ostream& ) const;
 };
 
 #endif

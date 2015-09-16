@@ -15,14 +15,15 @@ class FilledRectangle : public Shape
         ColorType cBorder, cFill;
 
     public:
-        FilledRectangle( float x = 0.0, float y = 0.0, ColorType cBorder = ColorType( 0 ), ColorType cFill = ColorType( 0 ), float w = 1.0, float h = 1.0 );
+        FilledRectangle( float, float, ColorType, ColorType, float, float );
         ~FilledRectangle();
-        void moveTo( float x, float y );
-        void changeFillColor( ColorType c );
-        void changeDimensions( float w, float h );
+        void moveTo( float, float );
+        void changeBorderColor (ColorType);
+        void changeFillColor( ColorType );
+        void changeDimensions( float, float );
         void draw() const;
         void erase() const;
-        void print( ostream& out ) const;
+        void print( ostream& ) const;
 };
 
 #endif

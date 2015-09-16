@@ -14,14 +14,14 @@ class Rectangle : public Shape
         ColorType c;
 
     public:
-        Rectangle( float x = 0.0, float y = 0.0, ColorType c = ColorType( 0 ), float w = 1.0, float h = 1.0 );
+        Rectangle( float, float, ColorType, float, float );
         ~Rectangle();
-        void moveTo( float x, float y );
-        void changeColor( ColorType c );
-        void changeDimensions( float w, float h );
+        void moveTo( float, float );
+        void changeColor( ColorType );
+        void changeDimensions( float, float );
         void draw() const;
         void erase() const;
-        void print( ostream& out ) const;
+        void print( ostream& ) const;
 };
 
 #endif

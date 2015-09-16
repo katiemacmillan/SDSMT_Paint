@@ -15,15 +15,15 @@ class FilledEllipses : public Shape
         ColorType cBorder, cFill;
 
     public:
-        FilledEllipses( float x = 0.0, float y = 0.0, ColorType cBorder = ColorType( 0 ), ColorType cFill = ColorType( 0 ), float xRaius = 1.0, float yRadius = 1.0 );
+        FilledEllipses( float, float, ColorType, ColorType, float, float );
         ~FilledEllipses();
-        void moveTo( float x, float y );
-        void changeBorderColor( ColorType c );
-        void changeFillColor( ColorType c );
-        void changeDimensions( float xRadius, float yRadius );
+        void moveTo( float, float );
+        void changeBorderColor( ColorType );
+        void changeFillColor( ColorType );
+        void changeDimensions( float, float );
         void draw() const;
         void erase() const;
-        void print( ostream& out ) const;
+        void print( ostream& ) const;
 };
 
 #endif

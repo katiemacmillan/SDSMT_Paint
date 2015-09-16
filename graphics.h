@@ -1,4 +1,8 @@
 /* graphics.h */
+/*******************************************************************************
+
+Un-needed files
+
 
 #ifndef _Graphics_H_
 #define _Graphics_H_
@@ -13,3 +17,4 @@ void DrawFilledEllipse( float xRadius, float yRadius, int x, int y, const float 
 // He had ^ this in his code. Please tell me we don't also need text.
 
 #endif
+*******************************************************************************/

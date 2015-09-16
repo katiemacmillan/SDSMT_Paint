@@ -10,17 +10,18 @@ class Line : public Shape
 {
     private:
         float x1, x2, y1, y2;
+        ColorType c;
 
     public:
-        Line( float x1 = 0.0, float y1 = 0.0, float x2 = 0.0, float y2 = 0.0, ColorType c = ColorType( 0 ) );
+        Line( float, float, float, float, ColorType );
         ~Line();
         //void moveTo( float x1, float y1, float x2, float y2 );
-        void changeColor( ColorType c );
+        void changeColor( ColorType );
         //void changeDimensions( ?? );
         // Should we keep the length in the class too?
         void draw() const;
         void erase() const;
-        void print( ostream& out ) const;
+        void print( ostream& ) const;
 };
 
 #endif

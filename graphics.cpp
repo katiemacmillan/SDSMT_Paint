@@ -1,5 +1,9 @@
 /* graphics.cpp */
 
+/***********************************************************************
+These are unnessasary. The shape class derivations are there so we don't need these functions
+
+
 // include files
 #include <cstdlib>
 #include <iostream>
@@ -29,3 +33,4 @@ void DrawRectangle( float x1, float y1, float x2, float y2, const float color[] 
     glEnd();
     glFlush();
 }
+*******************************************************************************/
