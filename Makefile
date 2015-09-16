@@ -36,4 +36,4 @@ clean:
 	rm -f *.o *~ core
 
 cleanall:
-	rm 0f *.o *~ core $(EXE)
+	rm -f *.o *~ core paint
