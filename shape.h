@@ -17,15 +17,17 @@ enum ColorType
 class Shape
 {
     protected:
-        float locX, locY;
+        float X1, Y1, X2, Y2;
+        //filled color
         ColorType fColor;
+        //border color
         ColorType bColor;
         bool filled;
 
 
     public:
         // Constructor
-        Shape( float float, ColorType, ColorType, bool);
+        Shape( float, float,float, float, ColorType, ColorType, bool);
 
         // Destructor
         virtual ~Shape();
