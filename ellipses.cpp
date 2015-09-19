@@ -8,30 +8,30 @@ using namespace std;
 
 
 // Ellipses class implementation
-Ellipses( float x = 0.0, float y = 0.0, float[] c = float[]( 0 ), float xRaius = 1.0, float yRadius = 1.0 ){};
+Ellipses::Ellipses( float x = 0.0, float y = 0.0, float[] c = float[]( 0 ), float xRaius = 1.0, float yRadius = 1.0 ){};
 
 
-~Ellipses();
+Ellipses::~Ellipses();
 //Is x,y the new center of the elipse?
-void moveTo( float x, float y );
+void Ellipses::moveTo( float x, float y );
 
-void changeFillColor( float[] color )
+void Ellipses::changeFillColor( float[] color )
 {
 	fColor = color
 }
 
-void changeBorderColor( float[] color )
+void Ellipses::changeBorderColor( float[] color )
 {
     bColor = color
 }
 
-void changeDimensions( float xR, float yR )
+void Ellipses::changeDimensions( float xR, float yR )
 {
 	xRadius = xR;
 	yRadius = yR;
 }
 
-void draw( int x, int y )
+void Ellipses::draw( int x, int y )
 {
     float radius = xRadius < yRadius ? xRadius : yRadius;	// stretch circle into ellipse
     glColor3fv( bColor );

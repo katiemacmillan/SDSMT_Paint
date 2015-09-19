@@ -14,25 +14,25 @@ using namespace std;
 {
     int temp = 5;
 }*/
-Rectangle( float x = 0.0, float y = 0.0, float[] fC = float[]( 0 ), float[] bC = float[]( 0 ), float w = 1.0, float h = 1.0, bool fill = false )
+Rectangle::Rectangle( float x = 0.0, float y = 0.0, float[] fC = float[]( 0 ), float[] bC = float[]( 0 ), float w = 1.0, float h = 1.0, bool fill = false )
 : Shape( x, y, fC, bC, fill), width(w), height(h)
 {}
-~Rectangle(){}
-void moveTo( float x, float y )
+Rectangle::~Rectangle(){}
+void Rectangle::moveTo( float x, float y )
 {}
-void changeColor( float[] color )
+void Rectangle::changeColor( float[] color )
 {
 	c = color;
 }
 
-void changeDimensions( float w, float h )
+void Rectangle::changeDimensions( float w, float h )
 {
 	width = w;
 	height = h;
 	draw();
 }
 
-void draw() const;
+void Rectangle::draw() const;
 //float x1, float y1, float x2, float y2, const float bC[], const float fC[], bool fill )
 {
     if (fill)
