@@ -1,7 +1,7 @@
 /* graphics.cpp */
 
-/***********************************************************************
-These are unnessasary. The shape class derivations are there so we don't need these functions
+//**********************************************************************
+//These are unnessasary. The shape class derivations are there so we don't need these functions
 
 
 // include files
@@ -11,7 +11,7 @@ using namespace std;
 
 #include <GL/freeglut.h>
 #include "graphics.h"
-
+/*
 void DrawLine( float x1, float y1, float x2, float y2, const float color[] )
 {
     glColor4fv( color );
@@ -33,10 +33,9 @@ void DrawRectangle( float x1, float y1, float x2, float y2, const float color[] 
     glEnd();
     glFlush();
 }
-<<<<<<< HEAD
+<<<<<< HEAD
 *******************************************************************************/
-=======
-
+/*
 void DrawFilledRectangle( float x1, float y1, float x2, float y2, const float color[] )
 {
 	glColor4fv( color );
@@ -63,7 +62,7 @@ void DrawEllipse( float xRadius, float yRadius, int x, int y, const float color[
     glLoadIdentity();
     glFlush();
 }
-
+*/
 void DrawTextString( char* string, int x, int y, const float color[] )
 {
     glColor4fv( color );
@@ -73,4 +72,4 @@ void DrawTextString( char* string, int x, int y, const float color[] )
         glutBitmapCharacter( GLUT_BITMAP_8_BY_13, *string++ );
     }
 }
->>>>>>> 50b7df2c3c024afac6edda4f9500eec13b05e845
+//>>>>>>> 50b7df2c3c024afac6edda4f9500eec13b05e845
