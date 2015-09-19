@@ -41,10 +41,12 @@ class Shape
         // Change color of the object
         void changeColor( float[] );
 
-        // Print, draw, and erase methods:
-        virtual void print( ostream& ) const = 0;
+        //Erase a selected shape
+        void erase();
+
+        // Draw, a shape object
         virtual void draw() const = 0;
-        virtual void erase() const = 0;
+        
 };
 
 #endif

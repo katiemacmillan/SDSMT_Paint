@@ -19,8 +19,6 @@ class Rectangle : public Shape
         void changeColor( float[] );
         void changeDimensions( float, float );
         void draw() const;
-        void erase() const;
-        void print( ostream& ) const;
 };
 
 #endif

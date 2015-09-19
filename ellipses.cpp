@@ -46,9 +46,3 @@ void draw( int x, int y )
     glFlush();
 }
 
-void erase(Shape* selected) const
-{
-    
-    delete selected();
-}
-void print( ostream& out ) const;

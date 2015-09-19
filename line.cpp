@@ -32,5 +32,4 @@ using namespace std;
             glEnd();
             glFlush();
         }
-        void erase() const;
-        void print( ostream& out ) const;
+        

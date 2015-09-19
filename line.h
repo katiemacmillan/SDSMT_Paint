@@ -20,8 +20,6 @@ class Line : public Shape
         //void changeDimensions( ?? );
         // Should we keep the length in the class too?
         void draw() const;
-        void erase() const;
-        void print( ostream& ) const;
 };
 
 #endif

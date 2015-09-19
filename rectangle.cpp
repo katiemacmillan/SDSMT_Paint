@@ -54,5 +54,3 @@ void draw() const;
     glEnd();
     glFlush();
 }
-        void erase() const;
-        void print( ostream& out ) const;
