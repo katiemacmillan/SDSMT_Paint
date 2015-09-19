@@ -8,20 +8,20 @@ using namespace std;
 
 
 // Ellipses class implementation
-Ellipses( float x1 = 0.0, float y1 = 0.0, float x2 = 0.0, float y2 = 0.0, float[] fC = {0}, float[] bC = {0}, bool fill = false, float xR = 1.0, float yR = 1.0 )
+Ellipses::Ellipses( float x1 = 0.0, float y1 = 0.0, float x2 = 0.0, float y2 = 0.0, float[] fC = {0}, float[] bC = {0}, bool fill = false, float xR = 1.0, float yR = 1.0 )
 :  Shape( x1, y1, x2, y2, fc, bc, fill), xRadius(xR), yRadius(yR) {}
 
 
-~Ellipses();
+Ellipses::~Ellipses();
 
-void changeDimensions( float xR, float yR )
+void Ellipses::changeDimensions( float xR, float yR )
 {
 	xRadius = xR;
 	yRadius = yR;
     draw()
 }
 
-void draw()
+void Ellipses::draw( int x, int y )
 {
     float radius = xRadius < yRadius ? xRadius : yRadius;	// stretch circle into ellipse
     glColor3fv( bColor );

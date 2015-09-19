@@ -18,15 +18,17 @@ void display( void )
     // clear the display
     glClear( GL_COLOR_BUFFER_BIT );
 
-    int i;
-    int j = 0;
-    float x1 = 0.0;
-    float y1 = 46.0;
-    float x2 = 46.0;
-    float y2 = 0.0;
+    ///Stuff from my original drawing pallete
+    //int i;
+    //int j = 0;
+    //float x1 = 0.0;
+    //float y1 = 46.0;
+    //float x2 = 46.0;
+    //float y2 = 0.0;
 
     // write the title on the top of the screen
-    DrawTextString( "Chrissy and Kate Paint!", ScreenWidth / 2 - 92, ScreenHeight - 20, White );
+    ///Commenting out for now because I'm sick of seeing the depreciated string warning
+    ///DrawTextString( "Chrissy and Kate Paint!", ScreenWidth / 2 - 92, ScreenHeight - 20, White );
 
     // draw the two color/shape pallette box columns
     /*for( i = 0; i < 13; i++ )
