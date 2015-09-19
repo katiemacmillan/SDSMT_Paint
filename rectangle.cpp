@@ -8,22 +8,9 @@ using namespace std;
 
 // Rectangle class implementation
 
-// constructor
-/*Rectangle::Rectangle( float x, float y, float[] c, float w, float h ) : 
-    Shape( x, y, c ), width( w ), height( h )
-{
-    int temp = 5;
-}*/
-Rectangle( float x = 0.0, float y = 0.0, float[] fC = float[]( 0 ), float[] bC = float[]( 0 ), float w = 1.0, float h = 1.0, bool fill = false )
-: Shape( x, y, fC, bC, fill), width(w), height(h)
-{}
+Rectangle( float x1 = 0.0, float y1 = 0.0, float x2 = 0.0, float y2 = 0.0, float[] fC = {0}, float[] bC = {0}, bool fill = false, float h = 0.0, float w = 0.0 )
+:  Shape( x1, y1, x2, y2, fc, bc, fill), height( h ), width( w ) {}
 ~Rectangle(){}
-void moveTo( float x, float y )
-{}
-void changeColor( float[] color )
-{
-	c = color;
-}
 
 void changeDimensions( float w, float h )
 {
@@ -33,7 +20,6 @@ void changeDimensions( float w, float h )
 }
 
 void draw() const;
-//float x1, float y1, float x2, float y2, const float bC[], const float fC[], bool fill )
 {
     if (fill)
     {

@@ -39,7 +39,8 @@ class Shape
         void moveTo( float, float );
         
         // Change color of the object
-        void changeColor( float[] );
+        void changeBorderColor( float[] );
+        void changeFillColor( float[] );
 
         //Erase a selected shape
         void erase();
