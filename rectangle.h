@@ -13,10 +13,10 @@ class Rectangle : public Shape
         float width, height;
 
     public:
-        Rectangle( float, float, ColorType, ColorType, float, float, bool);
+        Rectangle( float, float, float[], float[], float, float, bool);
         ~Rectangle();
         void moveTo( float, float );
-        void changeColor( ColorType );
+        void changeColor( float[] );
         void changeDimensions( float, float );
         void draw() const;
         void erase() const;

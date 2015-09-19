@@ -8,16 +8,21 @@ using namespace std;
 
 
 // Ellipses class implementation
-Ellipses( float x = 0.0, float y = 0.0, ColorType c = ColorType( 0 ), float xRaius = 1.0, float yRadius = 1.0 ){};
+Ellipses( float x = 0.0, float y = 0.0, float[] c = float[]( 0 ), float xRaius = 1.0, float yRadius = 1.0 ){};
 
 
 ~Ellipses();
 //Is x,y the new center of the elipse?
 void moveTo( float x, float y );
 
-void changeColor( ColorType color )
+void changeFillColor( float[] color )
 {
-	c = color
+	fColor = color
+}
+
+void changeBorderColor( float[] color )
+{
+    bColor = color
 }
 
 void changeDimensions( float xR, float yR )
@@ -26,14 +31,14 @@ void changeDimensions( float xR, float yR )
 	yRadius = yR;
 }
 
-void draw( float xR, float yR, int x, int y, const float color[] )
+void draw( int x, int y )
 {
-    float radius = xR < yR ? xR : yR;	// stretch circle into ellipse
-    glColor3fv( color );
+    float radius = xRadius < yRadius ? xRadius : yRadius;	// stretch circle into ellipse
+    glColor3fv( bColor );
     glMatrixMode( GL_MODELVIEW );
     glLoadIdentity();
     glTranslatef( x, y, 0 );
-    glScalef( xR / radius, yR / radius, 1.0 );	// by ratio of major to minor axes
+    glScalef( xRadius / radius, yRadius / radius, 1.0 );	// by ratio of major to minor axes
     GLUquadricObj *disk = gluNewQuadric();
     gluDisk( disk, radius - 1, radius, int( radius ), 1 );
     gluDeleteQuadric( disk );
@@ -41,5 +46,9 @@ void draw( float xR, float yR, int x, int y, const float color[] )
     glFlush();
 }
 
-void erase() const;
+void erase(Shape* selected) const
+{
+    
+    delete selected();
+}
 void print( ostream& out ) const;

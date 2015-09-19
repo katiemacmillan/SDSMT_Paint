@@ -33,6 +33,7 @@ const float DarkGray[] = { 0.25, 0.25, 0.25 };
 extern int ScreenWidth;
 extern int ScreenHeight;
 extern const float* ColorList[];
+extern ShapeNode* ShapeList;
 
 
 #endif

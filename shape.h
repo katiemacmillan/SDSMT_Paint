@@ -6,28 +6,31 @@
 #include <iostream>
 using namespace std;
 
-// Define a color type
-enum ColorType
+struct ShapeNode
 {
-    BLACK, BLUE, GREEN, CYAN, RED, MAGENTA, BROWN, LIGHTGRAY, DARKGRAY,
-    LIGHTBLUE, LIGHTGREEN, LIGHTCYAN, LIGHTRED, LIGHTMAGENTA, YELLOW, WHITE    
+    Shape shapeObj;
+    ShapeNode* next;
 };
 
 // Shape class interface
 class Shape
 {
     protected:
+
+        //Draw points
         float X1, Y1, X2, Y2;
+        //Center Point
+        float Xc, Yc;
         //filled color
-        ColorType fColor;
+        float fColor[];
         //border color
-        ColorType bColor;
+        float bColor[];
         bool filled;
 
 
     public:
         // Constructor
-        Shape( float, float,float, float, ColorType, ColorType, bool);
+        Shape( float, float,float, float, float[], float[], bool);
 
         // Destructor
         virtual ~Shape();
@@ -36,7 +39,7 @@ class Shape
         void moveTo( float, float );
         
         // Change color of the object
-        void changeColor( ColorType );
+        void changeColor( float[] );
 
         // Print, draw, and erase methods:
         virtual void print( ostream& ) const = 0;

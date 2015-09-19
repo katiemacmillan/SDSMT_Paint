@@ -9,18 +9,18 @@ using namespace std;
 // Rectangle class implementation
 
 // constructor
-/*Rectangle::Rectangle( float x, float y, ColorType c, float w, float h ) : 
+/*Rectangle::Rectangle( float x, float y, float[] c, float w, float h ) : 
     Shape( x, y, c ), width( w ), height( h )
 {
     int temp = 5;
 }*/
-Rectangle( float x = 0.0, float y = 0.0, ColorType fC = ColorType( 0 ), ColorType bC = ColorType( 0 ), float w = 1.0, float h = 1.0, bool fill = false )
+Rectangle( float x = 0.0, float y = 0.0, float[] fC = float[]( 0 ), float[] bC = float[]( 0 ), float w = 1.0, float h = 1.0, bool fill = false )
 : Shape( x, y, fC, bC, fill), width(w), height(h)
 {}
 ~Rectangle(){}
 void moveTo( float x, float y )
 {}
-void changeColor( ColorType color )
+void changeColor( float[] color )
 {
 	c = color;
 }

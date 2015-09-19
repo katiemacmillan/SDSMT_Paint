@@ -9,13 +9,13 @@ class Ellipse : public Shape
 {
     private: 
         float xRadius, yRadius;
-        ColorType c;
+        float[] c;
 
     public:
-        Ellipses( float, float, ColorType, float, float);
+        Ellipses( float, float, float[], float, float);
         ~Ellipses();
         void moveTo( float, float );
-        void changeColor( ColorType );
+        void changeColor( float[] );
         void changeDimensions( float, float );
         void draw() const;
         void erase() const;
