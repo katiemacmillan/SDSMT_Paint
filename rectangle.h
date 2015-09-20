@@ -5,17 +5,24 @@
 
 #include "shape.h"
 
-// Rectangle class interface
-// If we do decide to have filled rectange inherit from this, do we need to also make some of these methods virtual?
 class Rectangle : public Shape
 {
     private:
         float width, height;
+        const float* fColor;
+        bool filled;
 
     public:
-        Rectangle( float, float, float, float, float[], float[], bool, float, float );
+        // constructor
+        Rectangle( float x = 0.0, float y = 0.0, const float* bColor = White, const float* fColor = Black, float w = 1.0, float h = 1.0, bool filled = false );
+        
+        // destructor
         ~Rectangle();
+
+        // change the dimensions of the rectangle
         void changeDimensions( float, float );
+        
+        // draw the rectangle
         void draw() const;
 };
 

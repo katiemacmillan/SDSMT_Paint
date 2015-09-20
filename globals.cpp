@@ -1,6 +1,17 @@
 /* globals.cpp */
 
+// include files
+/*#include <cstdlib>
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+#include <GL/freeglut.h>
+#include "callbacks.h"
 #include "globals.h"
+*/
+
+#include "headers.h"
 
 // global vars
 int ScreenWidth = 900;

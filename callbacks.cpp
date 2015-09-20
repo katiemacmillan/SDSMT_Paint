@@ -1,16 +1,17 @@
 /* callbacks.cpp */
 
 // include files
-#include <cstdlib>
+/*#include <cstdlib>
 #include <iostream>
 #include <cstring>
 using namespace std;
 
 #include <GL/freeglut.h>
-#include "globals.h"
 #include "callbacks.h"
-#include "graphics.h"
-#include "shape.h"
+#include "globals.h"
+*/
+
+#include "headers.h"
 
 // callback function to tell OpenGL how to redraw window
 void display( void )
@@ -18,16 +19,13 @@ void display( void )
     // clear the display
     glClear( GL_COLOR_BUFFER_BIT );
 
-    ///Stuff from my original drawing pallete
-    //int i;
-    //int j = 0;
-    //float x1 = 0.0;
-    //float y1 = 46.0;
-    //float x2 = 46.0;
-    //float y2 = 0.0;
+    Shape* r = new Rectangle( 100.0, 250.0, White, Red, 300.0, 100.0, true );
+    r -> draw();
 
-    // write the title on the top of the screen
+
+    // write title on top of screen
     ///Commenting out for now because I'm sick of seeing the depreciated string warning
+    ///Need to put this function in a file
     ///DrawTextString( "Chrissy and Kate Paint!", ScreenWidth / 2 - 92, ScreenHeight - 20, White );
 
     // draw the two color/shape pallette box columns

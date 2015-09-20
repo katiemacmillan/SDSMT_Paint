@@ -12,7 +12,7 @@ Ellipses::Ellipses( float x1 = 0.0, float y1 = 0.0, float x2 = 0.0, float y2 = 0
 :  Shape( x1, y1, x2, y2, fc, bc, fill), xRadius(xR), yRadius(yR) {}
 
 
-Ellipses::~Ellipses();
+Ellipses::~Ellipses(){};
 
 void Ellipses::changeDimensions( float xR, float yR )
 {

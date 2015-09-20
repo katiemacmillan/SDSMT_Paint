@@ -1,33 +1,36 @@
 /* paint.cpp */
 
 // include files
+/*#include <iostream>
 #include <cstdlib>
-#include <iostream>
+#include <cstring>
+
 using namespace std;
 
 #include <GL/freeglut.h>
-#include "graphics.h"
 #include "callbacks.h"
 #include "globals.h"
+*/
 
-// function prototypes
+#include "headers.h"
+
+// funciton prototypes
 void initOpenGL( void );
 
-// main function
 int main( int argc, char** argv )
 {
     // perform OpenGL initializations
     glutInit( &argc, argv );
     initOpenGL();
 
-    // go into OpenGL/GLUT main loop, never return from the 5 dimension
+    // go into OpenGL/GLUT main loop, NEVER TO RETURN!!!
     glutMainLoop();
 
-    //  quit your bitchin, compiler!
+    // quit your bitchin, compiler!
     return 0;
 }
 
-//various commands to initialize OpenGL and GLUT
+// various commands to initialize OpenGL and GLUT
 void initOpenGL( void )
 {
     // 32-bit graphics and single buffering
@@ -46,10 +49,13 @@ void initOpenGL( void )
     // callback routines
     // how to redisplay the window
     glutDisplayFunc( display );
+
     // how to resize window
     glutReshapeFunc( reshape );
+
     // how to handle key presses
     glutKeyboardFunc( keyboard );
-    // how to hangle mouse events
+
+    // how to handle mouse events
     glutMouseFunc( mouseclick );
 }

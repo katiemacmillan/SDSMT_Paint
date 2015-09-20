@@ -1,42 +1,42 @@
 /* rectangle.cpp */
 
-// include files
-#include <iostream>
-using namespace std;
+#include "headers.h"
 
-#include "rectangle.h"
+Rectangle :: Rectangle( float x, float y, const float* bC, const float* fC, float w, float h, bool f ) : Shape( x, y, bC ), fColor( fC ), width( w ), height( h ), filled( f )
+{}
 
-// Rectangle class implementation
+Rectangle :: ~Rectangle()
+{}
 
-Rectangle::Rectangle( float x1 = 0.0, float y1 = 0.0, float x2 = 0.0, float y2 = 0.0, float[] fC = {0}, float[] bC = {0}, bool fill = false, float h = 0.0, float w = 0.0 )
-:  Shape( x1, y1, x2, y2, fc, bc, fill), height( h ), width( w ) {}
-Rectangle::~Rectangle(){}
-
-void Rectangle::changeDimensions( float w, float h )
+void Rectangle :: changeDimensions( float w, float h )
 {
-	width = w;
-	height = h;
-	draw();
+    width = w;
+    height = h;
+    draw();
 }
 
-void Rectangle::draw() const;
+void Rectangle :: draw() const
 {
-    if (fill)
+    // if it's a filled shape, draw a filled shape first
+    if( filled )
     {
-        glColor3fv( fC );
+        glColor3fv( fColor );
         glBegin( GL_POLYGON );
-            glVertex2f( X1, Y1 );
-            glVertex2f( X2, Y1 );
-            glVertex2f( X2, Y2 );
-            glVertex2f( X1, Y2 );
+            glVertex2f( locX - ( width / 2 ), locY + ( height / 2) );
+            glVertex2f( locX - ( width / 2 ), locY - ( height / 2) );
+            glVertex2f( locX + ( width / 2 ), locY - ( height / 2) );
+            glVertex2f( locX + ( width / 2 ), locY + ( height / 2) );
         glEnd();
     }
-    glColor3fv( bC );
+    
+    // draw the border shape
+    glColor3fv( bColor );
     glBegin( GL_LINE_LOOP );
-        glVertex2f( X1, Y1 );
-        glVertex2f( X2, Y1 );
-        glVertex2f( X2, Y2 );
-        glVertex2f( X1, Y2 );
+        glVertex2f( locX - ( width / 2 ), locY + ( height / 2) );
+        glVertex2f( locX - ( width / 2 ), locY - ( height / 2) );
+        glVertex2f( locX + ( width / 2 ), locY - ( height / 2) );
+        glVertex2f( locX + ( width / 2 ), locY + ( height / 2) );
     glEnd();
+
     glFlush();
 }
