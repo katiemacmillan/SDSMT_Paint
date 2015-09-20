@@ -11,9 +11,10 @@ using namespace std;
 #include <GL/freeglut.h>
 #include "callbacks.h"
 #include "globals.h"
-#include "rectangle.h"
 #include "shape.h"
+#include "rectangle.h"
 #include "line.h"
 #include "graphics.h"
+#include "ellipses.h"
 
 #endif

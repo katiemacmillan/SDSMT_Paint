@@ -1,20 +1,18 @@
 /* callbacks.cpp */
 
-// include files
-/*#include <cstdlib>
-#include <iostream>
-#include <cstring>
-using namespace std;
-
-#include <GL/freeglut.h>
-#include "callbacks.h"
-#include "globals.h"
-*/
-
 #include "headers.h"
 
-int PaletteSize = 46;
+////I'm struggling with the header file of callbacks and global. I'm throwing all
+//shape related items here for now
 
+// globals
+///Shape* currentShape;
+
+
+// color palette items
+float PaletteSize = 46.0;
+
+// first column, bottom to top
 const Shape* GrayColor = new Rectangle( 23, 23, Black, Gray, PaletteSize, PaletteSize, true);
 const Shape* PurpleColor = new Rectangle( 23, 69, Black, Purple, PaletteSize, PaletteSize, true);
 const Shape* BlueColor = new Rectangle( 23, 115, Black, Blue, PaletteSize, PaletteSize, true);
@@ -25,7 +23,7 @@ const Shape* OrangeColor = new Rectangle( 23, 299, Black, Orange, PaletteSize, P
 const Shape* RedColor = new Rectangle( 23, 345, Black, Red, PaletteSize, PaletteSize, true);
 const Shape* MagentaColor = new Rectangle( 23, 391, Black, Magenta, PaletteSize, PaletteSize, true);
 const Shape* WhiteColor = new Rectangle( 23, 437, Black, White, PaletteSize, PaletteSize, true);
-
+// second column, bottom to top
 const Shape* DarkGrayColor = new Rectangle( 69, 23, Black, DarkGray, PaletteSize, PaletteSize, true);
 const Shape* DarkPurpleColor = new Rectangle( 69, 69, Black, DarkPurple, PaletteSize, PaletteSize, true);
 const Shape* DarkBlueColor = new Rectangle( 69, 115, Black, DarkBlue, PaletteSize, PaletteSize, true);
@@ -37,17 +35,25 @@ const Shape* DarkRedColor = new Rectangle( 69, 345, Black, DarkRed, PaletteSize,
 const Shape* DarkMagentaColor = new Rectangle( 69, 391, Black, DarkMagenta, PaletteSize, PaletteSize, true);
 const Shape* LightGrayColor = new Rectangle( 69, 437, Black, LightGray, PaletteSize, PaletteSize, true);
 
-const Shape* ColorPalette[] = { GrayColor, PurpleColor, BlueColor, CyanColor,
-                                GreenColor, YellowColor, OrangeColor, RedColor,
-                                MagentaColor, WhiteColor, DarkGrayColor,
-                                DarkPurpleColor, DarkBlueColor, DarkCyanColor,
-                                DarkGreenColor, DarkYellowColor, DarkOrangeColor,
-                                DarkRedColor, DarkMagentaColor, LightGrayColor };
+// shape palette
+// first column, adding on top of colors
+const Shape* EllipsesTool = new Rectangle( 23, 483, White, Black, PaletteSize, PaletteSize, true );
+const Shape* RectangleTool = new Rectangle( 23, 529, White, Black, PaletteSize, PaletteSize, true );
+const Shape* CurrentShapeDisplay = new Rectangle( 23, 575, White, Black, PaletteSize, PaletteSize, true );
+// second column, adding on top of colors
+const Shape* FilledEllipsesTool = new Rectangle( 69, 483, White, Black, PaletteSize, PaletteSize, true );
+const Shape* FilledRectangleTool = new Rectangle( 69, 529, White, Black, PaletteSize, PaletteSize, true );
+const Shape* LineTool = new Rectangle( 69, 575, White, Black, PaletteSize, PaletteSize, true );
 
-
-
-
-
+// paint pallette, includes colors, shapes, and current shape display
+const Shape* PaintPalette[] = { GrayColor, PurpleColor, BlueColor, CyanColor, 
+                                GreenColor, YellowColor, OrangeColor, RedColor, 
+                                MagentaColor, WhiteColor, EllipsesTool, RectangleTool,
+                                CurrentShapeDisplay, DarkGrayColor, DarkPurpleColor, 
+                                DarkBlueColor, DarkCyanColor, DarkGreenColor, 
+                                DarkYellowColor, DarkOrangeColor, DarkRedColor, 
+                                DarkMagentaColor, LightGrayColor, FilledEllipsesTool, 
+                                FilledRectangleTool, LineTool };
 
 // callback function to tell OpenGL how to redraw window
 void display( void )
@@ -55,16 +61,10 @@ void display( void )
     // clear the display
     glClear( GL_COLOR_BUFFER_BIT );
 
-    ///just testing things out
-    Shape* r = new Rectangle( 500.0, 250.0, White, Red, 300.0, 100.0, true );
-    r -> draw();
-
-    Shape* l = new Line( 1.0, 1.0, Cyan, 10.4, 30.2, 201.3, 430.0 );
-    l -> draw();
-
-    for( int i = 0; i < 20; i++ )
+    // drawing the paint palette on the left side of the screen
+    for( int i = 0; i < 26; i++ )
     {
-        ColorPalette[i] -> draw();
+        PaintPalette[i] -> draw();
     }
 
     // write title on top of screen
@@ -72,40 +72,8 @@ void display( void )
     ///Need to put this function in a file
     ///DrawTextString( "Chrissy and Kate Paint!", ScreenWidth / 2 - 92, ScreenHeight - 20, White );
 
+    ////draw the shapes for the shape list here
 
-
-    // draw the two color/shape pallette box columns
-    /*for( i = 0; i < 13; i++ )
-    {
-        //DrawRectangle( x1, y1, x2, y2, White );
-        DrawFilledRectangle( x1, y1, x2, y2, ColorList[j] );
-        DrawRectangle( x1, y1, x2, y2, White );
-        y2 = y1;
-        y1 = y1 + 46.0;
-        if( j < 9 )
-            j++;
-        else
-            j = 20;    
-    }
-
-    x1 = 46.0;
-    y1 = 46.0;
-    x2 = 46.0 * 2;
-    y2 = 0.0;
-    j = 10;
-    for( i = 0; i < 13; i++ )
-    {
-        DrawFilledRectangle( x1, y1, x2, y2, ColorList[j] );        
-        DrawRectangle( x1, y1, x2, y2, White );
-        //DrawFilledRectangle( x1, y1, x2, y2, ColorList[j] );
-        y2 = y1;
-        y1 = y1 + 46.0;
-        if( j < 19 )
-            j++;
-        else
-            j = 20;
-    }
-*/
     // flush graphical output
     glFlush();
 }
@@ -157,21 +125,67 @@ void mouseclick( int button, int state, int x, int y )
     // handle mouse click events
     switch( button )
     {
-        // left button: create objects
+        // left button: create objects, select border color, select shape
         case GLUT_LEFT_BUTTON:
             // press
             if( state == GLUT_DOWN )
+            {    
                 cerr << "mouse click: left down at (" << x << "," << y << ")\n";
+                if( x < PaletteSize * 2 )
+                {
+                    if( y < PaletteSize * 10 )
+                    {
+                        selectBorderColor();
+                    }
+                    else
+                    {
+                        selectShape();
+                    }                
+                }
+            }
             // release
             else if( state == GLUT_UP )
                 cerr << "mouse click: left up at (" << x << ","<< y << ")\n";
             break;
+        // right button: select fill color
         case GLUT_RIGHT_BUTTON:
             // press
             if( state == GLUT_DOWN )
+            {
+                if( x < PaletteSize * 2 )
+                {
+                    if( y < PaletteSize * 10 )
+                    {
+                        selectFillColor();
+                    }
+                }
                 cerr << "mouse click: right down at (" << x << ","<< y << ")\n";
+            }
+            // release
             else if( state == GLUT_UP )
                 cerr << "mouse click: right up at (" << x << ","<< y << ")\n";
             break;
     }
+}
+
+///Obviously for testing purposes
+void selectBorderColor( /*int x, int y*/)
+{
+    cout << "Select a border color!!" << endl;
+    //const float* selectedColor = White; //change me!
+    ///compare the x and y to a color and set it
+    //currentShape -> changeBorderColor( selectedColor );
+        
+}
+
+void selectShape( /* shapeSelected */)
+{
+    cout << "Selecting a shape!!" << endl;
+    // selected shape constructor
+}
+
+void selectFillColor( /* selectedColor */)
+{
+    cout << "Selecting a FILL color!!" << endl;
+    // currentShape -> setFillColor( selectedColor );
 }

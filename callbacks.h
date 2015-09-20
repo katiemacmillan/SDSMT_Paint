@@ -10,6 +10,10 @@ void keyboard( unsigned char key, int x, int y );
 void mouseclick( int button, int state, int x, int y );
 void mousedrag( int x, int y );
 
+void selectBorderColor();
+void selectShape();
+void selectFillColor();
+
 // globals
 /*
 // color palette

@@ -3,9 +3,7 @@
 #ifndef _Ellipses_H_
 #define _Ellipses_H_
 
-#include "shape.h"
-
-class Ellipse : public Shape
+class Ellipses : public Shape
 {
     private: 
         float xRadius, yRadius;
@@ -14,7 +12,7 @@ class Ellipse : public Shape
 
     public:
         // constructor
-        Ellipses( float x = 0.0, float y = 0.0, const float* bColor = White, const float* fColor = Black, float xR = 1.0, float yR = 1.0, bool f = false );
+        Ellipses( float x = 0.0, float y = 0.0, const float* bColor = Black, const float* fColor = Black, float xR = 1.0, float yR = 1.0, bool f = false );
         
         // destructor
         ~Ellipses();

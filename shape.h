@@ -12,7 +12,7 @@ class Shape
 
     public:
         // constructor
-        Shape( float x = 0.0, float y = 0.0, const float* bC = White );
+        Shape( float x = 0.0, float y = 0.0, const float* bC = Black );
         
         // destructor
         virtual ~Shape();

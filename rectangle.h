@@ -3,8 +3,6 @@
 #ifndef _Rectangle_H_
 #define _Rectangle_H_
 
-#include "shape.h"
-
 class Rectangle : public Shape
 {
     private:
@@ -14,7 +12,7 @@ class Rectangle : public Shape
 
     public:
         // constructor
-        Rectangle( float x = 0.0, float y = 0.0, const float* bColor = White, const float* fColor = Black, float w = 1.0, float h = 1.0, bool f = false );
+        Rectangle( float x = 0.0, float y = 0.0, const float* bColor = Black, const float* fColor = Black, float w = 1.0, float h = 1.0, bool f = false );
         
         // destructor
         ~Rectangle();
@@ -24,6 +22,11 @@ class Rectangle : public Shape
         
         // draw the rectangle
         void draw() const;
+
+        ///need to put these in shape.h I believe
+        void setBorderColor( const float* bC ) const;
+        void setFillColor( const float* fC ) const;
+
 };
 
 #endif

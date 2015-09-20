@@ -1,17 +1,6 @@
 /* paint.cpp */
 
 // include files
-/*#include <iostream>
-#include <cstdlib>
-#include <cstring>
-
-using namespace std;
-
-#include <GL/freeglut.h>
-#include "callbacks.h"
-#include "globals.h"
-*/
-
 #include "headers.h"
 
 // funciton prototypes
