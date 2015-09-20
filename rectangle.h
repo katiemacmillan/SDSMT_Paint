@@ -14,7 +14,7 @@ class Rectangle : public Shape
 
     public:
         // constructor
-        Rectangle( float x = 0.0, float y = 0.0, const float* bColor = White, const float* fColor = Black, float w = 1.0, float h = 1.0, bool filled = false );
+        Rectangle( float x = 0.0, float y = 0.0, const float* bColor = White, const float* fColor = Black, float w = 1.0, float h = 1.0, bool f = false );
         
         // destructor
         ~Rectangle();

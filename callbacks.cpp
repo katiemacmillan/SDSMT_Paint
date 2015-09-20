@@ -22,11 +22,13 @@ void display( void )
     Shape* r = new Rectangle( 100.0, 250.0, White, Red, 300.0, 100.0, true );
     r -> draw();
 
+    Shape* l = new Line( 1.0, 1.0, Cyan, 10.4, 30.2, 201.3, 430.0 );
+    l -> draw();
 
     // write title on top of screen
     ///Commenting out for now because I'm sick of seeing the depreciated string warning
     ///Need to put this function in a file
-    ///DrawTextString( "Chrissy and Kate Paint!", ScreenWidth / 2 - 92, ScreenHeight - 20, White );
+    DrawTextString( "Chrissy and Kate Paint!", ScreenWidth / 2 - 92, ScreenHeight - 20, White );
 
     // draw the two color/shape pallette box columns
     /*for( i = 0; i < 13; i++ )

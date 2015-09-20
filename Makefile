@@ -27,7 +27,7 @@ all: paint
 
 #------------------------------------------------------------------------------
 
-paint:	paint.o callbacks.o globals.o graphics.o rectangle.o ellipses.o shape.o
+paint:	paint.o callbacks.o globals.o graphics.o rectangle.o shape.o line.o
 	$(LINK) -o $@ $^ $(GL_LIBS)
 
 #------------------------------------------------------------------------------

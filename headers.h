@@ -13,5 +13,7 @@ using namespace std;
 #include "globals.h"
 #include "rectangle.h"
 #include "shape.h"
+#include "line.h"
+#include "graphics.h"
 
 #endif

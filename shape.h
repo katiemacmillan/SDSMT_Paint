@@ -6,12 +6,13 @@
 class Shape
 {
     protected:
+        // center point of the shape
         float locX, locY;
         const float* bColor;
 
     public:
         // constructor
-        Shape( float x = 0.0, float y = 0.0, const float* bColor = White );
+        Shape( float x = 0.0, float y = 0.0, const float* bC = White );
         
         // destructor
         virtual ~Shape();

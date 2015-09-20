@@ -1,27 +1,24 @@
 /* ellipses.cpp */
 
 // include files
-#include <iostream>
-using namespace std;
+#include "headers.h"
 
-#include "ellipses.h"
-
-
-// Ellipses class implementation
-Ellipses::Ellipses( float x1 = 0.0, float y1 = 0.0, float x2 = 0.0, float y2 = 0.0, float[] fC = {0}, float[] bC = {0}, bool fill = false, float xR = 1.0, float yR = 1.0 )
-:  Shape( x1, y1, x2, y2, fc, bc, fill), xRadius(xR), yRadius(yR) {}
+// constructor
+Ellipses :: Ellipses( float x, float y, const float* bColor, const float* fColor, bool f, float xR, float yR ) :  Shape( x, y, bColor), fColor( fColor ), xRadius( xR ), yRadius( yR ), filled( f )
+{}
 
 
-Ellipses::~Ellipses(){};
+Ellipses :: ~Ellipses()
+{}
 
-void Ellipses::changeDimensions( float xR, float yR )
+void Ellipses :: changeDimensions( float xR, float yR )
 {
 	xRadius = xR;
 	yRadius = yR;
-    draw()
+    draw();
 }
 
-void Ellipses::draw( int x, int y )
+void Ellipses :: draw()
 {
     float radius = xRadius < yRadius ? xRadius : yRadius;	// stretch circle into ellipse
     glColor3fv( bColor );
