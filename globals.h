@@ -29,9 +29,13 @@ const float LightGray[] = { 0.75, 0.75, 0.75 };
 const float Gray[] = { 0.5, 0.5, 0.5 };
 const float DarkGray[] = { 0.25, 0.25, 0.25 };
 
+// color palette
+//const Shape* White = new Rectangle( 
+
 // global vars
 extern int ScreenWidth;
 extern int ScreenHeight;
 extern const float* ColorList[];
+//extern const Shape* ColorPalette[];
 
 #endif

@@ -13,22 +13,66 @@ using namespace std;
 
 #include "headers.h"
 
+int PaletteSize = 46;
+
+const Shape* GrayColor = new Rectangle( 23, 23, Black, Gray, PaletteSize, PaletteSize, true);
+const Shape* PurpleColor = new Rectangle( 23, 69, Black, Purple, PaletteSize, PaletteSize, true);
+const Shape* BlueColor = new Rectangle( 23, 115, Black, Blue, PaletteSize, PaletteSize, true);
+const Shape* CyanColor = new Rectangle( 23, 161, Black, Cyan, PaletteSize, PaletteSize, true);
+const Shape* GreenColor = new Rectangle( 23, 207, Black, Green, PaletteSize, PaletteSize, true);
+const Shape* YellowColor = new Rectangle( 23, 253, Black, Yellow, PaletteSize, PaletteSize, true);
+const Shape* OrangeColor = new Rectangle( 23, 299, Black, Orange, PaletteSize, PaletteSize, true);
+const Shape* RedColor = new Rectangle( 23, 345, Black, Red, PaletteSize, PaletteSize, true);
+const Shape* MagentaColor = new Rectangle( 23, 391, Black, Magenta, PaletteSize, PaletteSize, true);
+const Shape* WhiteColor = new Rectangle( 23, 437, Black, White, PaletteSize, PaletteSize, true);
+
+const Shape* DarkGrayColor = new Rectangle( 69, 23, Black, DarkGray, PaletteSize, PaletteSize, true);
+const Shape* DarkPurpleColor = new Rectangle( 69, 69, Black, DarkPurple, PaletteSize, PaletteSize, true);
+const Shape* DarkBlueColor = new Rectangle( 69, 115, Black, DarkBlue, PaletteSize, PaletteSize, true);
+const Shape* DarkCyanColor = new Rectangle( 69, 161, Black, DarkCyan, PaletteSize, PaletteSize, true);
+const Shape* DarkGreenColor = new Rectangle( 69, 207, Black, DarkGreen, PaletteSize, PaletteSize, true);
+const Shape* DarkYellowColor = new Rectangle( 69, 253, Black, DarkYellow, PaletteSize, PaletteSize, true);
+const Shape* DarkOrangeColor = new Rectangle( 69, 299, Black, DarkOrange, PaletteSize, PaletteSize, true);
+const Shape* DarkRedColor = new Rectangle( 69, 345, Black, DarkRed, PaletteSize, PaletteSize, true);
+const Shape* DarkMagentaColor = new Rectangle( 69, 391, Black, DarkMagenta, PaletteSize, PaletteSize, true);
+const Shape* LightGrayColor = new Rectangle( 69, 437, Black, LightGray, PaletteSize, PaletteSize, true);
+
+const Shape* ColorPalette[] = { GrayColor, PurpleColor, BlueColor, CyanColor,
+                                GreenColor, YellowColor, OrangeColor, RedColor,
+                                MagentaColor, WhiteColor, DarkGrayColor,
+                                DarkPurpleColor, DarkBlueColor, DarkCyanColor,
+                                DarkGreenColor, DarkYellowColor, DarkOrangeColor,
+                                DarkRedColor, DarkMagentaColor, LightGrayColor };
+
+
+
+
+
+
 // callback function to tell OpenGL how to redraw window
 void display( void )
 {
     // clear the display
     glClear( GL_COLOR_BUFFER_BIT );
 
-    Shape* r = new Rectangle( 100.0, 250.0, White, Red, 300.0, 100.0, true );
+    ///just testing things out
+    Shape* r = new Rectangle( 500.0, 250.0, White, Red, 300.0, 100.0, true );
     r -> draw();
 
     Shape* l = new Line( 1.0, 1.0, Cyan, 10.4, 30.2, 201.3, 430.0 );
     l -> draw();
 
+    for( int i = 0; i < 20; i++ )
+    {
+        ColorPalette[i] -> draw();
+    }
+
     // write title on top of screen
     ///Commenting out for now because I'm sick of seeing the depreciated string warning
     ///Need to put this function in a file
-    DrawTextString( "Chrissy and Kate Paint!", ScreenWidth / 2 - 92, ScreenHeight - 20, White );
+    ///DrawTextString( "Chrissy and Kate Paint!", ScreenWidth / 2 - 92, ScreenHeight - 20, White );
+
+
 
     // draw the two color/shape pallette box columns
     /*for( i = 0; i < 13; i++ )
