@@ -33,8 +33,8 @@ const float DarkGray[] = { 0.25, 0.25, 0.25 };
 extern int ScreenWidth;
 extern int ScreenHeight;
 extern const float* ColorList[];
-extern const float* CurrentBorderColor;
-extern const float* CurrentFillColor;
+//const float* CurrentBorderColor;
+//const float* CurrentFillColor;
 extern bool ShapeFilled;
 
 

@@ -187,7 +187,7 @@ void selectBorderColor( int x, int y )
     ///compare the x and y to a color and set it
     //currentShape -> changeBorderColor( selectedColor );
     // first column colors
-    if( x <= 46 )
+/*    if( x <= 46 )
     {
 	    if( y <  PaletteSize * 1 )
 	        CurrentBorderColor = Gray;
@@ -234,6 +234,7 @@ void selectBorderColor( int x, int y )
         else if( y < PaletteSize * 10 )
             CurrentBorderColor = LightGray;
     }        
+*/
 }
 
 void selectShape( int x, int y )
@@ -253,7 +254,7 @@ void selectFillColor( int x, int y )
 {
     cout << "Selecting a FILL color!!" << endl;
     // first column colors
-    if( x <= 46 )
+/*    if( x <= 46 )
     {
 	    if( y <  PaletteSize * 1 )
 	        CurrentFillColor = Gray;
@@ -300,4 +301,5 @@ void selectFillColor( int x, int y )
         else if( y < PaletteSize * 10 )
             CurrentFillColor = LightGray;
     }   
+*/
 }
