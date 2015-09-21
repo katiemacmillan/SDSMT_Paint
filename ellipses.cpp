@@ -21,8 +21,7 @@ void Ellipses :: changeDimensions( float xR, float yR )
 void Ellipses :: draw() const
 {
     float radius = xRadius < yRadius ? xRadius : yRadius;	// stretch circle into ellipse
-    cout << "xRaidus " << xRadius << "\nyRaidus " << yRadius << "\nRadius " << radius << endl;
-
+    // draw the filled shape before the border
     if( filled )
     {
         glColor3fv( fColor );

@@ -80,9 +80,8 @@ void display( void )
     }
 
     // write title on top of screen
-    ///Commenting out for now because I'm sick of seeing the depreciated string warning
     ///Need to put this function in a file
-    ///DrawTextString( "Chrissy and Kate Paint!", ScreenWidth / 2 - 92, ScreenHeight - 20, White );
+    DrawTextString( "Chrissy and Kate Paint!", ScreenWidth / 2 - 92, ScreenHeight - 20, White );
 
     ////draw the shapes for the shape list here
 
@@ -147,11 +146,11 @@ void mouseclick( int button, int state, int x, int y )
                 {
                     if( y < PaletteSize * 10 )
                     {
-                        selectBorderColor();
+                        selectBorderColor( x, y );
                     }
                     else
                     {
-                        selectShape();
+                        selectShape( x, y );
                     }                
                 }
             }
@@ -168,7 +167,7 @@ void mouseclick( int button, int state, int x, int y )
                 {
                     if( y < PaletteSize * 10 )
                     {
-                        selectFillColor();
+                        selectFillColor( x, y );
                     }
                 }
                 cerr << "mouse click: right down at (" << x << ","<< y << ")\n";
@@ -181,22 +180,74 @@ void mouseclick( int button, int state, int x, int y )
 }
 
 ///Obviously for testing purposes
-void selectBorderColor( /*int x, int y*/)
+void selectBorderColor( int x, int y )
 {
     cout << "Select a border color!!" << endl;
     //const float* selectedColor = White; //change me!
     ///compare the x and y to a color and set it
     //currentShape -> changeBorderColor( selectedColor );
-        
+    if( x <= 46 )
+    {
+        switch( y )
+        {
+            if( y <  PaletteSize * 1 )
+                CurrentBorderColor = Gray;
+            else if( y < PaletteSize * 2 )
+                CurrentBorderColor = Purple;
+            else if( y < PaletteSize * 3 )
+                CurrentBorderColor = Blue;
+            else if( y < PaletteSize * 4 )
+                CurrentBorderColor = Cyan;
+            else if( y < PaletteSize * 5 )
+                CurrentBorderColor = Green;
+            else if( y < PaletteSize * 6 )
+                CurrentBorderColor = Yellow;
+            else if( y < PaletteSize * 7 )
+                CurrentBorderColor = Orange;
+            else if( y < PaletteSize * 8 )
+                CurrentBorderColor = Red;
+            else if( y < PaletteSize * 9 )
+                CurrentBorderColor = Magenta;
+            else if( y < PaletteSize * 10 )
+                CurrentBorderColor = White;
+        }
+    }
+    else
+    {
+        switch( y )
+        {
+            if( y <  PaletteSize * 1 )
+                CurrentBorderColor = DarkGray;
+            else if( y < PaletteSize * 2 )
+                CurrentBorderColor = DarkPurple;
+            else if( y < PaletteSize * 3 )
+                CurrentBorderColor = DarkBlue;
+            else if( y < PaletteSize * 4 )
+                CurrentBorderColor = DarkCyan;
+            else if( y < PaletteSize * 5 )
+                CurrentBorderColor = DarkGreen;
+            else if( y < PaletteSize * 6 )
+                CurrentBorderColor = DarkYellow;
+            else if( y < PaletteSize * 7 )
+                CurrentBorderColor = DarkOrange;
+            else if( y < PaletteSize * 8 )
+                CurrentBorderColor = DarkRed;
+            else if( y < PaletteSize * 9 )
+                CurrentBorderColor = DarkMagenta;
+            else if( y < PaletteSize * 10 )
+                CurrentBorderColor = LightGray;
+        }
+
+    }        
 }
 
-void selectShape( /* shapeSelected */)
+void selectShape( int x, int y )
 {
     cout << "Selecting a shape!!" << endl;
     // selected shape constructor
 }
 
-void selectFillColor( /* selectedColor */)
+void selectFillColor( int x, int y )
 {
     cout << "Selecting a FILL color!!" << endl;
     // currentShape -> setFillColor( selectedColor );
