@@ -2,15 +2,9 @@
 
 #include "headers.h"
 
-////I'm struggling with the header file of callbacks and global. I'm throwing all
-//shape related items here for now
-
-// globals
-///Shape* currentShape;
-
-
 // color palette items
 float PaletteSize = 46.0;
+float IconSize = 30.0;
 
 // first column, bottom to top
 const Shape* GrayColor = new Rectangle( 23, 23, Black, Gray, PaletteSize, PaletteSize, true);
@@ -55,6 +49,18 @@ const Shape* PaintPalette[] = { GrayColor, PurpleColor, BlueColor, CyanColor,
                                 DarkMagentaColor, LightGrayColor, FilledEllipsesTool, 
                                 FilledRectangleTool, LineTool };
 
+// shapes drawn in paint palette
+////change the colors to the current selected
+const Shape* EllipsesIcon = new Ellipses( 23, 483, Yellow, Black, IconSize / 2, IconSize / 2, false );
+const Shape* RectangleIcon = new Rectangle( 23, 529, Yellow, Black, IconSize, IconSize, false );
+//const Shape* CurrentIcon();
+const Shape* FilledEllipsesIcon = new Ellipses( 69, 483, Yellow, Orange, IconSize / 2, IconSize / 2, true );
+const Shape* FilledRectangleIcon = new Rectangle( 69, 529, Yellow, Orange, IconSize, IconSize, true );
+const Shape* LineIcon = new Line( 69, 575, Yellow, 69 + ( IconSize / 2 ), 575 + IconSize / 2, 69 - IconSize / 2, 575 - IconSize / 2 );
+
+///May add these to the PaintPalette[] once I figure out ellipses and current shape
+const Shape* PaletteIcons[] = { EllipsesIcon, RectangleIcon, FilledEllipsesIcon, FilledRectangleIcon, LineIcon };
+
 // callback function to tell OpenGL how to redraw window
 void display( void )
 {
@@ -65,6 +71,12 @@ void display( void )
     for( int i = 0; i < 26; i++ )
     {
         PaintPalette[i] -> draw();
+    }
+
+    // drawing the icons in the palette for the shape selection
+    for( int i = 0; i < 5; i++ )
+    {
+        PaletteIcons[i] -> draw();
     }
 
     // write title on top of screen

@@ -21,6 +21,22 @@ void Ellipses :: changeDimensions( float xR, float yR )
 void Ellipses :: draw() const
 {
     float radius = xRadius < yRadius ? xRadius : yRadius;	// stretch circle into ellipse
+    cout << "xRaidus " << xRadius << "\nyRaidus " << yRadius << "\nRadius " << radius << endl;
+
+    if( filled )
+    {
+        glColor3fv( fColor );
+        glMatrixMode( GL_MODELVIEW );
+        glLoadIdentity();
+        glTranslatef( locX, locY, 0 );
+        glScalef( xRadius / radius, yRadius / radius, 1.0 );
+        GLUquadricObj *disk = gluNewQuadric();
+        gluDisk( disk, 0, radius, int( radius ), 1 );
+        gluDeleteQuadric( disk );
+        glLoadIdentity();
+        glFlush();    
+    }
+
     glColor3fv( bColor );
     glMatrixMode( GL_MODELVIEW );
     glLoadIdentity();

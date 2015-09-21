@@ -31,4 +31,7 @@ class Shape
 
 };
 
+extern Shape* drawShapes[];
+extern Shape* currentShape;
+extern Shape* colorPalette; // remove from other class
 #endif

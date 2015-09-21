@@ -33,15 +33,9 @@ const float DarkGray[] = { 0.25, 0.25, 0.25 };
 extern int ScreenWidth;
 extern int ScreenHeight;
 extern const float* ColorList[];
-//extern const Shape* ColorPalette[];
-//extern Shape* drawnShapes[]; //turn this into a linked list
 extern const float currentBorderColor;
 extern const float currentFillColor;
 extern bool filledShape;
-//extern Shape* currentShape;
-
-///testing
-//Shape* s = new Rectangle( 300.3, 200.3, Purple, Red, 23.0, 34.3, false );
 
 
 #endif
