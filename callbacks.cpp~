@@ -186,118 +186,65 @@ void selectBorderColor( int x, int y )
     //const float* selectedColor = White; //change me!
     ///compare the x and y to a color and set it
     //currentShape -> changeBorderColor( selectedColor );
-    // first column colors
     if( x <= 46 )
     {
-	    if( y <  PaletteSize * 1 )
-	        CurrentBorderColor = Gray;
-	    else if( y < PaletteSize * 2 )
-	        CurrentBorderColor = Purple;
-	    else if( y < PaletteSize * 3 )
-	        CurrentBorderColor = Blue;
-	    else if( y < PaletteSize * 4 )
-	        CurrentBorderColor = Cyan;
-	    else if( y < PaletteSize * 5 )
-	        CurrentBorderColor = Green;
-	    else if( y < PaletteSize * 6 )
-	        CurrentBorderColor = Yellow;
-	    else if( y < PaletteSize * 7 )
-	        CurrentBorderColor = Orange;
-	    else if( y < PaletteSize * 8 )
-	        CurrentBorderColor = Red;
-	    else if( y < PaletteSize * 9 )
-	        CurrentBorderColor = Magenta;
-	    else if( y < PaletteSize * 10 )
-	        CurrentBorderColor = White;
+        switch( y )
+        {
+            if( y <  PaletteSize * 1 )
+                CurrentBorderColor = Gray;
+            else if( y < PaletteSize * 2 )
+                CurrentBorderColor = Purple;
+            else if( y < PaletteSize * 3 )
+                CurrentBorderColor = Blue;
+            else if( y < PaletteSize * 4 )
+                CurrentBorderColor = Cyan;
+            else if( y < PaletteSize * 5 )
+                CurrentBorderColor = Green;
+            else if( y < PaletteSize * 6 )
+                CurrentBorderColor = Yellow;
+            else if( y < PaletteSize * 7 )
+                CurrentBorderColor = Orange;
+            else if( y < PaletteSize * 8 )
+                CurrentBorderColor = Red;
+            else if( y < PaletteSize * 9 )
+                CurrentBorderColor = Magenta;
+            else if( y < PaletteSize * 10 )
+                CurrentBorderColor = White;
+        }
     }
-    // second column colors
     else
     {
-        if( y <  PaletteSize * 1 )
-            CurrentBorderColor = DarkGray;
-        else if( y < PaletteSize * 2 )
-            CurrentBorderColor = DarkPurple;
-        else if( y < PaletteSize * 3 )
-            CurrentBorderColor = DarkBlue;
-        else if( y < PaletteSize * 4 )
-            CurrentBorderColor = DarkCyan;
-        else if( y < PaletteSize * 5 )
-            CurrentBorderColor = DarkGreen;
-        else if( y < PaletteSize * 6 )
-            CurrentBorderColor = DarkYellow;
-        else if( y < PaletteSize * 7 )
-            CurrentBorderColor = DarkOrange;
-        else if( y < PaletteSize * 8 )
-            CurrentBorderColor = DarkRed;
-        else if( y < PaletteSize * 9 )
-            CurrentBorderColor = DarkMagenta;
-        else if( y < PaletteSize * 10 )
-            CurrentBorderColor = LightGray;
+            if( y <  PaletteSize * 1 )
+                CurrentBorderColor = DarkGray;
+            else if( y < PaletteSize * 2 )
+                CurrentBorderColor = DarkPurple;
+            else if( y < PaletteSize * 3 )
+                CurrentBorderColor = DarkBlue;
+            else if( y < PaletteSize * 4 )
+                CurrentBorderColor = DarkCyan;
+            else if( y < PaletteSize * 5 )
+                CurrentBorderColor = DarkGreen;
+            else if( y < PaletteSize * 6 )
+                CurrentBorderColor = DarkYellow;
+            else if( y < PaletteSize * 7 )
+                CurrentBorderColor = DarkOrange;
+            else if( y < PaletteSize * 8 )
+                CurrentBorderColor = DarkRed;
+            else if( y < PaletteSize * 9 )
+                CurrentBorderColor = DarkMagenta;
+            else if( y < PaletteSize * 10 )
+                CurrentBorderColor = LightGray;
     }        
 }
 
 void selectShape( int x, int y )
 {
-/*
     cout << "Selecting a shape!!" << endl;
     // selected shape constructor
-    if( x < 46 )
-    {
-        if( y < PaletteSize * 11 )
-            currentShape = new
-    }
-*/
 }
 
 void selectFillColor( int x, int y )
 {
     cout << "Selecting a FILL color!!" << endl;
-    // first column colors
-    if( x <= 46 )
-    {
-	    if( y <  PaletteSize * 1 )
-	        CurrentFillColor = Gray;
-	    else if( y < PaletteSize * 2 )
-	        CurrentFillColor = Purple;
-	    else if( y < PaletteSize * 3 )
-	        CurrentFillColor = Blue;
-	    else if( y < PaletteSize * 4 )
-	        CurrentFillColor = Cyan;
-	    else if( y < PaletteSize * 5 )
-	        CurrentFillColor = Green;
-	    else if( y < PaletteSize * 6 )
-	        CurrentFillColor = Yellow;
-	    else if( y < PaletteSize * 7 )
-	        CurrentFillColor = Orange;
-	    else if( y < PaletteSize * 8 )
-	        CurrentFillColor = Red;
-	    else if( y < PaletteSize * 9 )
-	        CurrentFillColor = Magenta;
-	    else if( y < PaletteSize * 10 )
-	        CurrentFillColor = White;
-    }
-    // second column colors
-    else
-    {
-        if( y <  PaletteSize * 1 )
-            CurrentFillColor = DarkGray;
-        else if( y < PaletteSize * 2 )
-            CurrentFillColor = DarkPurple;
-        else if( y < PaletteSize * 3 )
-            CurrentFillColor = DarkBlue;
-        else if( y < PaletteSize * 4 )
-            CurrentFillColor = DarkCyan;
-        else if( y < PaletteSize * 5 )
-            CurrentFillColor = DarkGreen;
-        else if( y < PaletteSize * 6 )
-            CurrentFillColor = DarkYellow;
-        else if( y < PaletteSize * 7 )
-            CurrentFillColor = DarkOrange;
-        else if( y < PaletteSize * 8 )
-            CurrentFillColor = DarkRed;
-        else if( y < PaletteSize * 9 )
-            CurrentFillColor = DarkMagenta;
-        else if( y < PaletteSize * 10 )
-            CurrentFillColor = LightGray;
-    }   
+    // currentShape -> setFillColor( selectedColor );
 }
