@@ -14,7 +14,13 @@ void selectBorderColor( int x, int y );
 void selectShape( int x, int y );
 void selectFillColor( int x, int y );
 
-extern const float* CurrentBorderColor;
-extern const float* CurrentFillColor;
+//extern const float* CurrentBorderColor;
+//extern const float* CurrentFillColor;
+
+// flags
+// is a shape selected? A new one to be drawn or to be edited?
+bool IsShapeSelected = false;
+bool IsMovingShape = false;
+extern int DrawCount;
 
 #endif

@@ -1,9 +1,12 @@
 /* callbacks.cpp */
 
 #include "headers.h"
+#include "vector"
 
 const float* CurrentBorderColor;
 const float* CurrentFillColor;
+vector<Shape*> DrawnShapes;
+int DrawCount = 0;
 
 // color palette items
 float PaletteSize = 46.0;
@@ -124,6 +127,12 @@ void keyboard( unsigned char key, int x, int y )
             exit( 0 );
             break;
         // Anything else redraws window
+        case 'd':
+            //deletes items
+            break;
+        case 'c':
+            //clears items
+            break;
         default:
             glutPostRedisplay();
             break;
@@ -133,6 +142,11 @@ void keyboard( unsigned char key, int x, int y )
 // callback function for mouse button click events
 void mouseclick( int button, int state, int x, int y )
 {
+    cout << "Current fill color " << CurrentFillColor << endl;
+    cout << "Current border color" << CurrentBorderColor <<endl;
+    cout << "Draw Count " << DrawCount << endl;
+    DrawCount++;
+
     //correct for upside-down screen coordinates
     y = ScreenHeight - y;
 
@@ -145,6 +159,7 @@ void mouseclick( int button, int state, int x, int y )
             if( state == GLUT_DOWN )
             {    
                 cerr << "mouse click: left down at (" << x << "," << y << ")\n";
+                // is a color or shape being selected?
                 if( x < PaletteSize * 2 )
                 {
                     if( y < PaletteSize * 10 )
@@ -154,8 +169,19 @@ void mouseclick( int button, int state, int x, int y )
                     else
                     {
                         selectShape( x, y );
+                        //IsShapeSelected = true;
                     }                
                 }
+                //
+                // now we need to draw or select a shape
+                //  if IsShapeSelected == true
+                //      if draw count == 0
+                //          set xy
+                //          set some sort of follow the mouse thing.
+                //          DrawCount = 1;
+                //      if DrawCount == 1
+                //          set x2y2
+                //          DrawCount = 0
             }
             // release
             else if( state == GLUT_UP )
@@ -166,6 +192,7 @@ void mouseclick( int button, int state, int x, int y )
             // press
             if( state == GLUT_DOWN )
             {
+                // Selecting a fill color
                 if( x < PaletteSize * 2 )
                 {
                     if( y < PaletteSize * 10 )
@@ -173,10 +200,18 @@ void mouseclick( int button, int state, int x, int y )
                         selectFillColor( x, y );
                     }
                 }
+                else
+                {
+                    // Move a shape
+                    // Test the xy for which shape you're on
+                    // IsMovingShape = true;
+                }
                 cerr << "mouse click: right down at (" << x << ","<< y << ")\n";
             }
             // release
             else if( state == GLUT_UP )
+                // If you're currently dragging a shape when you release you drop the shape
+                // if IsMovingShape == true, drop shape
                 cerr << "mouse click: right up at (" << x << ","<< y << ")\n";
             break;
     }
@@ -190,7 +225,6 @@ void selectBorderColor( int x, int y )
     ///compare the x and y to a color and set it
     //currentShape -> changeBorderColor( selectedColor );
     // first column colors
-
     if( x <= 46 )
     {
 	    if( y <  PaletteSize * 1 )
@@ -304,5 +338,4 @@ void selectFillColor( int x, int y )
         else if( y < PaletteSize * 10 )
             CurrentFillColor = LightGray;
     }   
-
 }

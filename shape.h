@@ -31,7 +31,7 @@ class Shape
 
 };
 
-extern Shape* drawShapes[];
+//extern vector<Shape*> drawnShapes;
 extern Shape* currentShape;
-extern Shape* colorPalette; // remove from other class
+extern Shape* colorPalette;
 #endif
