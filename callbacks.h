@@ -14,4 +14,7 @@ void selectBorderColor( int x, int y );
 void selectShape( int x, int y );
 void selectFillColor( int x, int y );
 
+extern const float* CurrentBorderColor;
+extern const float* CurrentFillColor;
+
 #endif

@@ -9,8 +9,8 @@
 using namespace std;
 
 #include <GL/freeglut.h>
-#include "callbacks.h"
 #include "globals.h"
+#include "callbacks.h"
 #include "shape.h"
 #include "rectangle.h"
 #include "line.h"

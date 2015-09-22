@@ -8,10 +8,10 @@ using namespace std;
 */
 
 #include <GL/freeglut.h>
-#include "callbacks.h"
-#include "globals.h"
+//#include "callbacks.h"
+//#include "globals.h"
 #include "headers.h"
-#include "shape.h"
+//#include "shape.h"
 
 // global vars
 int ScreenWidth = 900;

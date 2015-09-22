@@ -5,7 +5,6 @@
 
 // keypresses
 const int EscapeKey = 27;
-
 // colors
 const float Black[] = { 0.0, 0.0, 0.0 };
 const float Red[] = { 1.0, 0.0, 0.0 };
@@ -33,9 +32,8 @@ const float DarkGray[] = { 0.25, 0.25, 0.25 };
 extern int ScreenWidth;
 extern int ScreenHeight;
 extern const float* ColorList[];
-//const float* CurrentBorderColor;
-//const float* CurrentFillColor;
+//extern const float* CurrentBorderColor;
+//extern const float* CurrentFillColor;
 extern bool ShapeFilled;
-
 
 #endif
