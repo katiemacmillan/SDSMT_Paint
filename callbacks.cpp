@@ -15,13 +15,19 @@ using namespace std;
 #include "line.h"
 #include "graphics.h"
 
+Shape* CurrentShape; // current shape object about to be drawn
 const float* CurrentBorderColor; // current border color we have selected for a new shape
 const float* CurrentFillColor;  // current fill color we have selected for a new shape
-Shape* CurrentShape; // current shape we are about to draw
+Shapes CurrentShapeType; // the type of shape we're drawing
+bool CurrentFillValue; // the value of filled or not
+
 vector<Shape*> DrawnShapes; // list of shapes that have been drawn
+
 bool IsShapeSelected = false; // if a shape icon has been selected
 bool IsMovingShape = false; // is the shape being moved
 int DrawCount = 1; // 1 for first point, 0 for end point and not drawing
+int x1, y1, x2, y2; // used to calculate the centerpoint of the shape being drawn
+
 
 // color palette items
 float PaletteSize = 46.0;
@@ -58,7 +64,7 @@ const Shape* CurrentShapeDisplay = new Rectangle( 23, 575, White, Black, Palette
 // second column, adding on top of colors
 const Shape* FilledEllipsesTool = new Rectangle( 69, 483, White, Black, PaletteSize, PaletteSize, true );
 const Shape* FilledRectangleTool = new Rectangle( 69, 529, White, Black, PaletteSize, PaletteSize, true );
-const Shape* LineTool = new Rectangle( 69, 575, White, Black, PaletteSize, PaletteSize, true );
+const Shape* LineTool = new Rectangle( 69, 575, White, PaletteSize, PaletteSize, true );
 
 // paint pallette, includes colors, shapes, and current shape display
 const Shape* PaintPalette[] = { GrayColor, PurpleColor, BlueColor, CyanColor, 
@@ -190,14 +196,18 @@ void mouseclick( int button, int state, int x, int y )
                 {
                     if( DrawCount == 1 )
                     {
-                        // set x1, y1
                         DrawCount = 0;
+                        x1 = x;
+                        y1 = y;
                     }
                     else
                     {
-                        // set x2, y2
+                        x2 = x;
+                        y2 = y;
                         DrawCount = 1;
                         IsShapeSelected = false;
+                        //CurrentShape -> setCenterCoordinate( (x1 + x2) / 2, (y1 + y2) / 2 );
+                        createShape();
                     }
                 }
             }
@@ -301,20 +311,29 @@ void selectShape( int x, int y )
     if( x <= 46 )
     {
 	    if( y <  PaletteSize * 11 )
-                CurrentShape = new Ellipses();
+                CurrentShapeType = ELLIPSES_SHAPE;
+                CurrentFillValue = false;
             else if( y < PaletteSize * 12 )
-	        CurrentShape = new Rectangle();
+	            CurrentShapeType = RECTANGLE_SHAPE;
+                CurrentFillValue = false;
     }
     // second column shape
     else
     {
         ///Do we need more arguments passed?
         if( y <  PaletteSize * 11 )
-            CurrentShape = new Ellipses();
+        {
+            CurrentShapeType = ELLIPSES_SHAPE;
+            CurrentFillValue = true;
+            
+        }
         else if( y < PaletteSize * 12 )
-            CurrentShape = new Rectangle();
+        {
+            CurrentShapeType = RECTANGLE_SHAPE;
+            CurrentFillValue = true;
+        }
         else if( y < PaletteSize * 13 )
-            CurrentShape = new Line();
+            CurrentShapeType = LINE_SHAPE;
     }        
 }
 
@@ -369,4 +388,17 @@ void selectFillColor( int x, int y )
         else if( y < PaletteSize * 10 )
             CurrentFillColor = LightGray;
     }   
+}
+
+void createShape()
+{
+    switch( CurrentShapeType )
+    {
+        case LINE_SHAPE:
+            break;
+        case ELLIPSES_SHAPE:
+            break;
+        case RECTANGLE_SHAPE:
+            break;
+    }
 }

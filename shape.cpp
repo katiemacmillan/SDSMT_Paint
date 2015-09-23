@@ -3,23 +3,24 @@
 #include "shape.h"
 
 // consntructor
-Shape :: Shape( float x, float y, const float* bC, const float* fC ) : locX( x ), locY( y ),bColor( bC ), fColor( fC )
+Shape :: Shape( float x, float y, const float* bC ) : locX( x ), locY( y ), bColor( bC )
 {}
 
 // destructor
 Shape :: ~Shape()
 {}
 
+// set the center point of the shape
+void Shape :: setCenterCoordinate( float x, float y )
+{
+    locX = x;
+    locY = y;
+}
+
 // change the border color
 void Shape :: setBorderColor( const float* bC )
 {
     bColor = bC;
-}
-
-// change the fill color
-void Shape :: setFillColor( const float* fC )
-{
-    fColor = fC;
 }
 
 // move shape

@@ -11,11 +11,10 @@ class Shape
         // center point of the shape
         float locX, locY;
         const float* bColor; 
-        const float* fColor;
-
+        
     public:
         // constructor
-        Shape( float x = 0.0, float y = 0.0, const float* bC = Black, const float* fC = Black );
+        Shape( float x = 0.0, float y = 0.0, const float* bC = Black );
         
         // destructor
         virtual ~Shape();
@@ -25,7 +24,9 @@ class Shape
 
         // change border color
         void setBorderColor( const float* );
-        void setFillColor( const float* );
+
+        // set the center point of the shape
+        void setCenterCoordinate( float, float );
 
         // erase shape
         void erase();

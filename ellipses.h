@@ -10,6 +10,7 @@ class Ellipses : public Shape
 {
     private: 
         float xRadius, yRadius;
+        const float* fColor;
         bool filled;
 
     public:
@@ -19,11 +20,15 @@ class Ellipses : public Shape
         // destructor
         ~Ellipses();
 
+        void setFill( bool );
+
         // change the dimentions of the ellipses
         void changeDimensions( float, float );
 
         // draw the ellipses, overridding the shape draw
         void draw() const;
+
+
 };
 
 #endif

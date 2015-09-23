@@ -3,6 +3,8 @@
 #ifndef _Callbacks_H_
 #define _Callbacks_H_
 
+#include "globals.h"
+
 // function prototypes
 void display( void );
 void reshape( int w, int h );
@@ -17,6 +19,8 @@ void selectFillColor( int x, int y );
 ///if we are only using these globals in callbacks, do we need the extern?
 extern const float* CurrentBorderColor;
 extern const float* CurrentFillColor;
+extern Shapes CurrentDrawingShape;
+
 
 // flags
 // is a shape selected? A new one to be drawn or to be edited
