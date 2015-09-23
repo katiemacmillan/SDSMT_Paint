@@ -3,6 +3,9 @@
 #ifndef _Line_H_
 #define _Line_H_
 
+#include "shape.h"
+#include "globals.h"
+
 class Line : public Shape
 {
     private:

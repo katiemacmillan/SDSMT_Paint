@@ -1,6 +1,6 @@
 /* globals.cpp */
 
-#include "headers.h"
+#include "globals.h"
 
 // global vars
 int ScreenWidth = 900;

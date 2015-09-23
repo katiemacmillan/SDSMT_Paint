@@ -1,6 +1,8 @@
 /* line.cpp */
 
-#include "headers.h"
+#include <GL/freeglut.h>
+#include "line.h"
+#include "globals.h"
 
 Line :: Line( float x, float y, const float* bColor, float x1, float y1, float x2, float y2) : Shape( x, y, bColor ), x1( x1 ), y1( y1 ), x2( x2 ), y2( y2 )
 {

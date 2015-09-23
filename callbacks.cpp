@@ -1,7 +1,19 @@
 /* callbacks.cpp */
 
-#include "headers.h"
+#include <iostream>
+#include <cstdlib>
+#include <cstring>
+#include <vector>
+using namespace std;
 
+#include <GL/freeglut.h>
+#include "callbacks.h"
+#include "globals.h"
+#include "shape.h"
+#include "ellipses.h"
+#include "rectangle.h"
+#include "line.h"
+#include "graphics.h"
 const float* CurrentBorderColor;
 const float* CurrentFillColor;
 Shape* CurrentShape;

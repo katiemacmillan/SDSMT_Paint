@@ -1,6 +1,7 @@
 /* graphics.cpp */
 
-#include "headers.h"
+#include <GL/freeglut.h>
+#include "graphics.h"
 
 void DrawTextString( char* string, int x, int y, const float color[] )
 {

@@ -3,6 +3,9 @@
 #ifndef _Ellipses_H_
 #define _Ellipses_H_
 
+#include "shape.h"
+#include "globals.h"
+
 class Ellipses : public Shape
 {
     private: 

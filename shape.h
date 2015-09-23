@@ -3,6 +3,8 @@
 #ifndef _Shape_H_
 #define _Shape_H_
 
+#include "globals.h"
+
 class Shape
 {
     protected:
@@ -26,7 +28,7 @@ class Shape
         // erase shape
         void erase();
 
-        // draw shape object
+        // draw shape object, must be overridden
         virtual void draw() const = 0;
 };
 

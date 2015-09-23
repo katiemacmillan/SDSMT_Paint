@@ -3,6 +3,9 @@
 #ifndef _Rectangle_H_
 #define _Rectangle_H_
 
+#include "shape.h"
+#include "globals.h"
+
 class Rectangle : public Shape
 {
     private:

@@ -1,7 +1,8 @@
 /* rectangle.cpp */
 
-#include "headers.h"
-
+#include <GL/freeglut.h>
+#include "rectangle.h"
+#include "globals.h"
 // constructor
 Rectangle :: Rectangle( float x, float y, const float* bColor, const float* fColor, float w, float h, bool f ) : Shape( x, y, bColor ), fColor( fColor ), width( w ), height( h ), filled( f )
 {}

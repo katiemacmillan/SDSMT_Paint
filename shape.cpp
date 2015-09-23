@@ -1,6 +1,6 @@
 /* shape.cpp */
 
-#include "headers.h"
+#include "shape.h"
 
 // consntructor
 Shape :: Shape( float x, float y, const float* bC ) : locX( x ), locY( y ),bColor( bC )

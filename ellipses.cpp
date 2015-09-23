@@ -1,6 +1,7 @@
 /* ellipses.cpp */
 
-#include "headers.h"
+#include <GL/freeglut.h>
+#include "ellipses.h"
 
 // constructor
 Ellipses :: Ellipses( float x, float y, const float* bColor, const float* fColor, float xR, float yR, bool f) :  Shape( x, y, bColor), fColor( fColor ), xRadius( xR ), yRadius( yR ), filled( f )

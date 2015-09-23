@@ -1,6 +1,8 @@
 /* paint.cpp */
 
-#include "headers.h"
+#include <GL/freeglut.h>
+#include "globals.h"
+#include "callbacks.h"
 
 // funciton prototypes
 void initOpenGL( void );
