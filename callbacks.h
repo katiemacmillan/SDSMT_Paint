@@ -16,6 +16,8 @@ void selectBorderColor( int x, int y );
 void selectShape( int x, int y );
 void selectFillColor( int x, int y );
 
+void createShape();
+
 ///if we are only using these globals in callbacks, do we need the extern?
 extern const float* CurrentBorderColor;
 extern const float* CurrentFillColor;

@@ -10,9 +10,14 @@ Rectangle :: Rectangle( float x, float y, const float* bC, const float* fC, floa
 Rectangle :: ~Rectangle()
 {}
 
-void Rectangle :: setFill( bool f )
+void Rectangle :: setFillValue( bool f )
 {
     filled = f;
+}
+
+void Rectangle :: setFillColor( const float* fC )
+{
+    fColor = fC;
 }
 
 void Rectangle :: changeDimensions( float w, float h )

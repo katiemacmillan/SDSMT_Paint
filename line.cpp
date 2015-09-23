@@ -14,9 +14,6 @@ Line :: Line( float x, float y, const float* bC, float x1, float y1, float x2, f
 Line :: ~Line()
 {}
 
-void Line :: setFill( bool f )
-{}
-
 //void changeDimensions( ?? );
 /*We could change the length by changing (x1,y1) or (x2,y2)*/
 

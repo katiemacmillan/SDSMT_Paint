@@ -20,7 +20,10 @@ class Ellipses : public Shape
         // destructor
         ~Ellipses();
 
-        void setFill( bool );
+        // make the shape fill or no fill
+        void setFillValue( bool );
+        // set the fill color of the shape        
+        void setFillColor( const float* );
 
         // change the dimentions of the ellipses
         void changeDimensions( float, float );

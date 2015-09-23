@@ -24,7 +24,8 @@ class Rectangle : public Shape
         void changeDimensions( float, float );
         
         // set the fill
-        void setFill( bool );
+        void setFillValue( bool );
+        void setFillColor( const float* );
 
         // draw the rectangle, overridding the shape draw
         void draw() const;

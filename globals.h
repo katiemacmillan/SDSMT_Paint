@@ -36,7 +36,7 @@ extern const float* ColorList[];
 //extern const float* CurrentFillColor;
 extern bool ShapeFilled;
 
-enum Shapes { LINE_SHAPE, ELLIPSES_SHAPE, RECTANGLE_SHAPE }
+enum Shapes { LINE_SHAPE, ELLIPSES_SHAPE, RECTANGLE_SHAPE };
 
 
 #endif

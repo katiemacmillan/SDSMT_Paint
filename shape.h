@@ -22,11 +22,12 @@ class Shape
         // move object
         void moveTo( float, float );
 
-        // change border color
-        void setBorderColor( const float* );
-
+        // set functions
         // set the center point of the shape
         void setCenterCoordinate( float, float );
+        // change the border color of the shape
+        void setBorderColor( const float* );
+
 
         // erase shape
         void erase();

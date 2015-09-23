@@ -18,8 +18,6 @@ class Line : public Shape
         // destructor
         ~Line();
 
-        void setFill( bool );    
-    
         //void changeDimensions( ?? );
 
         void draw() const;

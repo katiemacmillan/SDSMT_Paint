@@ -64,7 +64,7 @@ const Shape* CurrentShapeDisplay = new Rectangle( 23, 575, White, Black, Palette
 // second column, adding on top of colors
 const Shape* FilledEllipsesTool = new Rectangle( 69, 483, White, Black, PaletteSize, PaletteSize, true );
 const Shape* FilledRectangleTool = new Rectangle( 69, 529, White, Black, PaletteSize, PaletteSize, true );
-const Shape* LineTool = new Rectangle( 69, 575, White, PaletteSize, PaletteSize, true );
+const Shape* LineTool = new Rectangle( 69, 575, White, Black, PaletteSize, PaletteSize, true );
 
 // paint pallette, includes colors, shapes, and current shape display
 const Shape* PaintPalette[] = { GrayColor, PurpleColor, BlueColor, CyanColor, 
@@ -83,7 +83,7 @@ const Shape* RectangleIcon = new Rectangle( 23, 529, Yellow, Black, IconSize, Ic
 //const Shape* CurrentIcon();
 const Shape* FilledEllipsesIcon = new Ellipses( 69, 483, Yellow, Orange, IconSize / 2, IconSize / 2, true );
 const Shape* FilledRectangleIcon = new Rectangle( 69, 529, Yellow, Orange, IconSize, IconSize, true );
-const Shape* LineIcon = new Line( 69, 575, Yellow, Black, 69 + ( IconSize / 2 ), 575 + IconSize / 2, 69 - IconSize / 2, 575 - IconSize / 2 );
+const Shape* LineIcon = new Line( 69, 575, Yellow, 69 + ( IconSize / 2 ), 575 + IconSize / 2, 69 - IconSize / 2, 575 - IconSize / 2 );
 
 ///May add these to the PaintPalette[] once I figure out ellipses and current shape
 const Shape* PaletteIcons[] = { EllipsesIcon, RectangleIcon, FilledEllipsesIcon, FilledRectangleIcon, LineIcon };
@@ -145,6 +145,7 @@ void keyboard( unsigned char key, int x, int y )
         // Excape quits program
         case 'q':
         case EscapeKey:
+            ///loop through and clear out the list here
             exit( 0 );
             break;
         // Anything else redraws window
@@ -253,10 +254,12 @@ void selectBorderColor( int x, int y )
     // first column colors
     if( x <= 46 )
     {
+        ///I'm just figuring out using subclass functions here
 	    if( y <  PaletteSize * 1 )
         {    
             CurrentBorderColor = Gray;
-            GrayColor -> setFillColor( Purple );
+            ((Rectangle*)GrayColor) -> setFillColor( Purple );
+            GrayColor -> draw();
         }
         else if( y < PaletteSize * 2 )
 	        CurrentBorderColor = Purple;
@@ -311,11 +314,15 @@ void selectShape( int x, int y )
     if( x <= 46 )
     {
 	    if( y <  PaletteSize * 11 )
-                CurrentShapeType = ELLIPSES_SHAPE;
-                CurrentFillValue = false;
-            else if( y < PaletteSize * 12 )
-	            CurrentShapeType = RECTANGLE_SHAPE;
-                CurrentFillValue = false;
+        {
+            CurrentShapeType = ELLIPSES_SHAPE;
+            CurrentFillValue = false;
+        }
+        else if( y < PaletteSize * 12 )
+	    {    
+            CurrentShapeType = RECTANGLE_SHAPE;
+            CurrentFillValue = false;
+        }
     }
     // second column shape
     else

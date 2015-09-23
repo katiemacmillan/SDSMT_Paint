@@ -11,11 +11,15 @@ Ellipses :: Ellipses( float x, float y, const float* bC, const float* fC, float 
 Ellipses :: ~Ellipses()
 {}
 
-void Ellipses :: setFill( bool f )
+void Ellipses :: setFillValue( bool f )
 {
     filled = f;
 }
 
+void Ellipses :: setFillColor( const float* fC )
+{
+    fColor = fC;
+}
 
 void Ellipses :: changeDimensions( float xR, float yR )
 {
