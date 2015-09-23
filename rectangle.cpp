@@ -4,7 +4,7 @@
 #include "rectangle.h"
 #include "globals.h"
 // constructor
-Rectangle :: Rectangle( float x, float y, const float* bColor, const float* fColor, float w, float h, bool f ) : Shape( x, y, bColor ), fColor( fColor ), width( w ), height( h ), filled( f )
+Rectangle :: Rectangle( float x, float y, const float* bC, const float* fC, float w, float h, bool f ) : Shape( x, y, bC, fC ), width( w ), height( h ), filled( f )
 {}
 
 Rectangle :: ~Rectangle()

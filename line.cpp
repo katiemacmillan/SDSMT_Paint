@@ -4,7 +4,7 @@
 #include "line.h"
 #include "globals.h"
 
-Line :: Line( float x, float y, const float* bColor, float x1, float y1, float x2, float y2) : Shape( x, y, bColor ), x1( x1 ), y1( y1 ), x2( x2 ), y2( y2 )
+Line :: Line( float x, float y, const float* bC, const float* fC, float x1, float y1, float x2, float y2) : Shape( x, y, bC, fC ), x1( x1 ), y1( y1 ), x2( x2 ), y2( y2 )
 {
     // calculate the midpoint of the line
     x = ( x1 + x2 ) / 2;

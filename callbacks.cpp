@@ -14,15 +14,14 @@ using namespace std;
 #include "rectangle.h"
 #include "line.h"
 #include "graphics.h"
-const float* CurrentBorderColor;
-const float* CurrentFillColor;
-Shape* CurrentShape;
-vector<Shape*> DrawnShapes;
+
+const float* CurrentBorderColor; // current border color we have selected for a new shape
+const float* CurrentFillColor;  // current fill color we have selected for a new shape
+Shape* CurrentShape; // current shape we are about to draw
+vector<Shape*> DrawnShapes; // list of shapes that have been drawn
 bool IsShapeSelected = false; // if a shape icon has been selected
 bool IsMovingShape = false; // is the shape being moved
 int DrawCount = 1; // 1 for first point, 0 for end point and not drawing
-
-
 
 // color palette items
 float PaletteSize = 46.0;
@@ -245,7 +244,10 @@ void selectBorderColor( int x, int y )
     if( x <= 46 )
     {
 	    if( y <  PaletteSize * 1 )
+        {    
             CurrentBorderColor = Gray;
+            GrayColor -> setFillColor( Purple );
+        }
         else if( y < PaletteSize * 2 )
 	        CurrentBorderColor = Purple;
 	    else if( y < PaletteSize * 3 )
@@ -306,10 +308,11 @@ void selectShape( int x, int y )
     // second column shape
     else
     {
+        ///Do we need more arguments passed?
         if( y <  PaletteSize * 11 )
-            CurrentShape = new Ellipses( true );
+            CurrentShape = new Ellipses();
         else if( y < PaletteSize * 12 )
-            CurrentShape = new Rectangle( true );
+            CurrentShape = new Rectangle();
         else if( y < PaletteSize * 13 )
             CurrentShape = new Line();
     }        

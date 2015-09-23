@@ -10,7 +10,6 @@ class Rectangle : public Shape
 {
     private:
         float width, height;
-        const float* fColor;
         bool filled;
 
     public:
@@ -23,12 +22,8 @@ class Rectangle : public Shape
         // change the dimensions of the rectangle
         void changeDimensions( float, float );
         
-        // draw the rectangle
+        // draw the rectangle, overridding the shape draw
         void draw() const;
-
-        
-        //void setBorderColor( const float* bC ) const;
-        void setFillColor( const float* fC );
 };
 
 #endif

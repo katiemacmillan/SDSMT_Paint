@@ -14,13 +14,16 @@ void selectBorderColor( int x, int y );
 void selectShape( int x, int y );
 void selectFillColor( int x, int y );
 
-//extern const float* CurrentBorderColor;
-//extern const float* CurrentFillColor;
+///if we are only using these globals in callbacks, do we need the extern?
+extern const float* CurrentBorderColor;
+extern const float* CurrentFillColor;
 
 // flags
 // is a shape selected? A new one to be drawn or to be edited
 extern bool IsShapeSelected;
+// are we moving a shape?
 extern bool IsMovingShape;
+// if a shape is selected to draw, are we on point one or two?
 extern int DrawCount;
 
 #endif

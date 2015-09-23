@@ -3,7 +3,7 @@
 #include "shape.h"
 
 // consntructor
-Shape :: Shape( float x, float y, const float* bC ) : locX( x ), locY( y ),bColor( bC )
+Shape :: Shape( float x, float y, const float* bC, const float* fC ) : locX( x ), locY( y ),bColor( bC ), fColor( fC )
 {}
 
 // destructor
@@ -14,6 +14,12 @@ Shape :: ~Shape()
 void Shape :: setBorderColor( const float* bC )
 {
     bColor = bC;
+}
+
+// change the fill color
+void Shape :: setFillColor( const float* fC )
+{
+    fColor = fC;
 }
 
 // move shape

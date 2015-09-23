@@ -4,7 +4,7 @@
 #include "ellipses.h"
 
 // constructor
-Ellipses :: Ellipses( float x, float y, const float* bColor, const float* fColor, float xR, float yR, bool f) :  Shape( x, y, bColor), fColor( fColor ), xRadius( xR ), yRadius( yR ), filled( f )
+Ellipses :: Ellipses( float x, float y, const float* bC, const float* fC, float xR, float yR, bool f) :  Shape( x, y, bC, fC), xRadius( xR ), yRadius( yR ), filled( f )
 {}
 
 
