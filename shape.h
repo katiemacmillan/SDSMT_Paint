@@ -21,14 +21,13 @@ class Shape
         void moveTo( float, float );
 
         // change border color
-        void changeBorderColor( const float* bc );
+        void setBorderColor( const float* bc );
 
         // erase shape
         void erase();
 
         // draw shape object
         virtual void draw() const = 0;
-
 };
 
 //extern vector<Shape*> drawnShapes;

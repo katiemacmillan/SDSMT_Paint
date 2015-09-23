@@ -23,10 +23,9 @@ class Rectangle : public Shape
         // draw the rectangle
         void draw() const;
 
-        ///need to put these in shape.h I believe
-        void setBorderColor( const float* bC ) const;
-        void setFillColor( const float* fC ) const;
-
+        
+        //void setBorderColor( const float* bC ) const;
+        void setFillColor( const float* fC );
 };
 
 #endif

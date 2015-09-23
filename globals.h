@@ -36,4 +36,5 @@ extern const float* CurrentBorderColor;
 extern const float* CurrentFillColor;
 extern bool ShapeFilled;
 
+
 #endif

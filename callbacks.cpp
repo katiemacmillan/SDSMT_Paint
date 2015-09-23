@@ -1,19 +1,23 @@
 /* callbacks.cpp */
 
 #include "headers.h"
-#include "vector"
 
 const float* CurrentBorderColor;
 const float* CurrentFillColor;
+Shape* CurrentShape;
 vector<Shape*> DrawnShapes;
-int DrawCount;
+bool IsShapeSelected = false; // if a shape icon has been selected
+bool IsMovingShape = false; // is the shape being moved
+int DrawCount = 1; // 1 for first point, 0 for end point and not drawing
+
+
 
 // color palette items
 float PaletteSize = 46.0;
 float IconSize = 30.0;
 
-// first column, bottom to top
-const Shape* GrayColor = new Rectangle( 23, 23, Black, Gray, PaletteSize, PaletteSize, true);
+// first column of colors, bottom to top
+Shape* GrayColor = new Rectangle( 23, 23, Black, Gray, PaletteSize, PaletteSize, true);
 const Shape* PurpleColor = new Rectangle( 23, 69, Black, Purple, PaletteSize, PaletteSize, true);
 const Shape* BlueColor = new Rectangle( 23, 115, Black, Blue, PaletteSize, PaletteSize, true);
 const Shape* CyanColor = new Rectangle( 23, 161, Black, Cyan, PaletteSize, PaletteSize, true);
@@ -23,7 +27,7 @@ const Shape* OrangeColor = new Rectangle( 23, 299, Black, Orange, PaletteSize, P
 const Shape* RedColor = new Rectangle( 23, 345, Black, Red, PaletteSize, PaletteSize, true);
 const Shape* MagentaColor = new Rectangle( 23, 391, Black, Magenta, PaletteSize, PaletteSize, true);
 const Shape* WhiteColor = new Rectangle( 23, 437, Black, White, PaletteSize, PaletteSize, true);
-// second column, bottom to top
+// second column colomn of colors, bottom to top
 const Shape* DarkGrayColor = new Rectangle( 69, 23, Black, DarkGray, PaletteSize, PaletteSize, true);
 const Shape* DarkPurpleColor = new Rectangle( 69, 69, Black, DarkPurple, PaletteSize, PaletteSize, true);
 const Shape* DarkBlueColor = new Rectangle( 69, 115, Black, DarkBlue, PaletteSize, PaletteSize, true);
@@ -145,7 +149,6 @@ void mouseclick( int button, int state, int x, int y )
     cout << "Current fill color " << CurrentFillColor << endl;
     cout << "Current border color" << CurrentBorderColor <<endl;
     cout << "Draw Count " << DrawCount << endl;
-    DrawCount++;
 
     //correct for upside-down screen coordinates
     y = ScreenHeight - y;
@@ -169,19 +172,23 @@ void mouseclick( int button, int state, int x, int y )
                     else
                     {
                         selectShape( x, y );
-                        //IsShapeSelected = true;
                     }                
                 }
-                //
-                // now we need to draw or select a shape
-                //  if IsShapeSelected == true
-                //      if draw count == 0
-                //          set xy
-                //          set some sort of follow the mouse thing.
-                //          DrawCount = 1;
-                //      if DrawCount == 1
-                //          set x2y2
-                //          DrawCount = 0
+                // draw a shape once it has been selected
+                else if( IsShapeSelected == true )
+                {
+                    if( DrawCount == 1 )
+                    {
+                        // set x1, y1
+                        DrawCount = 0;
+                    }
+                    else
+                    {
+                        // set x2, y2
+                        DrawCount = 1;
+                        IsShapeSelected = false;
+                    }
+                }
             }
             // release
             else if( state == GLUT_UP )
@@ -221,15 +228,13 @@ void mouseclick( int button, int state, int x, int y )
 void selectBorderColor( int x, int y )
 {
     cout << "Select a border color!!" << endl;
-    //const float* selectedColor = White; //change me!
     ///compare the x and y to a color and set it
-    //currentShape -> changeBorderColor( selectedColor );
     // first column colors
     if( x <= 46 )
     {
 	    if( y <  PaletteSize * 1 )
-	        CurrentBorderColor = Gray;
-	    else if( y < PaletteSize * 2 )
+            CurrentBorderColor = Gray;
+        else if( y < PaletteSize * 2 )
 	        CurrentBorderColor = Purple;
 	    else if( y < PaletteSize * 3 )
 	        CurrentBorderColor = Blue;
@@ -276,15 +281,26 @@ void selectBorderColor( int x, int y )
 
 void selectShape( int x, int y )
 {
-/*
     cout << "Selecting a shape!!" << endl;
-    // selected shape constructor
-    if( x < 46 )
+    IsShapeSelected = true;
+    // first column shapes
+    if( x <= 46 )
     {
-        if( y < PaletteSize * 11 )
-            currentShape = new
+	    if( y <  PaletteSize * 11 )
+                CurrentShape = new Ellipses();
+            else if( y < PaletteSize * 12 )
+	        CurrentShape = new Rectangle();
     }
-*/
+    // second column shape
+    else
+    {
+        if( y <  PaletteSize * 11 )
+            CurrentShape = new Ellipses( true );
+        else if( y < PaletteSize * 12 )
+            CurrentShape = new Rectangle( true );
+        else if( y < PaletteSize * 13 )
+            CurrentShape = new Line();
+    }        
 }
 
 void selectFillColor( int x, int y )

@@ -11,7 +11,7 @@ Shape :: ~Shape()
 {}
 
 // change the border color
-void Shape :: changeBorderColor( const float* bC )
+void Shape :: setBorderColor( const float* bC )
 {
     bColor = bC;
 }

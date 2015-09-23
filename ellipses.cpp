@@ -1,6 +1,5 @@
 /* ellipses.cpp */
 
-// include files
 #include "headers.h"
 
 // constructor

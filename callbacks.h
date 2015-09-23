@@ -18,7 +18,7 @@ void selectFillColor( int x, int y );
 //extern const float* CurrentFillColor;
 
 // flags
-// is a shape selected? A new one to be drawn or to be edited?
+// is a shape selected? A new one to be drawn or to be edited
 extern bool IsShapeSelected;
 extern bool IsMovingShape;
 extern int DrawCount;

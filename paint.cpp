@@ -1,6 +1,5 @@
 /* paint.cpp */
 
-// include files
 #include "headers.h"
 
 // funciton prototypes
