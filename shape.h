@@ -10,7 +10,8 @@ class Shape
     protected:
         // center point of the shape
         float locX, locY;
-        const float* bColor, fColor;
+        const float* bColor; 
+        const float* fColor;
 
     public:
         // constructor

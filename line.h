@@ -13,7 +13,7 @@ class Line : public Shape
     
     public:
         // constructor
-        Line( float x = 0.0, float y = 0.0, const float* bColor = Black, const float* fColor, float x1 = 0.0, float y1 = 0.0, float x2 = 0.0, float y2 = 0.0 );
+        Line( float x = 0.0, float y = 0.0, const float* bColor = Black, const float* fColor = Black, float x1 = 0.0, float y1 = 0.0, float x2 = 0.0, float y2 = 0.0 );
         
         // destructor
         ~Line();

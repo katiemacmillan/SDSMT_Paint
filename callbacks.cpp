@@ -77,7 +77,7 @@ const Shape* RectangleIcon = new Rectangle( 23, 529, Yellow, Black, IconSize, Ic
 //const Shape* CurrentIcon();
 const Shape* FilledEllipsesIcon = new Ellipses( 69, 483, Yellow, Orange, IconSize / 2, IconSize / 2, true );
 const Shape* FilledRectangleIcon = new Rectangle( 69, 529, Yellow, Orange, IconSize, IconSize, true );
-const Shape* LineIcon = new Line( 69, 575, Yellow, 69 + ( IconSize / 2 ), 575 + IconSize / 2, 69 - IconSize / 2, 575 - IconSize / 2 );
+const Shape* LineIcon = new Line( 69, 575, Yellow, Black, 69 + ( IconSize / 2 ), 575 + IconSize / 2, 69 - IconSize / 2, 575 - IconSize / 2 );
 
 ///May add these to the PaintPalette[] once I figure out ellipses and current shape
 const Shape* PaletteIcons[] = { EllipsesIcon, RectangleIcon, FilledEllipsesIcon, FilledRectangleIcon, LineIcon };
