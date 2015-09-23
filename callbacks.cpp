@@ -6,7 +6,7 @@
 const float* CurrentBorderColor;
 const float* CurrentFillColor;
 vector<Shape*> DrawnShapes;
-int DrawCount = 0;
+int DrawCount;
 
 // color palette items
 float PaletteSize = 46.0;

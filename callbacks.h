@@ -19,8 +19,8 @@ void selectFillColor( int x, int y );
 
 // flags
 // is a shape selected? A new one to be drawn or to be edited?
-bool IsShapeSelected = false;
-bool IsMovingShape = false;
+extern bool IsShapeSelected;
+extern bool IsMovingShape;
 extern int DrawCount;
 
 #endif
