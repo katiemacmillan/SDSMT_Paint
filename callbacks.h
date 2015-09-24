@@ -15,6 +15,8 @@ void mousedrag( int x, int y );
 void selectBorderColor( int x, int y );
 void selectShape( int x, int y );
 void selectFillColor( int x, int y );
+void changeIconBorderColor();
+void changeIconFillColor();
 
 void createShape();
 

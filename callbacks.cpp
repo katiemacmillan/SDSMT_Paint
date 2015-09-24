@@ -15,19 +15,21 @@ using namespace std;
 #include "line.h"
 #include "graphics.h"
 
+// globals to create shape
 Shape* CurrentShape; // current shape object about to be drawn
-const float* CurrentBorderColor; // current border color we have selected for a new shape
-const float* CurrentFillColor;  // current fill color we have selected for a new shape
-Shapes CurrentShapeType; // the type of shape we're drawing
-bool CurrentFillValue; // the value of filled or not
+const float* CurrentBorderColor = Yellow; // current border color we have selected for a new shape
+const float* CurrentFillColor = Orange;  // current fill color we have selected for a new shape
+Shapes CurrentShapeType = RECTANGLE_SHAPE; // the type of shape we're drawing
+bool CurrentFillValue = true; // the value of filled or not
+int x1, y1, x2, y2; // used to calculate the centerpoint of the shape being drawn
 
+// holds the list of shapes drawn
 vector<Shape*> DrawnShapes; // list of shapes that have been drawn
 
+// flags
 bool IsShapeSelected = false; // if a shape icon has been selected
 bool IsMovingShape = false; // is the shape being moved
 int DrawCount = 1; // 1 for first point, 0 for end point and not drawing
-int x1, y1, x2, y2; // used to calculate the centerpoint of the shape being drawn
-
 
 // color palette items
 float PaletteSize = 46.0;
@@ -77,15 +79,14 @@ const Shape* PaintPalette[] = { GrayColor, PurpleColor, BlueColor, CyanColor,
                                 FilledRectangleTool, LineTool };
 
 // shapes drawn in paint palette
-////change the colors to the current selected
-const Shape* EllipsesIcon = new Ellipses( 23, 483, Yellow, Black, IconSize / 2, IconSize / 2, false );
-const Shape* RectangleIcon = new Rectangle( 23, 529, Yellow, Black, IconSize, IconSize, false );
-//const Shape* CurrentIcon();
-const Shape* FilledEllipsesIcon = new Ellipses( 69, 483, Yellow, Orange, IconSize / 2, IconSize / 2, true );
-const Shape* FilledRectangleIcon = new Rectangle( 69, 529, Yellow, Orange, IconSize, IconSize, true );
-const Shape* LineIcon = new Line( 69, 575, Yellow, 69 + ( IconSize / 2 ), 575 + IconSize / 2, 69 - IconSize / 2, 575 - IconSize / 2 );
+Shape* EllipsesIcon = new Ellipses( 23, 483, CurrentBorderColor, CurrentFillColor, IconSize / 2, IconSize / 2, false );
+Shape* RectangleIcon = new Rectangle( 23, 529, CurrentBorderColor, CurrentFillColor, IconSize, IconSize, false );
+////const Shape* CurrentIcon();
+Shape* FilledEllipsesIcon = new Ellipses( 69, 483, CurrentBorderColor, CurrentFillColor, IconSize / 2, IconSize / 2, true );
+Shape* FilledRectangleIcon = new Rectangle( 69, 529, CurrentBorderColor, CurrentFillColor, IconSize, IconSize, true );
+Shape* LineIcon = new Line( 69, 575, CurrentBorderColor, 69 + ( IconSize / 2 ), 575 + IconSize / 2, 69 - IconSize / 2, 575 - IconSize / 2 );
 
-///May add these to the PaintPalette[] once I figure out ellipses and current shape
+///May add these to the PaintPalette[]
 const Shape* PaletteIcons[] = { EllipsesIcon, RectangleIcon, FilledEllipsesIcon, FilledRectangleIcon, LineIcon };
 
 // callback function to tell OpenGL how to redraw window
@@ -107,11 +108,11 @@ void display( void )
     }
 
     // write title on top of screen
-    ///Need to put this function in a file
-    DrawTextString( "Chrissy and Kate Paint!", ScreenWidth / 2 - 92, ScreenHeight - 20, White );
+    DrawTextString( "Chris and Kate Paint!", ScreenWidth / 2 - 92, ScreenHeight - 20, White );
 
     ////draw the shapes for the shape list here
-
+    
+    glutSwapBuffers();
     // flush graphical output
     glFlush();
 }
@@ -145,7 +146,7 @@ void keyboard( unsigned char key, int x, int y )
         // Excape quits program
         case 'q':
         case EscapeKey:
-            ///loop through and clear out the list here
+            ///loop through and clear out the list of shapes here
             exit( 0 );
             break;
         // Anything else redraws window
@@ -164,10 +165,6 @@ void keyboard( unsigned char key, int x, int y )
 // callback function for mouse button click events
 void mouseclick( int button, int state, int x, int y )
 {
-    cout << "Current fill color " << CurrentFillColor << endl;
-    cout << "Current border color" << CurrentBorderColor <<endl;
-    cout << "Draw Count " << DrawCount << endl;
-
     //correct for upside-down screen coordinates
     y = ScreenHeight - y;
 
@@ -179,7 +176,6 @@ void mouseclick( int button, int state, int x, int y )
             // press
             if( state == GLUT_DOWN )
             {    
-                cerr << "mouse click: left down at (" << x << "," << y << ")\n";
                 // is a color or shape being selected?
                 if( x < PaletteSize * 2 )
                 {
@@ -207,14 +203,15 @@ void mouseclick( int button, int state, int x, int y )
                         y2 = y;
                         DrawCount = 1;
                         IsShapeSelected = false;
-                        //CurrentShape -> setCenterCoordinate( (x1 + x2) / 2, (y1 + y2) / 2 );
+                        ///this function needs to be filled out below
+                        ///this will actually initialize Shape* CurrentShape
                         createShape();
                     }
                 }
             }
             // release
-            else if( state == GLUT_UP )
-                cerr << "mouse click: left up at (" << x << ","<< y << ")\n";
+            //else if( state == GLUT_UP )
+                //something if we did left up
             break;
         // right button: select fill color
         case GLUT_RIGHT_BUTTON:
@@ -233,34 +230,27 @@ void mouseclick( int button, int state, int x, int y )
                 {
                     // Move a shape
                     // Test the xy for which shape you're on
-                    // IsMovingShape = true;
+                    // IsMovingShape = true
                 }
-                cerr << "mouse click: right down at (" << x << ","<< y << ")\n";
             }
             // release
             else if( state == GLUT_UP )
                 // If you're currently dragging a shape when you release you drop the shape
                 // if IsMovingShape == true, drop shape
-                cerr << "mouse click: right up at (" << x << ","<< y << ")\n";
+                int hoho = 1; //need something here
             break;
     }
+    ///this refreshes the page. I don't know if we need it here yet
+    //glutPostRedisplay();
 }
 
-///Obviously for testing purposes
 void selectBorderColor( int x, int y )
 {
-    cout << "Select a border color!!" << endl;
-    ///compare the x and y to a color and set it
     // first column colors
     if( x <= 46 )
     {
-        ///I'm just figuring out using subclass functions here
-	    if( y <  PaletteSize * 1 )
-        {    
+	    if( y <  PaletteSize * 1 ) 
             CurrentBorderColor = Gray;
-            ((Rectangle*)GrayColor) -> setFillColor( Purple );
-            GrayColor -> draw();
-        }
         else if( y < PaletteSize * 2 )
 	        CurrentBorderColor = Purple;
 	    else if( y < PaletteSize * 3 )
@@ -304,12 +294,15 @@ void selectBorderColor( int x, int y )
         else if( y < PaletteSize * 10 )
             CurrentBorderColor = LightGray;
     }        
+    
+    // change the border color of the shape icons when a new color is selected
+    changeIconBorderColor();
 }
 
 void selectShape( int x, int y )
 {
-    cout << "Selecting a shape!!" << endl;
     IsShapeSelected = true;
+
     // first column shapes
     if( x <= 46 )
     {
@@ -327,12 +320,10 @@ void selectShape( int x, int y )
     // second column shape
     else
     {
-        ///Do we need more arguments passed?
         if( y <  PaletteSize * 11 )
         {
             CurrentShapeType = ELLIPSES_SHAPE;
-            CurrentFillValue = true;
-            
+            CurrentFillValue = true;   
         }
         else if( y < PaletteSize * 12 )
         {
@@ -346,7 +337,6 @@ void selectShape( int x, int y )
 
 void selectFillColor( int x, int y )
 {
-    cout << "Selecting a FILL color!!" << endl;
     // first column colors
     if( x <= 46 )
     {
@@ -395,8 +385,16 @@ void selectFillColor( int x, int y )
         else if( y < PaletteSize * 10 )
             CurrentFillColor = LightGray;
     }   
+    
+    // change the colors of the icons once a new color is selected
+    changeIconFillColor();
 }
 
+///I was going to use Shape* CurrentShape (it's declared above already) 
+/// and initialize it here with global variable above, CurrentFillColor, 
+/// CurrentBorderColor, CurrentFillValue, there's x1, y1, x2, y2 which you 
+///can figure out the center point from.
+///I am really at a loss as to how to do ellipses though
 void createShape()
 {
     switch( CurrentShapeType )
@@ -408,4 +406,28 @@ void createShape()
         case RECTANGLE_SHAPE:
             break;
     }
+}
+
+// change the border color of the icons when a new border color is selected
+void changeIconBorderColor()
+{
+    EllipsesIcon -> setBorderColor( CurrentBorderColor );
+    FilledEllipsesIcon -> setBorderColor( CurrentBorderColor );
+    RectangleIcon -> setBorderColor( CurrentBorderColor );
+    FilledRectangleIcon -> setBorderColor( CurrentBorderColor );
+    LineIcon -> setBorderColor( CurrentBorderColor );
+ 
+    // refresh the screen   
+    glutPostRedisplay();
+}
+
+// change the fill color of the icons when a new fill color is selected
+void changeIconFillColor()
+{
+    // to acess the subclasses, you have to typecast the shape pointer
+    ((Ellipses*) FilledEllipsesIcon) -> setFillColor( CurrentFillColor );
+    ((Rectangle*) FilledRectangleIcon) -> setFillColor( CurrentFillColor );
+    
+    // refresh the screen
+    glutPostRedisplay();
 }
