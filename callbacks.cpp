@@ -397,13 +397,45 @@ void selectFillColor( int x, int y )
 ///I am really at a loss as to how to do ellipses though
 void createShape()
 {
+    /*Since every shape will start with a line, we only need to find the
+    center point once*/
+     float xC, yC;
+     x1 < x2 ? xC = x1 + (x2-x1)/2 : xC = x2 + (x1-x2)/2;
+     y1 < y2 ? yC = y1 + (y2 - y1 )/2 : yC = y2 + (y1 - y2 )/2;
+    
+    //check the shape type, create the shape, and add it to drawn shapes array
     switch( CurrentShapeType )
     {
         case LINE_SHAPE:
+            //a new shape object must be created to add it to the vector
+            Line *newLine = new *Line(xC, yC, CurrentBorderColor, x1, y1, x2, y2);
+            DrawnShapes.add(newLine);
+            //set the current shape to the most recently instantiated
+            CurrentShape = newLine;
             break;
+
         case ELLIPSES_SHAPE:
+            //calculate the xRadius and yRadius before creating new ellipses
+            float xR, yR;
+            xC > x1 ? xR = xC - x1 : xR = xC - x2;
+            yC > y1 ? yR = yC - y1 : yR = yC - y2;
+            //a new shape object must be created to add it to the vector
+            Ellipses *newEllipses = new *Ellipses( xC, yC, CurrentBorderColor, CurrentFillColor, w, h, CurrentFillValue );
+            DrawShapes.add(newEllipses);
+            //set the current shape to the most recently instantiated
+            CurrentShape = newEllipses;
             break;
+
         case RECTANGLE_SHAPE:
+            //calculate the height and width before creating new ellipses
+            float h, w;
+            x1 > x2 ? w = x1 - x2 : w = x2 - x1;
+            y1 > y2 ? h = y1 - y2 : h = y2 - y1;
+            //a new shape object must be created to add it to the vector
+            Rectangle *newRectangle = new *Rectangle ( xC, yC, CurrentBorderColor, CurrentFillColor, w, h, CurrentFillValue );
+            DrawnShapes.add(newRectangle);
+            //set the current shape to the most recently instantiated
+            CurrentShape = newRectangle;
             break;
     }
 }
