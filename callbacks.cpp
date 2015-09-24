@@ -15,15 +15,13 @@ using namespace std;
 #include "line.h"
 #include "graphics.h"
 
-// globals to create shape
-Shape* CurrentShape; // current shape object about to be drawn
-const float* CurrentBorderColor = Yellow; // current border color we have selected for a new shape
-const float* CurrentFillColor = Orange;  // current fill color we have selected for a new shape
-Shapes CurrentShapeType = RECTANGLE_SHAPE; // the type of shape we're drawing
-bool CurrentFillValue = true; // the value of filled or not
-int x1, y1, x2, y2; // used to calculate the centerpoint of the shape being drawn
-
-// holds the list of shapes drawn
+// globals to create and alter shapes
+Shape* CurrentShape; // current shape object about to be drawn or altered
+const float* CurrentBorderColor = Yellow; // current border color selected by user
+const float* CurrentFillColor = Orange;  // current fill color selected by user
+Shapes CurrentShapeType = RECTANGLE_SHAPE; // the type of shape selected by user
+bool CurrentFillValue = true; // the indicator of filled shape or not
+int x1, y1, x2, y2; // user selected points used to draw a shape
 vector<Shape*> DrawnShapes; // list of shapes that have been drawn
 
 // flags
@@ -34,8 +32,9 @@ int DrawCount = 1; // 1 for first point, 0 for end point and not drawing
 // color palette items
 float PaletteSize = 46.0;
 float IconSize = 30.0;
-
-// first column of colors, bottom to top
+/**************************************************************************
+First column of colors for menu color palette in orderfrom bottom to top
+**************************************************************************/
 Shape* GrayColor = new Rectangle( 23, 23, Black, Gray, PaletteSize, PaletteSize, true);
 const Shape* PurpleColor = new Rectangle( 23, 69, Black, Purple, PaletteSize, PaletteSize, true);
 const Shape* BlueColor = new Rectangle( 23, 115, Black, Blue, PaletteSize, PaletteSize, true);
@@ -46,7 +45,9 @@ const Shape* OrangeColor = new Rectangle( 23, 299, Black, Orange, PaletteSize, P
 const Shape* RedColor = new Rectangle( 23, 345, Black, Red, PaletteSize, PaletteSize, true);
 const Shape* MagentaColor = new Rectangle( 23, 391, Black, Magenta, PaletteSize, PaletteSize, true);
 const Shape* WhiteColor = new Rectangle( 23, 437, Black, White, PaletteSize, PaletteSize, true);
-// second column colomn of colors, bottom to top
+/**************************************************************************
+Second column of colors for menu color palette in orderfrom bottom to top
+**************************************************************************/
 const Shape* DarkGrayColor = new Rectangle( 69, 23, Black, DarkGray, PaletteSize, PaletteSize, true);
 const Shape* DarkPurpleColor = new Rectangle( 69, 69, Black, DarkPurple, PaletteSize, PaletteSize, true);
 const Shape* DarkBlueColor = new Rectangle( 69, 115, Black, DarkBlue, PaletteSize, PaletteSize, true);
@@ -58,17 +59,23 @@ const Shape* DarkRedColor = new Rectangle( 69, 345, Black, DarkRed, PaletteSize,
 const Shape* DarkMagentaColor = new Rectangle( 69, 391, Black, DarkMagenta, PaletteSize, PaletteSize, true);
 const Shape* LightGrayColor = new Rectangle( 69, 437, Black, LightGray, PaletteSize, PaletteSize, true);
 
-// shape palette
-// first column, adding on top of colors
+/**************************************************************************
+First column of shape options for menu 
+**************************************************************************/
 const Shape* EllipsesTool = new Rectangle( 23, 483, White, Black, PaletteSize, PaletteSize, true );
 const Shape* RectangleTool = new Rectangle( 23, 529, White, Black, PaletteSize, PaletteSize, true );
 const Shape* CurrentShapeDisplay = new Rectangle( 23, 575, White, Black, PaletteSize, PaletteSize, true );
-// second column, adding on top of colors
+/**************************************************************************
+Second column of shape options for menu 
+**************************************************************************/
 const Shape* FilledEllipsesTool = new Rectangle( 69, 483, White, Black, PaletteSize, PaletteSize, true );
 const Shape* FilledRectangleTool = new Rectangle( 69, 529, White, Black, PaletteSize, PaletteSize, true );
 const Shape* LineTool = new Rectangle( 69, 575, White, Black, PaletteSize, PaletteSize, true );
 
-// paint pallette, includes colors, shapes, and current shape display
+/**************************************************************************
+Array of all menu shape and color options to be used when rendering the
+display.
+**************************************************************************/
 const Shape* PaintPalette[] = { GrayColor, PurpleColor, BlueColor, CyanColor, 
                                 GreenColor, YellowColor, OrangeColor, RedColor, 
                                 MagentaColor, WhiteColor, EllipsesTool, RectangleTool,
@@ -89,7 +96,13 @@ Shape* LineIcon = new Line( 69, 575, CurrentBorderColor, 69 + ( IconSize / 2 ), 
 ///May add these to the PaintPalette[]
 const Shape* PaletteIcons[] = { EllipsesIcon, RectangleIcon, FilledEllipsesIcon, FilledRectangleIcon, LineIcon };
 
-// callback function to tell OpenGL how to redraw window
+/**********************************************************************
+                            display
+**********************************************************************
+display provides OpenGL with the menue colors and shapes, as well as
+the window text to be displayed so that the user interface window
+can be drawn.
+**********************************************************************/
 void display( void )
 {
     // clear the display
@@ -97,27 +110,33 @@ void display( void )
         
     // drawing the paint palette on the left side of the screen
     for( int i = 0; i < 26; i++ )
-    {
         PaintPalette[i] -> draw();
-    }
 
     // drawing the icons in the palette for the shape selection
     for( int i = 0; i < 5; i++ )
-    {
         PaletteIcons[i] -> draw();
-    }
 
     // write title on top of screen
     DrawTextString( "Chris and Kate Paint!", ScreenWidth / 2 - 92, ScreenHeight - 20, White );
 
-    ////draw the shapes for the shape list here
-    
+//May I add the draw methods for the icons?    
+    /*for( int i = 0; i < DrawnShapes.size(); i++)
+        DrawnShapes[i].draw();*/
+
     glutSwapBuffers();
     // flush graphical output
     glFlush();
 }
 
-// callback function that tells OpenGL how to resize window
+/**********************************************************************
+                            reshape
+**********************************************************************
+reshape takes a height and width and uses openGL to redraw the window
+for the user to fit the new dimentions.
+
+parameters:     w - the desired window width
+                h - the desired window height
+**********************************************************************/
 void reshape( int w, int h )
 {
     // store new window dimensions globally
@@ -135,26 +154,60 @@ void reshape( int w, int h )
     glViewport( 0, 0, w, h );   
 }
 
-// callback function that tells OpenGL how to handle keystrokes
-void keyboard( unsigned char key, int x, int y )
+/**********************************************************************
+                            keyboard
+**********************************************************************
+keyboard begins by compensating for the reverse y coordinate system 
+within openGL. It then determines which key on the keyboard was pressed
+by the user. The only significant keys are 'q', 'd', 'c' and the
+esape key.
+
+Both 'q' and the escape key will close the program. 'd' will delete 
+an item and 'c' will clear all items, both will redraw the window
+when their processes are complete. Any other key strokes will redraw
+the window, but nothing more
+
+parameters:     key - the character value of the key pressed
+                x - the x value of the selected coordinate
+                y - the y value of the selected coordinate
+**********************************************************************/
+void keyboard( unsigned char key, float x, float y )
 {
     //correct for upside-down screen coordinates
     y = ScreenHeight - y;
 
     switch( key )
     {
-        // Excape quits program
+        // Escape or 'q' quits program
         case 'q':
         case EscapeKey:
-            ///loop through and clear out the list of shapes here
-            exit( 0 );
+            for (int i = 0; i < DrawnShapes.size(); i++)
+            {
+                CurrentShape = DrawnShapes[i];
+                //erase shape from DrawnShapes
+                DrawnShapes.erase(DrawnShapes.begin());
+                //delete shape to prevent memory leak
+                delete (CurrentShape);
+            }            exit( 0 );
             break;
         // Anything else redraws window
         case 'd':
-            //deletes items
+            int index = selectDrawnShape(x, y);
+            //erase shape from DrawnShapes
+            DrawnShapes.erase(DrawnShapes.begin()+(index - 1));
+            //delete shape to prevent memory leak
+            delete (CurrentShape);
             break;
+        //clear all shapes from display
         case 'c':
-            //clears items
+            for (int i = 0; i < DrawnShapes.size(); i++)
+            {
+                CurrentShape = DrawnShapes[i];
+                //erase shape from DrawnShapes
+                DrawnShapes.erase(DrawnShapes.begin());
+                //delete shape to prevent memory leak
+                delete (CurrentShape);
+            }
             break;
         default:
             glutPostRedisplay();
@@ -162,8 +215,32 @@ void keyboard( unsigned char key, int x, int y )
     }
 }
 
-// callback function for mouse button click events
-void mouseclick( int button, int state, int x, int y )
+/**********************************************************************
+                            mouseclick
+**********************************************************************
+mouseclick begins by compensating for the reverse y coordinate 
+system within openGL. It then determines whether the left or right
+mouse button was pressed by the user. Next it determines the state of 
+the button, whether it has been pressed down or release.
+
+If the left button is pressed down, it evaluates the location of the
+press to determine if a shape or color is being selected, or if 
+coordinates are being selected to draw a shape.
+
+If the right button is pressed down it evaluates the location of the
+press to determine if a fill color, or if an existing shape is being 
+selected to be moved.
+
+When the right button is released the x,y coordinate will become the 
+new center coordinate of the CurrentShape if it is currently being 
+moved.
+
+parameters:     button - the value of the button that was clicked
+                state - the state of the button
+                x - the x value of the selected coordinate
+                y - the y value of the selected coordinate
+**********************************************************************/
+void mouseclick( int button, int state, float x, float y )
 {
     //correct for upside-down screen coordinates
     y = ScreenHeight - y;
@@ -203,12 +280,11 @@ void mouseclick( int button, int state, int x, int y )
                         y2 = y;
                         DrawCount = 1;
                         IsShapeSelected = false;
-                        ///this function needs to be filled out below
-                        ///this will actually initialize Shape* CurrentShape
                         createShape();
                     }
                 }
             }
+//What should the program do when the Left Button is released? Anything?
             // release
             //else if( state == GLUT_UP )
                 //something if we did left up
@@ -222,21 +298,28 @@ void mouseclick( int button, int state, int x, int y )
                 if( x < PaletteSize * 2 )
                 {
                     if( y < PaletteSize * 10 )
-                    {
                         selectFillColor( x, y );
-                    }
                 }
                 else
                 {
-                    // Move a shape
                     // Test the xy for which shape you're on
-                    // IsMovingShape = true
+                    selectDrawnShape(x,y);
+                    // Move a shape
+                    IsMovingShape = true
                 }
             }
             // release
             else if( state == GLUT_UP )
+/*I have no clue how to drag a shape... This would be the spot though where
+when the right button is released, the move function should be called on CurrentShape*/
                 // If you're currently dragging a shape when you release you drop the shape
                 // if IsMovingShape == true, drop shape
+                if(IsMovingShape)
+                {
+                    CurrentShape.move(x,y);
+                    IsMovingShape = false;
+                }
+//Can this go away now?
                 int hoho = 1; //need something here
             break;
     }
@@ -244,7 +327,20 @@ void mouseclick( int button, int state, int x, int y )
     //glutPostRedisplay();
 }
 
-void selectBorderColor( int x, int y )
+/**********************************************************************
+                            
+**********************************************************************
+selectBorderColor examines where a button click was made to determine
+which section of the menu was selected. An X coordinate under 47
+indicates the first column of color options, while an x value of 47 or greater
+indicates the second column of color options.
+
+The exact color chosen is determined by the y coordinate's value.
+
+parameters:     x - the x value of the selected coordinate
+                y - the y value of the selected coordinate
+**********************************************************************/
+void selectBorderColor( float x, float y )
 {
     // first column colors
     if( x <= 46 )
@@ -299,7 +395,21 @@ void selectBorderColor( int x, int y )
     changeIconBorderColor();
 }
 
-void selectShape( int x, int y )
+/**********************************************************************
+                            selectShape
+**********************************************************************
+selectShape examines where a button click was made to determine
+which section of the menu was selected. An X coordinate under 47
+indicates the first column of shape options which are unfilled, while 
+an x value of 47 or greater indicates the second column of shape 
+options, which are either filled or a line.
+
+The exact shape chosen is determined by the y coordinate's value.
+
+parameters:     x - the x value of the selected coordinate
+                y - the y value of the selected coordinate
+**********************************************************************/
+void selectShape( float x, float y )
 {
     IsShapeSelected = true;
 
@@ -335,7 +445,20 @@ void selectShape( int x, int y )
     }        
 }
 
-void selectFillColor( int x, int y )
+/**********************************************************************
+                            selectFillColor
+**********************************************************************
+selectFillColor examines where a button click was made to determine
+which section of the menu was selected. An X coordinate under 47
+indicates the first column of color options, while an x value of 47 or greater
+indicates the second column of color options.
+
+The exact color chosen is determined by the y coordinate's value.
+
+parameters:     x - the x value of the selected coordinate
+                y - the y value of the selected coordinate
+**********************************************************************/
+void selectFillColor( float x, float y )
 {
     // first column colors
     if( x <= 46 )
@@ -390,11 +513,23 @@ void selectFillColor( int x, int y )
     changeIconFillColor();
 }
 
-///I was going to use Shape* CurrentShape (it's declared above already) 
-/// and initialize it here with global variable above, CurrentFillColor, 
-/// CurrentBorderColor, CurrentFillValue, there's x1, y1, x2, y2 which you 
-///can figure out the center point from.
-///I am really at a loss as to how to do ellipses though
+/**********************************************************************
+                            createShape
+**********************************************************************
+createShape looks at the global x1, x2, y1, and y2 variables to 
+calculate the new shape's center point. Once this is done it looks
+at the CurrentShapeType variable to determine which shape subclass
+is to be instantiated.
+
+A new object coresponding to CurrentShapeType is created and added to
+the DrawnShapes vector. CurrentShape is then set to this new shape
+and drawn.
+
+If the CurrentShapeType indicates the new shape is to be an ellipses,
+the x-radius and y-radius are calculated before the object is created.
+Likewise, if a rectangle shape is indicated, the height and width are
+calculated before it is instantiated.
+**********************************************************************/
 void createShape()
 {
     /*Since every shape will start with a line, we only need to find the
@@ -438,9 +573,15 @@ void createShape()
             CurrentShape = newRectangle;
             break;
     }
+    CurrentShape.draw();
 }
 
-// change the border color of the icons when a new border color is selected
+/**********************************************************************
+                        changeIconBorderColor
+**********************************************************************
+changeIconBorderColor changes the menu icon borders to a new border
+color whenever a new one is selected
+**********************************************************************/
 void changeIconBorderColor()
 {
     EllipsesIcon -> setBorderColor( CurrentBorderColor );
@@ -453,7 +594,12 @@ void changeIconBorderColor()
     glutPostRedisplay();
 }
 
-// change the fill color of the icons when a new fill color is selected
+/**********************************************************************
+                        changeIconFillColor
+**********************************************************************
+changeIconFillColor changes the menu icons for filled shapes
+to the currently selected fill color.
+**********************************************************************/
 void changeIconFillColor()
 {
     // to acess the subclasses, you have to typecast the shape pointer
@@ -464,32 +610,61 @@ void changeIconFillColor()
     glutPostRedisplay();
 }
 
-void selectDrawnShape (int x, int y)
+/**********************************************************************
+                        selectDrawnShape
+**********************************************************************
+selectDrawnShape traverses the vector of drawn shapes, examining
+each shape's center point. If the center point is within a distance
+of 10 from the selected coordinate it is added to a temporary vector
+of shape pointers.
+
+Once the  vector of drawn shapes has been examined, the CurrentShape
+variable is set to the first shape in the temporary vector. he temporary
+vector is then traversed. If a shape is found to have a smaller distance 
+from the selected coordinate than CurrentShape, CurrentShape is set to
+this new shape.
+
+If multiple shapes have the same distance from the selected coordiante,
+then the most recently drawn shape will be set as the value for
+CurrentShape.
+
+parameters:     x - x value of the selected coordinate
+                y - y value of the selected coordinate
+
+returns:        int - the shape's position in the vector
+**********************************************************************/
+int selectDrawnShape (float x, float y)
 {
-    new std::vector<*Shape> tempShapeList;
-    Shape* tempShape = new *Shape;
-    int i;
-    /*traverse the list of drawn shapes and add any shape with a center 
-    point within a distance of 10 from the selected point to the 
-    temporary shape list*/
+    new std::vector<*Shape> tempShapeList;  //holds possibly selected shapes
+    new std::vector<int> shapeLocation; //holds possibly selected shapes' index
+    Shape* tempShape = new *Shape; //holds shape currently being examined
+    int deleteIndex = -1; //index of shape incase it is to be deleted
+
+    //store shapes within 10 from selected point
     for (i = 0; i < DrawShapes.size(); i++)
     {
         tempShape = DrawnShapes[i];
         if ( (abs(x-tempShape->xC) <= 10) && (abs(y-tempShape->yC) <= 10) )
-            tempShapeList.add(DrawnShapes[i]);
+        {
+                tempShapeList.add(DrawnShapes[i]);
+                int index = i; //create a new object to be added to shapeLocation
+                shapeLocation.add(index);
+        }
     }
 
     //set the current shape to the first shape in the temporary shape list
     CurrentShape = tempShapeList[0];
-    /*traverse the temporary shape list, and set the shape with the shortest
-    distance to the selected point as the current shape. If multiple shapes
-    are the same distance, the most recently added (i.e., last in the list)
-    will be the current shape*/
+    deleteIndex = shapeLocation[0];
+
+    //set CurrentShape to closest, most recent shape
     for (i = 0; i < tempShapeList.size(); i++)
     {
         tempShape = tempShapeList[i];
-        if ( (abs(x - tempShape->xC) <= abs(x - currentShape->xC) ) 
+        if ( (abs(x - tempShape->xC) <= abs(x - CurrentShape->xC) ) 
             && (abs(y - tempShape->yC) <= abs(y - CurrentShape->yC)))
             CurrentShape = tempShapeList[i];
+            deleteIndex = shapeLocation[i];
     }
+    //return index of CurrentShape in DrawnShapes
+    return deleteIndex;
 }
