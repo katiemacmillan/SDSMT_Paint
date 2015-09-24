@@ -463,3 +463,33 @@ void changeIconFillColor()
     // refresh the screen
     glutPostRedisplay();
 }
+
+void selectDrawnShape (int x, int y)
+{
+    new std::vector<*Shape> tempShapeList;
+    Shape* tempShape = new *Shape;
+    int i;
+    /*traverse the list of drawn shapes and add any shape with a center 
+    point within a distance of 10 from the selected point to the 
+    temporary shape list*/
+    for (i = 0; i < DrawShapes.size(); i++)
+    {
+        tempShape = DrawnShapes[i];
+        if ( (abs(x-tempShape->xC) <= 10) && (abs(y-tempShape->yC) <= 10) )
+            tempShapeList.add(DrawnShapes[i]);
+    }
+
+    //set the current shape to the first shape in the temporary shape list
+    CurrentShape = tempShapeList[0];
+    /*traverse the temporary shape list, and set the shape with the shortest
+    distance to the selected point as the current shape. If multiple shapes
+    are the same distance, the most recently added (i.e., last in the list)
+    will be the current shape*/
+    for (i = 0; i < tempShapeList.size(); i++)
+    {
+        tempShape = tempShapeList[i];
+        if ( (abs(x - tempShape->xC) <= abs(x - currentShape->xC) ) 
+            && (abs(y - tempShape->yC) <= abs(y - CurrentShape->yC)))
+            CurrentShape = tempShapeList[i];
+    }
+}
