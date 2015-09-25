@@ -7,40 +7,33 @@
 
 class Shape
 {
+    /******Class Data******/
     protected:
         // center point of the shape
         float locX, locY;
         const float* bColor; 
         
     public:
-        // constructor
+        /******Constructor******/
         Shape( float x = 0.0, float y = 0.0, const float* bC = Black );
         
-        // copy constructor
+        /******Copy Constructor******/
         Shape( const Shape& );
       
-        // destructor
+        /******Destructor******/
         virtual ~Shape();
         
-
-        // set functions
-        // set the center point of the shape
-        void setCenterCoordinate( float, float );
-        // change the border color of the shape
-        void setBorderColor( const float* );
-
-        //retrieve components of the shape object
+        /******Get Functions******/
         float getCenterX();
         float getCenterY();
         const float* getBorderColor();
 
-        // erase shape
-        void erase();
+        /******Set Functions******/
+        void setCenterCoordinate( float, float );
+        void setBorderColor( const float* );
 
-        // draw shape object, must be overridden
+        /******Display Functions******/
         virtual void draw() const = 0;
-
-        // move object, to be overrideen
         virtual void moveTo( float, float );
 
 };

@@ -4,9 +4,16 @@
 #include "globals.h"
 #include "callbacks.h"
 
-// funciton prototypes
+/******Function Prototypes******/
 void initOpenGL( void );
 
+
+/**********************************************************************
+                            Main
+**********************************************************************
+The primary function of main is to initiate the openGl function, from
+which it does not return
+**********************************************************************/
 int main( int argc, char** argv )
 {
     // perform OpenGL initializations
@@ -20,7 +27,12 @@ int main( int argc, char** argv )
     return 0;
 }
 
-// various commands to initialize OpenGL and GLUT
+/**********************************************************************
+                            initOpenGL
+**********************************************************************
+initOpenGL gives OpenGL the definitions on how to handle various
+events, from which OpenGL then takes over with the GUI window
+**********************************************************************/
 void initOpenGL( void )
 {
     // 32-bit graphics and single buffering

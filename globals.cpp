@@ -2,7 +2,7 @@
 
 #include "globals.h"
 
-// global vars
+/***** Global Variables*****/
 int ScreenWidth = 900;
 int ScreenHeight = 600;
 

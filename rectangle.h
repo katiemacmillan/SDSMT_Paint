@@ -8,39 +8,37 @@
 
 class Rectangle : public Shape
 {
+    /******Class Data******/
     private:
         const float* fColor;
         float width, height;
         bool filled;
 
     public:
-        // constructor
+        /******Constructor******/
         Rectangle( float x = 0.0, float y = 0.0, const float* bColor = Black, const float* fColor = Black, float w = 1.0, float h = 1.0, bool f = false );
         
-        // copy constructor
+        /******Copy Constructor******/
         Rectangle( const Rectangle& );        
 
-        // destructor
+        /******Destructor******/
         ~Rectangle();
 
+        /******Get Functions******/
         float getWidth();
         float getHeight();
         const float* getFillColor();
         bool getFilledValue();
 
+        /******Set Functions******/
         void setHeight(float);
         void setWidth(float);
-        // change the dimensions of the rectangle
         void changeDimensions( float, float );
-        
-        // set the fill
         void setFillValue( bool );
         void setFillColor( const float* );
 
-        // move the rectangle, overridding the shape moveTo
+        /******Display Functions******/
         void moveTo( float, float );
-
-        // draw the rectangle, overridding the shape draw
         void draw() const;
 };
 

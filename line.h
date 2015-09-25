@@ -8,32 +8,32 @@
 
 class Line : public Shape
 {
+    /******Class Data******/
     private:
         float x1, y1, x2, y2;
     
     public:
-        // constructor
+        /******Constructor******/
         Line( float x = 0.0, float y = 0.0, const float* bColor = Black, float x1 = 0.0, float y1 = 0.0, float x2 = 0.0, float y2 = 0.0 );
         
-        // copy constructor
+        /******Copy Constructor******/
         Line( const Line& );
 
-        // destructor
+        /******Destructor******/
         ~Line();
 
-        //retrieve various point coordinates of the line
+        /******Get Functions******/
         float getX1 ();
         float getY1 ();
         float getX2 ();
         float getY2 ();
-        //void changeDimensions( ?? );
+
+        /******Set Functions******/
         void setXY1(float, float);
         void setXY2(float, float);
 
-        // move the line, overriding the shape moveTo
+        /******Display Functions******/
         void moveTo( float, float );        
-
-        // draw the line, overriding the shape draw
         void draw() const;
 };
 

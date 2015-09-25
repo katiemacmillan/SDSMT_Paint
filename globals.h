@@ -3,9 +3,9 @@
 #ifndef _Globals_H_
 #define _Globals_H_
 
-// keypresses
+/*****Keypresses*****/
 const int EscapeKey = 27;
-// colors
+/*****Colors*****/
 const float Black[] = { 0.0, 0.0, 0.0 };
 const float Red[] = { 1.0, 0.0, 0.0 };
 const float DarkRed[] = { 0.5, 0.0, 0.0 };
@@ -28,14 +28,15 @@ const float LightGray[] = { 0.75, 0.75, 0.75 };
 const float Gray[] = { 0.5, 0.5, 0.5 };
 const float DarkGray[] = { 0.25, 0.25, 0.25 };
 
-// global vars
+/*****Screen Width*****/
 extern int ScreenWidth;
 extern int ScreenHeight;
+/*****List of Static Colors*****/
 extern const float* ColorList[];
-//extern const float* CurrentBorderColor;
-//extern const float* CurrentFillColor;
+/*****Determines if a shape is filled or not*****/
 extern bool ShapeFilled;
 
+/*****Possible types of shapes to be created*****/
 enum Shapes { LINE_SHAPE, ELLIPSES_SHAPE, RECTANGLE_SHAPE };
 
 

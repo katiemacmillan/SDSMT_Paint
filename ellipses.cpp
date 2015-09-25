@@ -3,24 +3,41 @@
 #include <GL/freeglut.h>
 #include "ellipses.h"
 
-// constructor
+/**********************************************************************
+                            Constructor
+**********************************************************************/
 Ellipses :: Ellipses( float x, float y, const float* bC, const float* fC, float xR, float yR, bool f) :  Shape( x, y, bC ), fColor( fC ), xRadius( xR ), yRadius( yR ), filled( f )
 {}
 
-// copy constructor
+/**********************************************************************
+                            Copy Constructor
+**********************************************************************/
 Ellipses :: Ellipses( const Ellipses& e ) : Shape( e.locX, e.locY, e.bColor ), fColor( e.fColor ), xRadius( e.xRadius ), yRadius( e.yRadius ), filled( e.filled )
 {}
 
-// deconstructor
+/**********************************************************************
+                            Destructor
+**********************************************************************/
 Ellipses :: ~Ellipses()
 {}
 
+/**********************************************************************
+                            get*
+**********************************************************************
+These get functions retrieve the individual components of the
+ellipses shape
+**********************************************************************/
 float Ellipses :: getRadiusX(){ return xRadius; }
 float Ellipses :: getRadiusY() {return yRadius; }
 const float* Ellipses :: getFillColor(){ return fColor; }
 bool Ellipses :: getFilledValue(){ return filled; }
 
-
+/**********************************************************************
+                            set*
+**********************************************************************
+These set functions set the individual components of the ellipses
+shape to new values
+**********************************************************************/
 void Ellipses :: setFillValue( bool f )
 {
     filled = f;
@@ -37,20 +54,24 @@ void Ellipses :: changeDimensions( float xR, float yR )
 	yRadius = yR;
     draw();
 }
+
+/**********************************************************************
+                            moveTo
+**********************************************************************
+moveTo sets a new center point for the shape to be redrawn at
+**********************************************************************/
 void Ellipses :: moveTo( float x, float y )
 {
     locX = x;
     locY = y;
     draw();
 }
+
 /**********************************************************************
-
-
-                            
+                                draw
 **********************************************************************
-
-parameters:    
-returns:        
+draw utilizes openGL functions to create a visual representation of
+the line class based on the x radius and y radius
 **********************************************************************/
 void Ellipses :: draw() const
 {

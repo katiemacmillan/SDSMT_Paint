@@ -5,7 +5,7 @@
 
 #include "globals.h"
 
-// function prototypes
+/*****Function Prototypes*****/
 void display( void );
 void reshape( int w, int h );
 void keyboard( unsigned char key, int x, int y );
@@ -26,18 +26,15 @@ void selectDrawnShape (float, float);
 
 
 
-///if we are only using these globals in callbacks, do we need the extern?
+/*****Data for settings of currently selected shape*****/
 extern const float* CurrentBorderColor;
 extern const float* CurrentFillColor;
 extern Shapes CurrentDrawingShape;
 
 
-// flags
-// is a shape selected? A new one to be drawn or to be edited
+/*****Flags*****/
 extern bool IsShapeSelected;
-// are we moving a shape?
 extern bool IsMovingShape;
-// if a shape is selected to draw, are we on point one or two?
 extern int DrawCount;
 
 #endif

@@ -8,39 +8,35 @@
 
 class Ellipses : public Shape
 {
+    /******Class Data******/
     private: 
         const float* fColor;
         float xRadius, yRadius;
         bool filled;
 
     public:
-        // constructor
+        /******Constructor******/
         Ellipses( float x = 0.0, float y = 0.0, const float* bColor = Black, const float* fColor = Black, float xR = 1.0, float yR = 1.0, bool f = false );
         
-        // copy constructor
+        /******Copy Constructor******/
         Ellipses( const Ellipses& );        
 
-        // destructor
+        /******Destructor******/
         ~Ellipses();
 
-        //retrieve the components of the elipse
+        /******Get Functions******/
         float getRadiusX();
         float getRadiusY();
         const float* getFillColor();
         bool getFilledValue();
 
-        // make the shape fill or no fill
+        /******Set Functions******/
         void setFillValue( bool );
-        // set the fill color of the shape        
         void setFillColor( const float* );
-
-        // change the dimentions of the ellipses
         void changeDimensions( float, float );
 
-        // move the ellipses, overridding the shape moveTo
+        /******Display Functions******/
         void moveTo( float, float );
-
-        // draw the ellipses, overridding the shape draw
         void draw() const;
 };
 

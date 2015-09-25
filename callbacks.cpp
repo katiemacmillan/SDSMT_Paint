@@ -16,7 +16,7 @@ using namespace std;
 #include "line.h"
 #include "graphics.h"
 
-// globals to create and alter shapes
+/*****Globals to create and alter shapes*****/
 Shape* CurrentShape; // current shape object about to be drawn or altered
 const float* CurrentBorderColor = Yellow; // current border color selected by user
 const float* CurrentFillColor = Orange;  // current fill color selected by user
@@ -26,16 +26,15 @@ float X1, Y1, X2, Y2; // user selected points used to draw a shape
 vector<Shape*> DrawnShapes; // list of shapes that have been drawn
 int CurrentMouseState;
 int CurrentMouseButton;
-////MEEE
-float X3, Y3;
+float X3, Y3; // current mouse pointer location
 
 
-// flags
+/*****Flags*****/
 bool IsShapeSelected = false; // if a shape icon has been selected
 bool IsMovingShape = false; // is the shape being moved
 int DrawCount = 1; // 1 for first point, 0 for end point and not drawing
 
-// color palette items
+/*****Color Palette*****/
 float PaletteSize = 46.0;
 float IconSize = 30.0;
 /**************************************************************************
@@ -91,15 +90,13 @@ const Shape* PaintPalette[] = { GrayColor, PurpleColor, BlueColor, CyanColor,
                                 DarkMagentaColor, LightGrayColor, FilledEllipsesTool, 
                                 FilledRectangleTool, LineTool };
 
-// shapes drawn in paint palette
+/*****Shapes drawn in paint palette*****/
 Shape* EllipsesIcon = new Ellipses( 23, 483, CurrentBorderColor, CurrentFillColor, IconSize / 2, IconSize / 2, false );
 Shape* RectangleIcon = new Rectangle( 23, 529, CurrentBorderColor, CurrentFillColor, IconSize, IconSize, false );
 Shape* CurrentIcon;
 Shape* FilledEllipsesIcon = new Ellipses( 69, 483, CurrentBorderColor, CurrentFillColor, IconSize / 2, IconSize / 2, true );
 Shape* FilledRectangleIcon = new Rectangle( 69, 529, CurrentBorderColor, CurrentFillColor, IconSize, IconSize, true );
 Shape* LineIcon = new Line( 69, 575, CurrentBorderColor, 69 + ( IconSize / 2 ), 575 + IconSize / 2, 69 - IconSize / 2, 575 - IconSize / 2 );
-
-///May add these to the PaintPalette[]
 const Shape* PaletteIcons[] = { EllipsesIcon, RectangleIcon, FilledEllipsesIcon, FilledRectangleIcon, LineIcon };
 
 /**********************************************************************
@@ -303,7 +300,6 @@ void mouseclick( int button, int state, int x, int y )
                     }
                 }
             }
-//What should the program do when the Left Button is released? Anything?
             // release
             else if( state == GLUT_UP )
                 CurrentMouseState = GLUT_UP;
@@ -352,28 +348,11 @@ void mouseclick( int button, int state, int x, int y )
 /* when the mouse isn't pressed down */
 void mousedragpassive( int x, int y )
 {
-    /*if( DrawCount == 0 )
-    {
-        //glLineWidth( 2.5 );
-        glColor3fv( Red );
-        glBegin( GL_LINES );
-            glVertex2f( X1, Y1 );
-            glVertex2f( x, y );
-        glEnd();
-        glutPostRedisplay();
-    }
-    if( DrawCount == 0 )
-    {
-        X3 = x;
-        Y3 = y;   
-    }*/
-
     if( DrawCount == 0 )
     {
         X3 = x;
         Y3 = y;
     }
-
 }
 
 /* when the mouse button is held down */
