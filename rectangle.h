@@ -9,8 +9,8 @@
 class Rectangle : public Shape
 {
     private:
-        float width, height;
         const float* fColor;
+        float width, height;
         bool filled;
 
     public:
