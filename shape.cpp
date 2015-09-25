@@ -30,3 +30,6 @@ void Shape :: setBorderColor( const float* bC )
 float Shape :: getCenterX(){ return locX; }
 float Shape :: getCenterY(){ return locY; }
 const float* Shape :: getBorderColor(){ return bColor; }
+
+void Shape :: moveTo (float x, float y)
+{}
