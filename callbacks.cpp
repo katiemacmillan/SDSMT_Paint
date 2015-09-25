@@ -25,6 +25,10 @@ bool CurrentFillValue = true; // the indicator of filled shape or not
 float X1, Y1, X2, Y2; // user selected points used to draw a shape
 vector<Shape*> DrawnShapes; // list of shapes that have been drawn
 
+////MEEE
+float X3, Y3;
+
+
 // flags
 bool IsShapeSelected = false; // if a shape icon has been selected
 bool IsMovingShape = false; // is the shape being moved
@@ -36,16 +40,16 @@ float IconSize = 30.0;
 /**************************************************************************
 First column of colors for menu color palette in orderfrom bottom to top
 **************************************************************************/
-Shape* GrayColor = new Rectangle( 23.0, 23.0, Black, Gray, PaletteSize, PaletteSize, true);
-Shape* PurpleColor = new Rectangle( 23, 69, Black, Purple, PaletteSize, PaletteSize, true);
-Shape* BlueColor = new Rectangle( 23, 115, Black, Blue, PaletteSize, PaletteSize, true);
-Shape* CyanColor = new Rectangle( 23, 161, Black, Cyan, PaletteSize, PaletteSize, true);
-Shape* GreenColor = new Rectangle( 23, 207, Black, Green, PaletteSize, PaletteSize, true);
-Shape* YellowColor = new Rectangle( 23, 253, Black, Yellow, PaletteSize, PaletteSize, true);
-Shape* OrangeColor = new Rectangle( 23, 299, Black, Orange, PaletteSize, PaletteSize, true);
-Shape* RedColor = new Rectangle( 23, 345, Black, Red, PaletteSize, PaletteSize, true);
-Shape* MagentaColor = new Rectangle( 23, 391, Black, Magenta, PaletteSize, PaletteSize, true);
-Shape* WhiteColor = new Rectangle( 23, 437, Black, White, PaletteSize, PaletteSize, true);
+const Shape* GrayColor = new Rectangle( 23.0, 23.0, Black, Gray, PaletteSize, PaletteSize, true);
+const Shape* PurpleColor = new Rectangle( 23, 69, Black, Purple, PaletteSize, PaletteSize, true);
+const Shape* BlueColor = new Rectangle( 23, 115, Black, Blue, PaletteSize, PaletteSize, true);
+const Shape* CyanColor = new Rectangle( 23, 161, Black, Cyan, PaletteSize, PaletteSize, true);
+const Shape* GreenColor = new Rectangle( 23, 207, Black, Green, PaletteSize, PaletteSize, true);
+const Shape* YellowColor = new Rectangle( 23, 253, Black, Yellow, PaletteSize, PaletteSize, true);
+const Shape* OrangeColor = new Rectangle( 23, 299, Black, Orange, PaletteSize, PaletteSize, true);
+const Shape* RedColor = new Rectangle( 23, 345, Black, Red, PaletteSize, PaletteSize, true);
+const Shape* MagentaColor = new Rectangle( 23, 391, Black, Magenta, PaletteSize, PaletteSize, true);
+const Shape* WhiteColor = new Rectangle( 23, 437, Black, White, PaletteSize, PaletteSize, true);
 /**************************************************************************
 Second column of colors for menu color palette in orderfrom bottom to top
 **************************************************************************/
@@ -89,7 +93,7 @@ const Shape* PaintPalette[] = { GrayColor, PurpleColor, BlueColor, CyanColor,
 // shapes drawn in paint palette
 Shape* EllipsesIcon = new Ellipses( 23, 483, CurrentBorderColor, CurrentFillColor, IconSize / 2, IconSize / 2, false );
 Shape* RectangleIcon = new Rectangle( 23, 529, CurrentBorderColor, CurrentFillColor, IconSize, IconSize, false );
-////const Shape* CurrentIcon();
+Shape* CurrentIcon;
 Shape* FilledEllipsesIcon = new Ellipses( 69, 483, CurrentBorderColor, CurrentFillColor, IconSize / 2, IconSize / 2, true );
 Shape* FilledRectangleIcon = new Rectangle( 69, 529, CurrentBorderColor, CurrentFillColor, IconSize, IconSize, true );
 Shape* LineIcon = new Line( 69, 575, CurrentBorderColor, 69 + ( IconSize / 2 ), 575 + IconSize / 2, 69 - IconSize / 2, 575 - IconSize / 2 );
@@ -116,7 +120,12 @@ void display( void )
     // drawing the icons in the palette for the shape selection
     for( int i = 0; i < 5; i++ )
         PaletteIcons[i] -> draw();
-
+   /* 
+    if( IsShapeSelected )
+    {
+        CurrentIcon -> draw();
+    }
+    */
     // write title on top of screen
     DrawTextString( (char*) "Chris and Kate Paint!", ScreenWidth / 2 - 92, ScreenHeight - 20, White );
 
@@ -292,7 +301,6 @@ void mouseclick( int button, int state, int x, int y )
                         X2 = x;
                         Y2 = y;
                         DrawCount = 1;
-                        //IsShapeSelected = false;
                         createShape();
                     }
                 }
@@ -336,6 +344,25 @@ when the right button is released, the move function should be called on Current
     }
     ///this refreshes the page. I don't know if we need it here yet
     //glutPostRedisplay();
+}
+
+void mousedrag( int x, int y )
+{
+    /*if( DrawCount == 0 )
+    {
+        //glLineWidth( 2.5 );
+        glColor3fv( Red );
+        glBegin( GL_LINES );
+            glVertex2f( X1, Y1 );
+            glVertex2f( x, y );
+        glEnd();
+        glutPostRedisplay();
+    }
+    if( DrawCount == 0 )
+    {
+        X3 = x;
+        Y3 = y;   
+    }*/
 }
 
 /**********************************************************************
@@ -431,11 +458,15 @@ void selectShape( float x, float y )
         {
             CurrentShapeType = ELLIPSES_SHAPE;
             CurrentFillValue = false;
+            //CurrentIcon = new Ellipses( EllipsesIcon );
+            //CurrentIcon -> setCenterCoordinate( 23, 575 );
         }
         else if( y < PaletteSize * 12 )
 	    {    
             CurrentShapeType = RECTANGLE_SHAPE;
             CurrentFillValue = false;
+            //CurrentIcon = new Rectangle( RectangleIcon );
+            //CurrentIcon -> setCenterCoordinate( 23, 575 );
         }
     }
     // second column shape
@@ -445,14 +476,22 @@ void selectShape( float x, float y )
         {
             CurrentShapeType = ELLIPSES_SHAPE;
             CurrentFillValue = true;   
+            //CurrentIcon = new Ellipses( FilledEllipsesIcon );
+            //CurrentIcon -> setCenterCoordinate( 23, 575 );
         }
         else if( y < PaletteSize * 12 )
         {
             CurrentShapeType = RECTANGLE_SHAPE;
             CurrentFillValue = true;
+            //CurrentIcon = new Rectangle( FilledRectangleIcon );
+            //CurrentIcon -> setCenterCoordinate( 23, 575 );        
         }
         else if( y < PaletteSize * 13 )
+        {
             CurrentShapeType = LINE_SHAPE;
+            //CurrentIcon = new Line( LineIcon );
+            //CurrentIcon -> setCenterCoordinate( 23, 575 );
+        }
     }        
 }
 
@@ -612,7 +651,7 @@ void createShape()
             break;
     }
 
-    // refresh the page
+    // refresh the page to show the new shapes
     glutPostRedisplay();
 }
 

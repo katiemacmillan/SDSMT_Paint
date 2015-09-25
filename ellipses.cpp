@@ -4,11 +4,14 @@
 #include "ellipses.h"
 
 // constructor
-
 Ellipses :: Ellipses( float x, float y, const float* bC, const float* fC, float xR, float yR, bool f) :  Shape( x, y, bC ), fColor( fC ), xRadius( xR ), yRadius( yR ), filled( f )
 {}
 
+// copy constructor
+Ellipses :: Ellipses( const Ellipses& e ) : Shape( e.locX, e.locY, e.bColor ), fColor( e.fColor ), xRadius( e.xRadius ), yRadius( e.yRadius ), filled( e.filled )
+{}
 
+// deconstructor
 Ellipses :: ~Ellipses()
 {}
 

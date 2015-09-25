@@ -16,6 +16,9 @@ class Shape
         // constructor
         Shape( float x = 0.0, float y = 0.0, const float* bC = Black );
         
+        // copy constructor
+        Shape( const Shape& );
+      
         // destructor
         virtual ~Shape();
         

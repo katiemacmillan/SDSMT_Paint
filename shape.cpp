@@ -6,6 +6,10 @@
 Shape :: Shape( float x, float y, const float* bC ) : locX( x ), locY( y ), bColor( bC )
 {}
 
+// copy constructor
+Shape :: Shape( const Shape& s ) : locX( s.locX ), locY( s.locY ), bColor( s.bColor )
+{}
+
 // destructor
 Shape :: ~Shape()
 {}

@@ -7,6 +7,10 @@
 Rectangle :: Rectangle( float x, float y, const float* bC, const float* fC, float w, float h, bool f ) : Shape( x, y, bC ), fColor( fC ), width( w ), height( h ), filled( f )
 {}
 
+// copy constructor
+Rectangle :: Rectangle( const Rectangle& r ) : Shape( r.locX, r.locY, r.bColor ), fColor( r.fColor ), width( r.width ), height( r.height ), filled( r.filled )
+{}
+
 Rectangle :: ~Rectangle()
 {}
 

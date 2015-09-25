@@ -17,6 +17,9 @@ class Ellipses : public Shape
         // constructor
         Ellipses( float x = 0.0, float y = 0.0, const float* bColor = Black, const float* fColor = Black, float xR = 1.0, float yR = 1.0, bool f = false );
         
+        // copy constructor
+        Ellipses( const Ellipses& );        
+
         // destructor
         ~Ellipses();
 

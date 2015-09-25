@@ -48,4 +48,9 @@ void initOpenGL( void )
 
     // how to handle mouse events
     glutMouseFunc( mouseclick );
+
+    // how to handle mouse movement
+    glutPassiveMotionFunc( mousedrag );
+
+    glutPostRedisplay();
 }

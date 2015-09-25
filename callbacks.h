@@ -12,11 +12,14 @@ void keyboard( unsigned char key, int x, int y );
 void mouseclick( int button, int state, int x, int y );
 void mousedrag( int x, int y );
 
+void IDLE();
+
 void selectBorderColor( float x, float y );
 void selectShape( float x, float y );
 void selectFillColor( float x, float y );
 void changeIconBorderColor();
 void changeIconFillColor();
+void changeCurrentIcon();
 
 void selectShape( float, float );
 void createShape();
