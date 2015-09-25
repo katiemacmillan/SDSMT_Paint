@@ -119,12 +119,12 @@ void display( void )
 
     // write title on top of screen
     DrawTextString( (char*) "Chris and Kate Paint!", ScreenWidth / 2 - 92, ScreenHeight - 20, White );
-
-//May I add the draw methods for the icons?    
-    /*for( int i = 0; i < DrawnShapes.size(); i++)
-        DrawnShapes[i].draw();*/
+    
+    for( unsigned int i = 0; i < DrawnShapes.size(); i++)
+        DrawnShapes[i]->draw();
 
     glutSwapBuffers();
+
     // flush graphical output
     glFlush();
 }
@@ -185,10 +185,13 @@ void keyboard( unsigned char key, int x, int y )
             for( unsigned int i = 0; i < DrawnShapes.size(); i++ )
             {
                 CurrentShape = DrawnShapes[i];
-                //erase shape from DrawnShapes
-                DrawnShapes.erase(DrawnShapes.begin());
-                //delete shape to prevent memory leak
-                delete( CurrentShape );
+                // erase shape from DrawnShapes
+                DrawnShapes.erase( DrawnShapes.begin() );
+                // delete shape to prevent memory leak
+                if( CurrentShape != NULL )
+                    delete( CurrentShape );
+                // refresh the page
+                glutPostRedisplay();
             }            
             exit( 0 );
             break;
@@ -199,17 +202,24 @@ void keyboard( unsigned char key, int x, int y )
             DrawnShapes.erase(DrawnShapes.begin()+(index - 1));
             //delete shape to prevent memory leak
             delete (CurrentShape);*/
+            if( DrawnShapes.back() != NULL )
+            {
+                delete DrawnShapes.back();
+                DrawnShapes.pop_back();
+            }
+            glutPostRedisplay();
             break;
         //clear all shapes from display
         case 'c':
-            for( unsigned int i = 0; i < DrawnShapes.size(); i++ )
+            while( DrawnShapes.size() )
             {
-                CurrentShape = DrawnShapes[i];
-                //erase shape from DrawnShapes
-                DrawnShapes.erase( DrawnShapes.begin() );
-                //delete shape to prevent memory leak
-                delete( CurrentShape );
+                if( DrawnShapes.back() != NULL )
+                {
+                    delete DrawnShapes.back();
+                    DrawnShapes.pop_back();
+                }
             }
+            glutPostRedisplay();
             break;
         default:
             glutPostRedisplay();
@@ -664,8 +674,8 @@ returns:        int - the shape's position in the vector
 **********************************************************************/
 int selectDrawnShape (float x, float y)
 {
-    std::vector<Shape*> tempShapeList;  //holds possibly selected shapes
-    std::vector<int> shapeLocation; //holds possibly selected shapes' index
+    vector<Shape*> tempShapeList;  //holds possibly selected shapes
+    vector<int> shapeLocation; //holds possibly selected shapes' index
     Shape* tempShape; //holds shape currently being examined
     int deleteIndex = -1; //index of shape incase it is to be deleted
 
