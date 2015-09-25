@@ -129,14 +129,6 @@ void display( void )
     for( unsigned int i = 0; i < DrawnShapes.size(); i++)
         DrawnShapes[i]->draw();
 
-    if( DrawCount == 0 )
-    {
-        glBegin( GL_LINES );
-            glVertex2f( X1, Y1 );
-            glVertex2f( X3, Y3 );
-        glEnd();
-    }
-
     glutSwapBuffers();
 
     // flush graphical output
@@ -347,9 +339,9 @@ void mouseclick( int button, int state, int x, int y )
                 CurrentMouseState = GLUT_UP;
                 if( IsMovingShape == true )
                 {
+//                    selectDrawnShape(x,y);                    
                     CurrentShape->moveTo(x,y);
                     IsMovingShape = false;
-                    CurrentShape = DrawnShapes.back();
                 }
             break;
     }
@@ -745,13 +737,16 @@ void selectDrawnShape (float x, float y)
 {
     vector<Shape*> tempShapeList;  //holds possibly selected shapes
     Shape* tempShape; //holds shape currently being examined
-
+    vector<int> DrawnShapeIndex;
     // store shapes within 10 from selected point
     for( unsigned int i = 0; i < DrawnShapes.size(); i++ )
     {
         tempShape = DrawnShapes[i];
         if ( (abs(x - tempShape->getCenterX()) <= 10) && (abs(y - tempShape->getCenterY()) <= 10) )
-                tempShapeList.push_back(DrawnShapes[i]);
+        {
+            tempShapeList.push_back(DrawnShapes[i]);
+            DrawnShapeIndex.push_back(i);
+        }
     }
 
     // if there are shapes that are within range of selected point
@@ -759,14 +754,21 @@ void selectDrawnShape (float x, float y)
     {
         //set the current shape to the first shape in the temporary shape list
         CurrentShape = tempShapeList.front();
-
+        int index = DrawnShapeIndex.front();
         //set CurrentShape to closest, most recent shape
         for( unsigned int i = 0; i < tempShapeList.size(); i++ )
         {
             tempShape = tempShapeList[i];
             if ( (abs(x - tempShape->getCenterX()) <= abs(x - CurrentShape->getCenterX()) ) 
                 && (abs(y - tempShape->getCenterY()) <= abs(y - CurrentShape->getCenterY())))
+            {
                 CurrentShape = tempShapeList[i];
+                index = DrawnShapeIndex[i];
+            }
         }
+        index -= 1;
+        DrawnShapes.push_back(CurrentShape);
+        DrawnShapes.erase(DrawnShapes.begin()+index);
+
     }
 }
