@@ -26,7 +26,3 @@ void Shape :: setBorderColor( const float* bC )
 float Shape :: getCenterX(){return locX;}
 float Shape :: getCenterY(){return locY;}
 const float* Shape :: getBorderColor(){return bColor;}
-
-///something with the linked list here
-void Shape :: erase()
-{}
