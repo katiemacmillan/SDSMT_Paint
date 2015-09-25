@@ -18,6 +18,11 @@ class Line : public Shape
         // destructor
         ~Line();
 
+        //retrieve various point coordinates of the line
+        float getX1 ();
+        float getY1 ();
+        float getX2 ();
+        float getY2 ();
         //void changeDimensions( ?? );
 
         void draw() const;

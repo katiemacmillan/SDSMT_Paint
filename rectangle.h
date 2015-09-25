@@ -20,6 +20,11 @@ class Rectangle : public Shape
         // destructor
         ~Rectangle();
 
+        float getWidth();
+        float getHeight();
+        float* getFillColor();
+        bool getFilledValue();
+
         // change the dimensions of the rectangle
         void changeDimensions( float, float );
         

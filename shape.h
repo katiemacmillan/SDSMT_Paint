@@ -28,6 +28,10 @@ class Shape
         // change the border color of the shape
         void setBorderColor( const float* );
 
+        //retrieve components of the shape object
+        float getCenterX();
+        float getCenterY();
+        float* getBorderColor();
 
         // erase shape
         void erase();

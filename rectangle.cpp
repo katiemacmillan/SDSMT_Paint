@@ -10,6 +10,11 @@ Rectangle :: Rectangle( float x, float y, const float* bC, const float* fC, floa
 Rectangle :: ~Rectangle()
 {}
 
+float Rectangle :: getWidth(){return width;}
+float Rectangle :: getHeight(){return height;}
+float* Rectangle :: getFillColor(){return fColor;}
+bool Rectangle :: getFilledValue(){return filled;}
+
 void Rectangle :: setFillValue( bool f )
 {
     filled = f;

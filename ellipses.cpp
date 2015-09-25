@@ -4,12 +4,19 @@
 #include "ellipses.h"
 
 // constructor
+
 Ellipses :: Ellipses( float x, float y, const float* bC, const float* fC, float xR, float yR, bool f) :  Shape( x, y, bC ), fColor( fC ), xRadius( xR ), yRadius( yR ), filled( f )
 {}
 
 
 Ellipses :: ~Ellipses()
 {}
+
+float getRadiusX(){return xRadius;}
+float getRadiusY(){return yRadius;}
+float* getFillColor(){return fColor;}
+bool getFilledValue(){return filled;}
+
 
 void Ellipses :: setFillValue( bool f )
 {
@@ -28,6 +35,13 @@ void Ellipses :: changeDimensions( float xR, float yR )
     draw();
 }
 
+/**********************************************************************
+                            
+**********************************************************************
+
+parameters:    
+returns:        
+**********************************************************************/
 void Ellipses :: draw() const
 {
     float radius = xRadius < yRadius ? xRadius : yRadius;	// stretch circle into ellipse

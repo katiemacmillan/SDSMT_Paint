@@ -20,6 +20,12 @@ class Ellipses : public Shape
         // destructor
         ~Ellipses();
 
+        //retrieve the components of the elipse
+        float getRadiusX();
+        float getRadiusY();
+        float* getFillColor();
+        bool getFilledValue();
+
         // make the shape fill or no fill
         void setFillValue( bool );
         // set the fill color of the shape        

@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <vector>
+#include <cmath>
 using namespace std;
 
 #include <GL/freeglut.h>
@@ -644,7 +645,7 @@ int selectDrawnShape (float x, float y)
     for (i = 0; i < DrawShapes.size(); i++)
     {
         tempShape = DrawnShapes[i];
-        if ( (abs(x-tempShape->xC) <= 10) && (abs(y-tempShape->yC) <= 10) )
+        if ( (abs(x - tempShape->locX) <= 10) && (abs(y - tempShape->locX) <= 10) )
         {
                 tempShapeList.add(DrawnShapes[i]);
                 int index = i; //create a new object to be added to shapeLocation
@@ -660,8 +661,8 @@ int selectDrawnShape (float x, float y)
     for (i = 0; i < tempShapeList.size(); i++)
     {
         tempShape = tempShapeList[i];
-        if ( (abs(x - tempShape->xC) <= abs(x - CurrentShape->xC) ) 
-            && (abs(y - tempShape->yC) <= abs(y - CurrentShape->yC)))
+        if ( (abs(x - tempShape->locX) <= abs(x - CurrentShape->locX) ) 
+            && (abs(y - tempShape->locY) <= abs(y - CurrentShape->locY)))
             CurrentShape = tempShapeList[i];
             deleteIndex = shapeLocation[i];
     }

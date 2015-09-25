@@ -23,6 +23,11 @@ void Shape :: setBorderColor( const float* bC )
     bColor = bC;
 }
 
+float Shape :: getCenterX(){return locX;}
+float Shape :: getCenterY(){return locY;}
+float* Shape :: getBorderColor()(return bColor;}
+
+
 // move shape
 ///move the center point??
 void Shape :: moveTo( float x, float y )
