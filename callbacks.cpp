@@ -131,7 +131,6 @@ void display( void )
 
     if( DrawCount == 0 )
     {
-        cout << "herehrer" << endl;
         glBegin( GL_LINES );
             glVertex2f( X1, Y1 );
             glVertex2f( X3, Y3 );
@@ -268,9 +267,7 @@ parameters:     button - the value of the button that was clicked
                y - the y value of the selected coordinate
 **********************************************************************/
 void mouseclick( int button, int state, int x, int y )
-{
-    cout << "I'm here " << x << " " << y << " " << button << " " << state << endl;
-    
+{   
     //correct for upside-down screen coordinates
     y = ScreenHeight - y;
 
@@ -378,7 +375,7 @@ void mousedragpassive( int x, int y )
         X3 = x;
         Y3 = y;   
     }*/
-    cout << "Mouse it " << x << " " << y << endl;
+
     if( DrawCount == 0 )
     {
         X3 = x;
@@ -390,13 +387,12 @@ void mousedragpassive( int x, int y )
 /* when the mouse button is held down */
 void mousedrag( int x, int y )
 {
-    /// if( IsMovingShapecout )
+    /// if( IsMovingShape )
     // move 
     ///I know he said only use the right button, but I can't figure out
     //right now how to test that because state and button can't be passed
     //int this function. I think using either will be okay as long as 
     //a shape is selected
-    cout << "Mouse hold " << x << " " << y << endl;
 
 }
 
@@ -754,13 +750,9 @@ int selectDrawnShape (float x, float y)
     Shape* tempShape; //holds shape currently being examined
     int deleteIndex = -1; //index of shape incase it is to be deleted
 
-    cout << "DrawnShapeSize " << DrawnShapes.size() << endl;
-
-
     // store shapes within 10 from selected point
     for( unsigned int i = 0; i < DrawnShapes.size(); i++ )
     {
-        cout << "Selecting a shape!!" << endl;
         tempShape = DrawnShapes[i];
         if ( (abs(x - tempShape->getCenterX()) <= 10) && (abs(y - tempShape->getCenterY()) <= 10) )
         {
@@ -770,19 +762,13 @@ int selectDrawnShape (float x, float y)
         }
     }
 
-    cout << "I am Sam" << endl;
     // if there are shapes that are within range of selected point
     if( tempShapeList.size() > 0 )
     {
         //set the current shape to the first shape in the temporary shape list
         CurrentShape = tempShapeList.front();
     
-        cout << "I do not liek green eggs" << endl;
-    
         deleteIndex = shapeLocation.front();
-
-        cout << "Sam I am" << endl;
-        cout << tempShapeList.size() << endl;
 
         //set CurrentShape to closest, most recent shape
         for( unsigned int i = 0; i < tempShapeList.size(); i++ )
@@ -798,6 +784,4 @@ int selectDrawnShape (float x, float y)
     //return index of CurrentShape in DrawnShapes
     ///why are we returning it?
     return deleteIndex;
-    
-    cout << "I DO like Green Eggs and Ham!" << endl;
 }
