@@ -119,7 +119,8 @@ void display( void )
 
     // write title on top of screen
     DrawTextString( (char*) "Chris and Kate Paint!", ScreenWidth / 2 - 92, ScreenHeight - 20, White );
-    
+
+    // draw all of the drawn shapes    
     for( unsigned int i = 0; i < DrawnShapes.size(); i++)
         DrawnShapes[i]->draw();
 
@@ -250,7 +251,7 @@ moved.
 parameters:     button - the value of the button that was clicked
                 state - the state of the button
                 x - the x value of the selected coordinate
-                y - the y value of the selected coordinate
+               y - the y value of the selected coordinate
 **********************************************************************/
 void mouseclick( int button, int state, int x, int y )
 {
@@ -291,7 +292,7 @@ void mouseclick( int button, int state, int x, int y )
                         X2 = x;
                         Y2 = y;
                         DrawCount = 1;
-                        IsShapeSelected = false;
+                        //IsShapeSelected = false;
                         createShape();
                     }
                 }
@@ -549,7 +550,7 @@ void createShape()
      float h, w;
      Line* newLine = new Line();
      Ellipses* newEllipses = new Ellipses();
-     Rectangle* newRectangle = new Rectangle ();
+     Rectangle* newRectangle = new Rectangle();
 
             
      X1 < X2 ? xC = X1 + (X2-X1)/2 : xC = X2 + (X1-X2)/2;
@@ -570,8 +571,7 @@ void createShape()
             break;
 
         case ELLIPSES_SHAPE:
-            //calculate the xRadius and yRadius before creating new ellipses
-            
+            //calculate the xRadius and yRadius before creating new ellipses            
             xC > X1 ? xR = xC - X1 : xR = xC - X2;
             yC > Y1 ? yR = yC - Y1 : yR = yC - Y2;
 
@@ -589,17 +589,17 @@ void createShape()
 
         case RECTANGLE_SHAPE:
             //calculate the height and width before creating new ellipses
-            
             if (X1 > X2)
-                w = (X1 - X2);
+                h = (X1 - X2);
             else
-                w = X2 - X1;
-            X1 > X2 ? w = X1 - X2 : w = X2 - X1;
+                h = X2 - X1;
+            X1 > X2 ? h = X1 - X2 : h = X2 - X1;
+            
             if (Y1 > Y2)
-                h = Y1 - Y2;
+                w = Y1 - Y2;
             else
-                h = Y2 - Y1;
-            Y1 > Y2 ? h = Y1 - Y2 : h = Y2 - Y1;
+                w = Y2 - Y1;
+            Y1 > Y2 ? w = Y1 - Y2 : w = Y2 - Y1;
             //a new shape object must be created to add it to the vector
             newRectangle->setBorderColor(CurrentBorderColor);
             newRectangle->setFillColor(CurrentFillColor);
@@ -612,6 +612,8 @@ void createShape()
             CurrentShape = newRectangle;
             break;
     }
+
+    // draw the shape
     CurrentShape->draw();
 }
 
