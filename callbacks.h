@@ -10,9 +10,8 @@ void display( void );
 void reshape( int w, int h );
 void keyboard( unsigned char key, int x, int y );
 void mouseclick( int button, int state, int x, int y );
+void mousedragpassive( int x, int y );
 void mousedrag( int x, int y );
-
-void IDLE();
 
 void selectBorderColor( float x, float y );
 void selectShape( float x, float y );

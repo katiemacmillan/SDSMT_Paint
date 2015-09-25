@@ -50,7 +50,10 @@ void initOpenGL( void )
     glutMouseFunc( mouseclick );
 
     // how to handle mouse movement
-    glutPassiveMotionFunc( mousedrag );
+    glutPassiveMotionFunc( mousedragpassive );
+
+    // how to handle mouse pressed movement
+    glutMotionFunc( mousedrag );
 
     glutPostRedisplay();
 }

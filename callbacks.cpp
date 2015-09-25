@@ -24,7 +24,8 @@ Shapes CurrentShapeType = RECTANGLE_SHAPE; // the type of shape selected by user
 bool CurrentFillValue = true; // the indicator of filled shape or not
 float X1, Y1, X2, Y2; // user selected points used to draw a shape
 vector<Shape*> DrawnShapes; // list of shapes that have been drawn
-
+int CurrentMouseState;
+int CurrentMouseButton;
 ////MEEE
 float X3, Y3;
 
@@ -120,18 +121,22 @@ void display( void )
     // drawing the icons in the palette for the shape selection
     for( int i = 0; i < 5; i++ )
         PaletteIcons[i] -> draw();
-   /* 
-    if( IsShapeSelected )
-    {
-        CurrentIcon -> draw();
-    }
-    */
+
     // write title on top of screen
     DrawTextString( (char*) "Chris and Kate Paint!", ScreenWidth / 2 - 92, ScreenHeight - 20, White );
 
     // draw all of the drawn shapes    
     for( unsigned int i = 0; i < DrawnShapes.size(); i++)
         DrawnShapes[i]->draw();
+
+    if( DrawCount == 0 )
+    {
+        cout << "herehrer" << endl;
+        glBegin( GL_LINES );
+            glVertex2f( X1, Y1 );
+            glVertex2f( X3, Y3 );
+        glEnd();
+    }
 
     glutSwapBuffers();
 
@@ -264,6 +269,8 @@ parameters:     button - the value of the button that was clicked
 **********************************************************************/
 void mouseclick( int button, int state, int x, int y )
 {
+    cout << "I'm here " << x << " " << y << " " << button << " " << state << endl;
+    
     //correct for upside-down screen coordinates
     y = ScreenHeight - y;
 
@@ -272,9 +279,11 @@ void mouseclick( int button, int state, int x, int y )
     {
         // left button: create objects, select border color, select shape
         case GLUT_LEFT_BUTTON:
+            CurrentMouseButton = GLUT_LEFT_BUTTON;
             // press
             if( state == GLUT_DOWN )
             {    
+                CurrentMouseState = GLUT_DOWN;
                 // is a color or shape being selected?
                 if( x < PaletteSize * 2 )
                 {
@@ -307,14 +316,16 @@ void mouseclick( int button, int state, int x, int y )
             }
 //What should the program do when the Left Button is released? Anything?
             // release
-            //else if( state == GLUT_UP )
-                //something if we did left up
+            else if( state == GLUT_UP )
+                CurrentMouseState = GLUT_UP;
             break;
         // right button: select fill color
         case GLUT_RIGHT_BUTTON:
+            CurrentMouseButton = GLUT_LEFT_BUTTON;
             // press
             if( state == GLUT_DOWN )
             {
+                CurrentMouseState = GLUT_DOWN;
                 // Selecting a fill color
                 if( x < PaletteSize * 2 )
                 {
@@ -324,7 +335,10 @@ void mouseclick( int button, int state, int x, int y )
                 else
                 {
                     // Test the xy for which shape you're on
-                    selectDrawnShape(x,y);
+                    ///checking to see if this causes the segfault in the mousedrag
+                    // Only does this if there are shapes on the screen
+                    if( DrawnShapes.size() > 0 )
+                        selectDrawnShape(x,y);
                     // Move a shape
                     IsMovingShape = true;
                 }
@@ -334,8 +348,8 @@ void mouseclick( int button, int state, int x, int y )
 /*I have no clue how to drag a shape... This would be the spot though where
 when the right button is released, the move function should be called on CurrentShape*/
                 // If you're currently dragging a shape when you release you drop the shape
-                // if IsMovingShape == true, drop shape
-                if(IsMovingShape)
+                CurrentMouseState = GLUT_UP;
+                if( IsMovingShape )
                 {
                     //CurrentShape->moveTo(x,y);
                     IsMovingShape = false;
@@ -346,7 +360,8 @@ when the right button is released, the move function should be called on Current
     //glutPostRedisplay();
 }
 
-void mousedrag( int x, int y )
+/* when the mouse isn't pressed down */
+void mousedragpassive( int x, int y )
 {
     /*if( DrawCount == 0 )
     {
@@ -363,6 +378,26 @@ void mousedrag( int x, int y )
         X3 = x;
         Y3 = y;   
     }*/
+    cout << "Mouse it " << x << " " << y << endl;
+    if( DrawCount == 0 )
+    {
+        X3 = x;
+        Y3 = y;
+    }
+
+}
+
+/* when the mouse button is held down */
+void mousedrag( int x, int y )
+{
+    /// if( IsMovingShapecout )
+    // move 
+    ///I know he said only use the right button, but I can't figure out
+    //right now how to test that because state and button can't be passed
+    //int this function. I think using either will be okay as long as 
+    //a shape is selected
+    cout << "Mouse hold " << x << " " << y << endl;
+
 }
 
 /**********************************************************************
@@ -719,9 +754,13 @@ int selectDrawnShape (float x, float y)
     Shape* tempShape; //holds shape currently being examined
     int deleteIndex = -1; //index of shape incase it is to be deleted
 
-    //store shapes within 10 from selected point
+    cout << "DrawnShapeSize " << DrawnShapes.size() << endl;
+
+
+    // store shapes within 10 from selected point
     for( unsigned int i = 0; i < DrawnShapes.size(); i++ )
     {
+        cout << "Selecting a shape!!" << endl;
         tempShape = DrawnShapes[i];
         if ( (abs(x - tempShape->getCenterX()) <= 10) && (abs(y - tempShape->getCenterY()) <= 10) )
         {
@@ -731,19 +770,34 @@ int selectDrawnShape (float x, float y)
         }
     }
 
-    //set the current shape to the first shape in the temporary shape list
-    CurrentShape = tempShapeList.front();
-    deleteIndex = shapeLocation.front();
-
-    //set CurrentShape to closest, most recent shape
-    for( unsigned int i = 0; i < tempShapeList.size(); i++ )
+    cout << "I am Sam" << endl;
+    // if there are shapes that are within range of selected point
+    if( tempShapeList.size() > 0 )
     {
-        tempShape = tempShapeList[i];
-        if ( (abs(x - tempShape->getCenterX()) <= abs(x - CurrentShape->getCenterX()) ) 
-            && (abs(y - tempShape->getCenterY()) <= abs(y - CurrentShape->getCenterY())))
-            CurrentShape = tempShapeList[i];
-            deleteIndex = shapeLocation[i];
+        //set the current shape to the first shape in the temporary shape list
+        CurrentShape = tempShapeList.front();
+    
+        cout << "I do not liek green eggs" << endl;
+    
+        deleteIndex = shapeLocation.front();
+
+        cout << "Sam I am" << endl;
+        cout << tempShapeList.size() << endl;
+
+        //set CurrentShape to closest, most recent shape
+        for( unsigned int i = 0; i < tempShapeList.size(); i++ )
+        {
+            tempShape = tempShapeList[i];
+            if ( (abs(x - tempShape->getCenterX()) <= abs(x - CurrentShape->getCenterX()) ) 
+                && (abs(y - tempShape->getCenterY()) <= abs(y - CurrentShape->getCenterY())))
+                CurrentShape = tempShapeList[i];
+                deleteIndex = shapeLocation[i];
+        }
     }
+    
     //return index of CurrentShape in DrawnShapes
+    ///why are we returning it?
     return deleteIndex;
+    
+    cout << "I DO like Green Eggs and Ham!" << endl;
 }
