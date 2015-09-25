@@ -36,16 +36,16 @@ float IconSize = 30.0;
 /**************************************************************************
 First column of colors for menu color palette in orderfrom bottom to top
 **************************************************************************/
-Shape* GrayColor = new Rectangle( 23, 23, Black, Gray, PaletteSize, PaletteSize, true);
-const Shape* PurpleColor = new Rectangle( 23, 69, Black, Purple, PaletteSize, PaletteSize, true);
-const Shape* BlueColor = new Rectangle( 23, 115, Black, Blue, PaletteSize, PaletteSize, true);
-const Shape* CyanColor = new Rectangle( 23, 161, Black, Cyan, PaletteSize, PaletteSize, true);
-const Shape* GreenColor = new Rectangle( 23, 207, Black, Green, PaletteSize, PaletteSize, true);
-const Shape* YellowColor = new Rectangle( 23, 253, Black, Yellow, PaletteSize, PaletteSize, true);
-const Shape* OrangeColor = new Rectangle( 23, 299, Black, Orange, PaletteSize, PaletteSize, true);
-const Shape* RedColor = new Rectangle( 23, 345, Black, Red, PaletteSize, PaletteSize, true);
-const Shape* MagentaColor = new Rectangle( 23, 391, Black, Magenta, PaletteSize, PaletteSize, true);
-const Shape* WhiteColor = new Rectangle( 23, 437, Black, White, PaletteSize, PaletteSize, true);
+Shape* GrayColor = new Rectangle( 23.0, 23.0, Black, Gray, PaletteSize, PaletteSize, true);
+Shape* PurpleColor = new Rectangle( 23, 69, Black, Purple, PaletteSize, PaletteSize, true);
+Shape* BlueColor = new Rectangle( 23, 115, Black, Blue, PaletteSize, PaletteSize, true);
+Shape* CyanColor = new Rectangle( 23, 161, Black, Cyan, PaletteSize, PaletteSize, true);
+Shape* GreenColor = new Rectangle( 23, 207, Black, Green, PaletteSize, PaletteSize, true);
+Shape* YellowColor = new Rectangle( 23, 253, Black, Yellow, PaletteSize, PaletteSize, true);
+Shape* OrangeColor = new Rectangle( 23, 299, Black, Orange, PaletteSize, PaletteSize, true);
+Shape* RedColor = new Rectangle( 23, 345, Black, Red, PaletteSize, PaletteSize, true);
+Shape* MagentaColor = new Rectangle( 23, 391, Black, Magenta, PaletteSize, PaletteSize, true);
+Shape* WhiteColor = new Rectangle( 23, 437, Black, White, PaletteSize, PaletteSize, true);
 /**************************************************************************
 Second column of colors for menu color palette in orderfrom bottom to top
 **************************************************************************/
@@ -118,7 +118,7 @@ void display( void )
         PaletteIcons[i] -> draw();
 
     // write title on top of screen
-    DrawTextString( "Chris and Kate Paint!", ScreenWidth / 2 - 92, ScreenHeight - 20, White );
+    DrawTextString( (char*) "Chris and Kate Paint!", ScreenWidth / 2 - 92, ScreenHeight - 20, White );
 
 //May I add the draw methods for the icons?    
     /*for( int i = 0; i < DrawnShapes.size(); i++)
@@ -172,7 +172,7 @@ parameters:     key - the character value of the key pressed
                 x - the x value of the selected coordinate
                 y - the y value of the selected coordinate
 **********************************************************************/
-void keyboard( unsigned char key, float x, float y )
+void keyboard( unsigned char key, int x, int y )
 {
     //correct for upside-down screen coordinates
     y = ScreenHeight - y;
@@ -182,14 +182,15 @@ void keyboard( unsigned char key, float x, float y )
         // Escape or 'q' quits program
         case 'q':
         case EscapeKey:
-            for (int i = 0; i < DrawnShapes.size(); i++)
+            for( unsigned int i = 0; i < DrawnShapes.size(); i++ )
             {
                 CurrentShape = DrawnShapes[i];
                 //erase shape from DrawnShapes
                 DrawnShapes.erase(DrawnShapes.begin());
                 //delete shape to prevent memory leak
-                delete (CurrentShape);
-            }            exit( 0 );
+                delete( CurrentShape );
+            }            
+            exit( 0 );
             break;
         // Anything else redraws window
         case 'd':
@@ -201,13 +202,13 @@ void keyboard( unsigned char key, float x, float y )
             break;
         //clear all shapes from display
         case 'c':
-            for (int i = 0; i < DrawnShapes.size(); i++)
+            for( unsigned int i = 0; i < DrawnShapes.size(); i++ )
             {
                 CurrentShape = DrawnShapes[i];
                 //erase shape from DrawnShapes
-                DrawnShapes.erase(DrawnShapes.begin());
+                DrawnShapes.erase( DrawnShapes.begin() );
                 //delete shape to prevent memory leak
-                delete (CurrentShape);
+                delete( CurrentShape );
             }
             break;
         default:
@@ -241,7 +242,7 @@ parameters:     button - the value of the button that was clicked
                 x - the x value of the selected coordinate
                 y - the y value of the selected coordinate
 **********************************************************************/
-void mouseclick( int button, int state, float x, float y )
+void mouseclick( int button, int state, int x, int y )
 {
     //correct for upside-down screen coordinates
     y = ScreenHeight - y;
@@ -317,7 +318,7 @@ when the right button is released, the move function should be called on Current
                 // if IsMovingShape == true, drop shape
                 if(IsMovingShape)
                 {
-                    CurrentShape->moveTo(x,y);
+                    //CurrentShape->moveTo(x,y);
                     IsMovingShape = false;
                 }
             break;
@@ -669,7 +670,7 @@ int selectDrawnShape (float x, float y)
     int deleteIndex = -1; //index of shape incase it is to be deleted
 
     //store shapes within 10 from selected point
-    for (int i = 0; i < DrawnShapes.size(); i++)
+    for( unsigned int i = 0; i < DrawnShapes.size(); i++ )
     {
         tempShape = DrawnShapes[i];
         if ( (abs(x - tempShape->getCenterX()) <= 10) && (abs(y - tempShape->getCenterY()) <= 10) )
@@ -685,7 +686,7 @@ int selectDrawnShape (float x, float y)
     deleteIndex = shapeLocation.front();
 
     //set CurrentShape to closest, most recent shape
-    for (int i = 0; i < tempShapeList.size(); i++)
+    for( unsigned int i = 0; i < tempShapeList.size(); i++ )
     {
         tempShape = tempShapeList[i];
         if ( (abs(x - tempShape->getCenterX()) <= abs(x - CurrentShape->getCenterX()) ) 

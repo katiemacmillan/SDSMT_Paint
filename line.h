@@ -27,6 +27,10 @@ class Line : public Shape
         void setXY1(float, float);
         void setXY2(float, float);
 
+        // move the line, overriding the shape moveTo
+        //void moveTo( float, float );        
+
+        // draw the line, overriding the shape draw
         void draw() const;
 };
 

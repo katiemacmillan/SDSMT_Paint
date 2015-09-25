@@ -23,6 +23,6 @@ void Shape :: setBorderColor( const float* bC )
     bColor = bC;
 }
 
-float Shape :: getCenterX(){return locX;}
-float Shape :: getCenterY(){return locY;}
-const float* Shape :: getBorderColor(){return bColor;}
+float Shape :: getCenterX(){ return locX; }
+float Shape :: getCenterY(){ return locY; }
+const float* Shape :: getBorderColor(){ return bColor; }

@@ -12,14 +12,17 @@ void keyboard( unsigned char key, int x, int y );
 void mouseclick( int button, int state, int x, int y );
 void mousedrag( int x, int y );
 
-void selectBorderColor( int x, int y );
-void selectShape( int x, int y );
-void selectFillColor( int x, int y );
+void selectBorderColor( float x, float y );
+void selectShape( float x, float y );
+void selectFillColor( float x, float y );
 void changeIconBorderColor();
 void changeIconFillColor();
 
+void selectShape( float, float );
 void createShape();
 int selectDrawnShape (float, float);
+
+
 
 ///if we are only using these globals in callbacks, do we need the extern?
 extern const float* CurrentBorderColor;

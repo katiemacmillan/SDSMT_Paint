@@ -19,8 +19,8 @@ class Shape
         // destructor
         virtual ~Shape();
         
-        // move object
-        virtual void moveTo( float, float );
+        // move object, to be overrideen
+        //virtual void moveTo( float, float );
 
         // set functions
         // set the center point of the shape

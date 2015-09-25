@@ -12,10 +12,10 @@ Ellipses :: Ellipses( float x, float y, const float* bC, const float* fC, float 
 Ellipses :: ~Ellipses()
 {}
 
-float Ellipses :: getRadiusX(){return xRadius;}
-float Ellipses :: getRadiusY(){return yRadius;}
-const float* Ellipses :: getFillColor(){return fColor;}
-bool Ellipses :: getFilledValue(){return filled;}
+float Ellipses :: getRadiusX(){ return xRadius; }
+float Ellipses :: getRadiusY() {return yRadius; }
+const float* Ellipses :: getFillColor(){ return fColor; }
+bool Ellipses :: getFilledValue(){ return filled; }
 
 
 void Ellipses :: setFillValue( bool f )
@@ -34,8 +34,17 @@ void Ellipses :: changeDimensions( float xR, float yR )
 	yRadius = yR;
     draw();
 }
-
+/*
+void Ellipses :: moveTo( float x, float y )
+{
+    locX = x;
+    locY = y;
+    draw();
+}
+*/
 /**********************************************************************
+
+
                             
 **********************************************************************
 
@@ -70,13 +79,4 @@ void Ellipses :: draw() const
     gluDeleteQuadric( disk );
     glLoadIdentity();
     glFlush();
-}
-
-void Ellipses :: moveTo ( float x, float y)
-{
-    //Assign new center point
-    locX = x;
-    locY = y;
-    //re-draw
-    draw();
 }

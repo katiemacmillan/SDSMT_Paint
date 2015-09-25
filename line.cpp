@@ -44,10 +44,11 @@ void Line :: draw() const
     glEnd();
     glFlush();
 }
-void Line :: moveTo (float x, float y)
+/*
+void Line :: moveTo( float x, float y )
 {
     //distance from center point to x & y coordinates to create offset
-    float xdif, ydiff;
+    float xdiff, ydiff;
     x1 < x2 ? xdiff = x - x1 : xdiff = x - x2;
     y1 < y2 ? ydiff = x - y1 : ydiff = y - y2;
     //Assign new center point
@@ -60,3 +61,4 @@ void Line :: moveTo (float x, float y)
     y2 = y + ydiff;
     draw();
 }
+*/

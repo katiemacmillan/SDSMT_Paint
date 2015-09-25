@@ -34,6 +34,9 @@ class Rectangle : public Shape
         void setFillValue( bool );
         void setFillColor( const float* );
 
+        // move the rectangle, overridding the shape moveTo
+        //void moveTo( float, float );
+
         // draw the rectangle, overridding the shape draw
         void draw() const;
 };
