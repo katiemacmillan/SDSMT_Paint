@@ -20,7 +20,7 @@ class Shape
         virtual ~Shape();
         
         // move object
-        void moveTo( float, float );
+        virtual void moveTo( float, float );
 
         // set functions
         // set the center point of the shape

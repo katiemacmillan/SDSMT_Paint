@@ -72,3 +72,11 @@ void Ellipses :: draw() const
     glFlush();
 }
 
+void Ellipses :: moveTo ( float x, float y)
+{
+    //Assign new center point
+    locX = x;
+    locY = y;
+    //re-draw
+    draw();
+}

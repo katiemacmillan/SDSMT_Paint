@@ -27,14 +27,6 @@ float Shape :: getCenterX(){return locX;}
 float Shape :: getCenterY(){return locY;}
 const float* Shape :: getBorderColor(){return bColor;}
 
-
-// move shape
-///move the center point??
-void Shape :: moveTo( float x, float y )
-{
-
-}
-
 ///something with the linked list here
 void Shape :: erase()
 {}
