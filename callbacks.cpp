@@ -197,46 +197,46 @@ void keyboard( unsigned char key, int x, int y )
         // Escape or 'q' quits program
         case 'q':
         case EscapeKey:
-            for( unsigned int i = 0; i < DrawnShapes.size(); i++ )
+            // remove every shape from the list
+            while( DrawnShapes.size() )
             {
-                CurrentShape = DrawnShapes[i];
-                // erase shape from DrawnShapes
-                DrawnShapes.erase( DrawnShapes.begin() );
-                // delete shape to prevent memory leak
-                if( CurrentShape != NULL )
-                    delete( CurrentShape );
+                // delete the shape
+                delete DrawnShapes.back();
+                // remove pointer from list
+                DrawnShapes.pop_back();
                 // refresh the page
                 glutPostRedisplay();
             }            
             exit( 0 );
             break;
-        // Anything else redraws window
+        // removes the newest shapes
         case 'd':
-/*            int index = selectDrawnShape(x, y);
-            //erase shape from DrawnShapes
-            DrawnShapes.erase(DrawnShapes.begin()+(index - 1));
-            //delete shape to prevent memory leak
-            delete (CurrentShape);*/
-            if( DrawnShapes.back() != NULL )
+            // are there shapes to delete?
+            if( DrawnShapes.size() > 0 )
             {
+                // delete the shape
                 delete DrawnShapes.back();
+                // remove the pointer from the list
                 DrawnShapes.pop_back();
             }
+            // refresh the screen
             glutPostRedisplay();
             break;
-        //clear all shapes from display
+        // clear all shapes from display
         case 'c':
+            // while there are still items in the list
             while( DrawnShapes.size() )
             {
-                if( DrawnShapes.back() != NULL )
-                {
-                    delete DrawnShapes.back();
-                    DrawnShapes.pop_back();
-                }
+                // delete the shape
+                delete DrawnShapes.back();
+                // remove the pointer from the list
+                DrawnShapes.pop_back();
             }
+            // refresh the screen
             glutPostRedisplay();
             break;
         default:
+            // refresh the screen for any other key presses
             glutPostRedisplay();
             break;
     }
