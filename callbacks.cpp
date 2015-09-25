@@ -560,12 +560,12 @@ void createShape()
     switch( CurrentShapeType )
     {
         case LINE_SHAPE:
-            newLine->setBorderColor(CurrentBorderColor);
-            newLine->setXY1(X1, Y1);
-            newLine->setXY2(X2, Y2);
-            newLine->setCenterCoordinate(xC, yC);
+            newLine->setBorderColor( CurrentBorderColor );
+            newLine->setXY1( X1, Y1 );
+            newLine->setXY2( X2, Y2 );
+            newLine->setCenterCoordinate( xC, yC );
             //a new shape object must be created to add it to the vector
-            DrawnShapes.push_back(newLine);
+            DrawnShapes.push_back( newLine );
             //set the current shape to the most recently instantiated
             CurrentShape = newLine;
             break;
@@ -575,46 +575,45 @@ void createShape()
             xC > X1 ? xR = xC - X1 : xR = xC - X2;
             yC > Y1 ? yR = yC - Y1 : yR = yC - Y2;
 
-            newEllipses->setBorderColor(CurrentBorderColor);
-            newEllipses->setFillColor(CurrentFillColor);
-            newEllipses->setFillValue(CurrentFillValue);
-            newEllipses->changeDimensions(xR, yR);
-            newEllipses->setCenterCoordinate(xC, yC);
+            newEllipses->setBorderColor( CurrentBorderColor );
+            newEllipses->setFillColor( CurrentFillColor );
+            newEllipses->setFillValue( CurrentFillValue );
+            newEllipses->changeDimensions( xR, yR );
+            newEllipses->setCenterCoordinate( xC, yC );
 
             //a new shape object must be created to add it to the vector
-            DrawnShapes.push_back(newEllipses);
+            DrawnShapes.push_back( newEllipses );
             //set the current shape to the most recently instantiated
             CurrentShape = newEllipses;
             break;
 
         case RECTANGLE_SHAPE:
             //calculate the height and width before creating new ellipses
-            if (X1 > X2)
-                h = (X1 - X2);
+            if( X1 > X2 )
+                h = ( X1 - X2 );
             else
                 h = X2 - X1;
             X1 > X2 ? h = X1 - X2 : h = X2 - X1;
             
-            if (Y1 > Y2)
+            if( Y1 > Y2 )
                 w = Y1 - Y2;
             else
                 w = Y2 - Y1;
             Y1 > Y2 ? w = Y1 - Y2 : w = Y2 - Y1;
             //a new shape object must be created to add it to the vector
-            newRectangle->setBorderColor(CurrentBorderColor);
-            newRectangle->setFillColor(CurrentFillColor);
-            newRectangle->setFillValue(CurrentFillValue);
-            newRectangle->changeDimensions(h, w);
-            newRectangle->setCenterCoordinate(xC,yC);
-
-            DrawnShapes.push_back(newRectangle);
+            newRectangle->setBorderColor( CurrentBorderColor );
+            newRectangle->setFillColor( CurrentFillColor );
+            newRectangle->setFillValue( CurrentFillValue );
+            newRectangle->changeDimensions( h, w );
+            newRectangle->setCenterCoordinate( xC,yC );
+            DrawnShapes.push_back( newRectangle );
             //set the current shape to the most recently instantiated
             CurrentShape = newRectangle;
             break;
     }
 
-    // draw the shape
-    CurrentShape->draw();
+    // refresh the page
+    glutPostRedisplay();
 }
 
 /**********************************************************************
