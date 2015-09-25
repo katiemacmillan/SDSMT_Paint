@@ -777,7 +777,7 @@ void selectDrawnShape (float x, float y)
         }
         index -= 1;
         DrawnShapes.push_back(CurrentShape);
-        DrawnShapes.erase(DrawnShapes.begin()+index);
+        //DrawnShapes.erase(DrawnShapes.begin()+index);
 
     }
 }
