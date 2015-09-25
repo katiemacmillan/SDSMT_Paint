@@ -22,9 +22,11 @@ class Rectangle : public Shape
 
         float getWidth();
         float getHeight();
-        float* getFillColor();
+        const float* getFillColor();
         bool getFilledValue();
 
+        void setHeight(float);
+        void setWidth(float);
         // change the dimensions of the rectangle
         void changeDimensions( float, float );
         

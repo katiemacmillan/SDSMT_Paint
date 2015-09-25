@@ -16,7 +16,16 @@ float Line :: getY1 (){return y1;}
 float Line :: getX2 (){return x2;}
 float Line :: getY2 (){return y2;}
 
-//void changeDimensions( ?? );
+void Line :: setXY1(float x, float y)
+{
+	x1 = x;
+	y1 = y;
+}
+void Line :: setXY2(float x, float y)
+{
+	x2 = x;
+	y2 = y;
+}
 /*We could change the length by changing (x1,y1) or (x2,y2)*/
 
 /**********************************************************************

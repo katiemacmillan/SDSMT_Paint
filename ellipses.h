@@ -23,7 +23,7 @@ class Ellipses : public Shape
         //retrieve the components of the elipse
         float getRadiusX();
         float getRadiusY();
-        float* getFillColor();
+        const float* getFillColor();
         bool getFilledValue();
 
         // make the shape fill or no fill

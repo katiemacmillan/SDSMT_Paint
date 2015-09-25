@@ -24,6 +24,8 @@ class Line : public Shape
         float getX2 ();
         float getY2 ();
         //void changeDimensions( ?? );
+        void setXY1(float, float);
+        void setXY2(float, float);
 
         void draw() const;
 };

@@ -12,8 +12,17 @@ Rectangle :: ~Rectangle()
 
 float Rectangle :: getWidth(){return width;}
 float Rectangle :: getHeight(){return height;}
-float* Rectangle :: getFillColor(){return fColor;}
+const float* Rectangle :: getFillColor(){return fColor;}
 bool Rectangle :: getFilledValue(){return filled;}
+
+void Rectangle :: setHeight(float h)
+{
+    height = h;
+}
+void Rectangle :: setWidth(float w)
+{
+    width = w;
+}
 
 void Rectangle :: setFillValue( bool f )
 {

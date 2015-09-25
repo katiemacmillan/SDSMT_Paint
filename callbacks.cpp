@@ -22,7 +22,7 @@ const float* CurrentBorderColor = Yellow; // current border color selected by us
 const float* CurrentFillColor = Orange;  // current fill color selected by user
 Shapes CurrentShapeType = RECTANGLE_SHAPE; // the type of shape selected by user
 bool CurrentFillValue = true; // the indicator of filled shape or not
-int x1, y1, x2, y2; // user selected points used to draw a shape
+float X1, Y1, X2, Y2; // user selected points used to draw a shape
 vector<Shape*> DrawnShapes; // list of shapes that have been drawn
 
 // flags
@@ -193,11 +193,11 @@ void keyboard( unsigned char key, float x, float y )
             break;
         // Anything else redraws window
         case 'd':
-            int index = selectDrawnShape(x, y);
+/*            int index = selectDrawnShape(x, y);
             //erase shape from DrawnShapes
             DrawnShapes.erase(DrawnShapes.begin()+(index - 1));
             //delete shape to prevent memory leak
-            delete (CurrentShape);
+            delete (CurrentShape);*/
             break;
         //clear all shapes from display
         case 'c':
@@ -272,13 +272,13 @@ void mouseclick( int button, int state, float x, float y )
                     if( DrawCount == 1 )
                     {
                         DrawCount = 0;
-                        x1 = x;
-                        y1 = y;
+                        X1 = x;
+                        Y1 = y;
                     }
                     else
                     {
-                        x2 = x;
-                        y2 = y;
+                        X2 = x;
+                        Y2 = y;
                         DrawCount = 1;
                         IsShapeSelected = false;
                         createShape();
@@ -306,7 +306,7 @@ void mouseclick( int button, int state, float x, float y )
                     // Test the xy for which shape you're on
                     selectDrawnShape(x,y);
                     // Move a shape
-                    IsMovingShape = true
+                    IsMovingShape = true;
                 }
             }
             // release
@@ -317,11 +317,9 @@ when the right button is released, the move function should be called on Current
                 // if IsMovingShape == true, drop shape
                 if(IsMovingShape)
                 {
-                    CurrentShape.move(x,y);
+                    CurrentShape->moveTo(x,y);
                     IsMovingShape = false;
                 }
-//Can this go away now?
-                int hoho = 1; //need something here
             break;
     }
     ///this refreshes the page. I don't know if we need it here yet
@@ -517,7 +515,7 @@ void selectFillColor( float x, float y )
 /**********************************************************************
                             createShape
 **********************************************************************
-createShape looks at the global x1, x2, y1, and y2 variables to 
+createShape looks at the global X1, X2, Y1, and Y2 variables to 
 calculate the new shape's center point. Once this is done it looks
 at the CurrentShapeType variable to determine which shape subclass
 is to be instantiated.
@@ -536,45 +534,74 @@ void createShape()
     /*Since every shape will start with a line, we only need to find the
     center point once*/
      float xC, yC;
-     x1 < x2 ? xC = x1 + (x2-x1)/2 : xC = x2 + (x1-x2)/2;
-     y1 < y2 ? yC = y1 + (y2 - y1 )/2 : yC = y2 + (y1 - y2 )/2;
+     float xR, yR;
+     float h, w;
+     Line* newLine = new Line();
+     Ellipses* newEllipses = new Ellipses();
+     Rectangle* newRectangle = new Rectangle ();
+
+            
+     X1 < X2 ? xC = X1 + (X2-X1)/2 : xC = X2 + (X1-X2)/2;
+     Y1 < Y2 ? yC = Y1 + (Y2 - Y1 )/2 : yC = Y2 + (Y1 - Y2 )/2;
     
     //check the shape type, create the shape, and add it to drawn shapes array
     switch( CurrentShapeType )
     {
         case LINE_SHAPE:
+            newLine->setBorderColor(CurrentBorderColor);
+            newLine->setXY1(X1, Y1);
+            newLine->setXY2(X2, Y2);
+            newLine->setCenterCoordinate(xC, yC);
             //a new shape object must be created to add it to the vector
-            Line *newLine = new *Line(xC, yC, CurrentBorderColor, x1, y1, x2, y2);
-            DrawnShapes.add(newLine);
+            DrawnShapes.push_back(newLine);
             //set the current shape to the most recently instantiated
             CurrentShape = newLine;
             break;
 
         case ELLIPSES_SHAPE:
             //calculate the xRadius and yRadius before creating new ellipses
-            float xR, yR;
-            xC > x1 ? xR = xC - x1 : xR = xC - x2;
-            yC > y1 ? yR = yC - y1 : yR = yC - y2;
+            
+            xC > X1 ? xR = xC - X1 : xR = xC - X2;
+            yC > Y1 ? yR = yC - Y1 : yR = yC - Y2;
+
+            newEllipses->setBorderColor(CurrentBorderColor);
+            newEllipses->setFillColor(CurrentFillColor);
+            newEllipses->setFillValue(CurrentFillValue);
+            newEllipses->changeDimensions(xR, yR);
+            newEllipses->setCenterCoordinate(xC, yC);
+
             //a new shape object must be created to add it to the vector
-            Ellipses *newEllipses = new *Ellipses( xC, yC, CurrentBorderColor, CurrentFillColor, w, h, CurrentFillValue );
-            DrawShapes.add(newEllipses);
+            DrawnShapes.push_back(newEllipses);
             //set the current shape to the most recently instantiated
             CurrentShape = newEllipses;
             break;
 
         case RECTANGLE_SHAPE:
             //calculate the height and width before creating new ellipses
-            float h, w;
-            x1 > x2 ? w = x1 - x2 : w = x2 - x1;
-            y1 > y2 ? h = y1 - y2 : h = y2 - y1;
+            
+            if (X1 > X2)
+                w = (X1 - X2);
+            else
+                w = X2 - X1;
+            X1 > X2 ? w = X1 - X2 : w = X2 - X1;
+            if (Y1 > Y2)
+                h = Y1 - Y2;
+            else
+                h = Y2 - Y1;
+            Y1 > Y2 ? h = Y1 - Y2 : h = Y2 - Y1;
             //a new shape object must be created to add it to the vector
-            Rectangle *newRectangle = new *Rectangle ( xC, yC, CurrentBorderColor, CurrentFillColor, w, h, CurrentFillValue );
-            DrawnShapes.add(newRectangle);
+            newRectangle->setBorderColor(CurrentBorderColor);
+            newRectangle->setFillColor(CurrentFillColor);
+            newRectangle->setFillValue(CurrentFillValue);
+            newRectangle->changeDimensions(h, w);
+            newRectangle->setCenterCoordinate(xC,yC);
+
+            DrawnShapes.push_back(newRectangle);
             //set the current shape to the most recently instantiated
             CurrentShape = newRectangle;
             break;
     }
-    CurrentShape.draw();
+    CurrentShape->draw();
 }
 
 /**********************************************************************
@@ -636,33 +663,33 @@ returns:        int - the shape's position in the vector
 **********************************************************************/
 int selectDrawnShape (float x, float y)
 {
-    new std::vector<*Shape> tempShapeList;  //holds possibly selected shapes
-    new std::vector<int> shapeLocation; //holds possibly selected shapes' index
-    Shape* tempShape = new *Shape; //holds shape currently being examined
+    std::vector<Shape*> tempShapeList;  //holds possibly selected shapes
+    std::vector<int> shapeLocation; //holds possibly selected shapes' index
+    Shape* tempShape; //holds shape currently being examined
     int deleteIndex = -1; //index of shape incase it is to be deleted
 
     //store shapes within 10 from selected point
-    for (i = 0; i < DrawShapes.size(); i++)
+    for (int i = 0; i < DrawnShapes.size(); i++)
     {
         tempShape = DrawnShapes[i];
-        if ( (abs(x - tempShape->locX) <= 10) && (abs(y - tempShape->locX) <= 10) )
+        if ( (abs(x - tempShape->getCenterX()) <= 10) && (abs(y - tempShape->getCenterY()) <= 10) )
         {
-                tempShapeList.add(DrawnShapes[i]);
+                tempShapeList.push_back(DrawnShapes[i]);
                 int index = i; //create a new object to be added to shapeLocation
-                shapeLocation.add(index);
+                shapeLocation.push_back(index);
         }
     }
 
     //set the current shape to the first shape in the temporary shape list
-    CurrentShape = tempShapeList[0];
-    deleteIndex = shapeLocation[0];
+    CurrentShape = tempShapeList.front();
+    deleteIndex = shapeLocation.front();
 
     //set CurrentShape to closest, most recent shape
-    for (i = 0; i < tempShapeList.size(); i++)
+    for (int i = 0; i < tempShapeList.size(); i++)
     {
         tempShape = tempShapeList[i];
-        if ( (abs(x - tempShape->locX) <= abs(x - CurrentShape->locX) ) 
-            && (abs(y - tempShape->locY) <= abs(y - CurrentShape->locY)))
+        if ( (abs(x - tempShape->getCenterX()) <= abs(x - CurrentShape->getCenterX()) ) 
+            && (abs(y - tempShape->getCenterY()) <= abs(y - CurrentShape->getCenterY())))
             CurrentShape = tempShapeList[i];
             deleteIndex = shapeLocation[i];
     }

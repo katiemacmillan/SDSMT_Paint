@@ -19,6 +19,7 @@ void changeIconBorderColor();
 void changeIconFillColor();
 
 void createShape();
+int selectDrawnShape (float, float);
 
 ///if we are only using these globals in callbacks, do we need the extern?
 extern const float* CurrentBorderColor;

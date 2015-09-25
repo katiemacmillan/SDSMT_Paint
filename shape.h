@@ -31,7 +31,7 @@ class Shape
         //retrieve components of the shape object
         float getCenterX();
         float getCenterY();
-        float* getBorderColor();
+        const float* getBorderColor();
 
         // erase shape
         void erase();

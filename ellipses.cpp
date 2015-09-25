@@ -12,10 +12,10 @@ Ellipses :: Ellipses( float x, float y, const float* bC, const float* fC, float 
 Ellipses :: ~Ellipses()
 {}
 
-float getRadiusX(){return xRadius;}
-float getRadiusY(){return yRadius;}
-float* getFillColor(){return fColor;}
-bool getFilledValue(){return filled;}
+float Ellipses :: getRadiusX(){return xRadius;}
+float Ellipses :: getRadiusY(){return yRadius;}
+const float* Ellipses :: getFillColor(){return fColor;}
+bool Ellipses :: getFilledValue(){return filled;}
 
 
 void Ellipses :: setFillValue( bool f )
