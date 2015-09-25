@@ -16,7 +16,7 @@ using namespace std;
 #include "line.h"
 #include "graphics.h"
 
-/*****Globals to create and alter shapes*****/
+// globals to create and alter shapes
 Shape* CurrentShape; // current shape object about to be drawn or altered
 const float* CurrentBorderColor = Yellow; // current border color selected by user
 const float* CurrentFillColor = Orange;  // current fill color selected by user
@@ -26,15 +26,16 @@ float X1, Y1, X2, Y2; // user selected points used to draw a shape
 vector<Shape*> DrawnShapes; // list of shapes that have been drawn
 int CurrentMouseState;
 int CurrentMouseButton;
-float X3, Y3; // current mouse pointer location
+////MEEE
+float X3, Y3;
 bool GREENEGGS = false;
 
-/*****Flags*****/
+// flags
 bool IsShapeSelected = false; // if a shape icon has been selected
 bool IsMovingShape = false; // is the shape being moved
 int DrawCount = 1; // 1 for first point, 0 for end point and not drawing
 
-/*****Color Palette*****/
+// color palette items
 float PaletteSize = 46.0;
 float IconSize = 30.0;
 /**************************************************************************
@@ -69,7 +70,7 @@ First column of shape options for menu
 **************************************************************************/
 const Shape* EllipsesTool = new Rectangle( 23, 483, White, Black, PaletteSize, PaletteSize, true );
 const Shape* RectangleTool = new Rectangle( 23, 529, White, Black, PaletteSize, PaletteSize, true );
-const Shape* CurrentShapeDisplay = new Rectangle( 23, 575, White, DarkGray, PaletteSize, PaletteSize, true );
+const Shape* CurrentShapeDisplay = new Rectangle( 23, 575, White, Black, PaletteSize, PaletteSize, true );
 /**************************************************************************
 Second column of shape options for menu 
 **************************************************************************/
@@ -90,13 +91,15 @@ const Shape* PaintPalette[] = { GrayColor, PurpleColor, BlueColor, CyanColor,
                                 DarkMagentaColor, LightGrayColor, FilledEllipsesTool, 
                                 FilledRectangleTool, LineTool };
 
-/*****Shapes drawn in paint palette*****/
+// shapes drawn in paint palette
 Shape* EllipsesIcon = new Ellipses( 23, 483, CurrentBorderColor, CurrentFillColor, IconSize / 2, IconSize / 2, false );
 Shape* RectangleIcon = new Rectangle( 23, 529, CurrentBorderColor, CurrentFillColor, IconSize, IconSize, false );
 Shape* CurrentIcon;
 Shape* FilledEllipsesIcon = new Ellipses( 69, 483, CurrentBorderColor, CurrentFillColor, IconSize / 2, IconSize / 2, true );
 Shape* FilledRectangleIcon = new Rectangle( 69, 529, CurrentBorderColor, CurrentFillColor, IconSize, IconSize, true );
 Shape* LineIcon = new Line( 69, 575, CurrentBorderColor, 69 + ( IconSize / 2 ), 575 + IconSize / 2, 69 - IconSize / 2, 575 - IconSize / 2 );
+
+///May add these to the PaintPalette[]
 const Shape* PaletteIcons[] = { EllipsesIcon, RectangleIcon, FilledEllipsesIcon, FilledRectangleIcon, LineIcon };
 
 /**********************************************************************
@@ -301,6 +304,7 @@ void mouseclick( int button, int state, int x, int y )
                     }
                 }
             }
+//What should the program do when the Left Button is released? Anything?
             // release
             else if( state == GLUT_UP )
                 CurrentMouseState = GLUT_UP;
@@ -350,7 +354,16 @@ void mouseclick( int button, int state, int x, int y )
 /* when the mouse isn't pressed down */
 void mousedragpassive( int x, int y )
 {
-    y = ScreenHeight - y;
+    if( DrawCount == 0 )
+    {
+        //glLineWidth( 2.5 );
+        glColor3fv( Red );
+        glBegin( GL_LINES );
+            glVertex2f( X1, Y1 );
+            glVertex2f( x, y );
+        glEnd();
+        glutPostRedisplay();
+    }
 
     if( DrawCount == 0 )
     {
@@ -358,7 +371,6 @@ void mousedragpassive( int x, int y )
         Y3 = y;
     }
 
-    cout << x << y << endl;
 }
 
 /* when the mouse button is held down */
@@ -371,14 +383,12 @@ void mousedrag( int x, int y )
     //int this function. I think using either will be okay as long as 
     //a shape is selected
 
-    int tempy = ScreenHeight - y;
+    y = ScreenHeight - y;
     if( GREENEGGS )
-        CurrentShape -> moveTo( x, tempy );
+        CurrentShape -> moveTo( x, y );
     glutPostRedisplay();
 
 }
-
-
 
 /**********************************************************************
                         selectBorderColor
@@ -738,7 +748,6 @@ void selectDrawnShape (float x, float y)
         {
             tempShapeList.push_back(DrawnShapes[i]);
             DrawnShapeIndex.push_back(i);
-            cout << "add " << i << endl;
         }
     }
 
@@ -757,12 +766,11 @@ void selectDrawnShape (float x, float y)
             {
                 CurrentShape = tempShapeList[i];
                 index = DrawnShapeIndex[i];
-                cout << index << endl;
             }
         }
-        
+        index -= 1;
         DrawnShapes.push_back(CurrentShape);
-        DrawnShapes.erase( DrawnShapes.begin() + index );
+        //DrawnShapes.erase(DrawnShapes.begin()+index);
 
     }
 }
