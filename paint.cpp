@@ -24,7 +24,7 @@ int main( int argc, char** argv )
 void initOpenGL( void )
 {
     // 32-bit graphics and single buffering
-    glutInitDisplayMode( GLUT_RGBA | GLUT_SINGLE );
+    glutInitDisplayMode( GLUT_RGBA | GLUT_DOUBLE );
 
     // inital window size
     glutInitWindowSize( ScreenWidth, ScreenHeight );
@@ -55,5 +55,5 @@ void initOpenGL( void )
     // how to handle mouse pressed movement
     glutMotionFunc( mousedrag );
 
-    glutPostRedisplay();
+    //glutPostRedisplay();
 }

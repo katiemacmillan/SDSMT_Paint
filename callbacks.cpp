@@ -28,7 +28,7 @@ int CurrentMouseState;
 int CurrentMouseButton;
 ////MEEE
 float X3, Y3;
-
+bool GREENEGGS = false;
 
 // flags
 bool IsShapeSelected = false; // if a shape icon has been selected
@@ -113,6 +113,10 @@ void display( void )
 {
     // clear the display
     glClear( GL_COLOR_BUFFER_BIT );
+
+    // draw all of the drawn shapes    
+    for( unsigned int i = 0; i < DrawnShapes.size(); i++)
+        DrawnShapes[i]->draw();
         
     // drawing the paint palette on the left side of the screen
     for( int i = 0; i < 26; i++ )
@@ -125,14 +129,11 @@ void display( void )
     // write title on top of screen
     DrawTextString( (char*) "Chris and Kate Paint!", ScreenWidth / 2 - 92, ScreenHeight - 20, White );
 
-    // draw all of the drawn shapes    
-    for( unsigned int i = 0; i < DrawnShapes.size(); i++)
-        DrawnShapes[i]->draw();
-
+    // should do an implicit glFlush()
     glutSwapBuffers();
 
     // flush graphical output
-    glFlush();
+    //glFlush();
 }
 
 /**********************************************************************
@@ -326,6 +327,7 @@ void mouseclick( int button, int state, int x, int y )
                     // Test the xy for which shape you're on
                     ///checking to see if this causes the segfault in the mousedrag
                     // Only does this if there are shapes on the screen
+                    GREENEGGS = true;
                     if( DrawnShapes.size() > 0 )
                     {
                         selectDrawnShape(x,y);
@@ -339,7 +341,7 @@ void mouseclick( int button, int state, int x, int y )
                 CurrentMouseState = GLUT_UP;
                 if( IsMovingShape == true )
                 {
-//                    selectDrawnShape(x,y);                    
+                    selectDrawnShape(x,y);                    
                     CurrentShape->moveTo(x,y);
                     IsMovingShape = false;
                 }
@@ -386,7 +388,14 @@ void mousedrag( int x, int y )
     //int this function. I think using either will be okay as long as 
     //a shape is selected
 
+    int tempy = ScreenHeight - y;
+    if( GREENEGGS )
+        CurrentShape -> moveTo( x, tempy );
+    glutPostRedisplay();
+
 }
+
+
 
 /**********************************************************************
                         selectBorderColor
