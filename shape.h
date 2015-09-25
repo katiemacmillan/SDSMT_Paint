@@ -22,8 +22,6 @@ class Shape
         // destructor
         virtual ~Shape();
         
-        // move object, to be overrideen
-        //virtual void moveTo( float, float );
 
         // set functions
         // set the center point of the shape
@@ -41,6 +39,10 @@ class Shape
 
         // draw shape object, must be overridden
         virtual void draw() const = 0;
+
+        // move object, to be overrideen
+        virtual void moveTo( float, float );
+
 };
 
 //extern vector<Shape*> drawnShapes;

@@ -335,26 +335,26 @@ void mouseclick( int button, int state, int x, int y )
                     ///checking to see if this causes the segfault in the mousedrag
                     // Only does this if there are shapes on the screen
                     if( DrawnShapes.size() > 0 )
+                    {
                         selectDrawnShape(x,y);
-                    // Move a shape
-                    IsMovingShape = true;
+                        IsMovingShape = true;
+                    }
                 }
             }
             // release
             else if( state == GLUT_UP )
-/*I have no clue how to drag a shape... This would be the spot though where
-when the right button is released, the move function should be called on CurrentShape*/
                 // If you're currently dragging a shape when you release you drop the shape
                 CurrentMouseState = GLUT_UP;
-                if( IsMovingShape )
+                if( IsMovingShape == true )
                 {
-                    //CurrentShape->moveTo(x,y);
+                    CurrentShape->moveTo(x,y);
                     IsMovingShape = false;
+                    CurrentShape = DrawnShapes.back();
                 }
             break;
     }
-    ///this refreshes the page. I don't know if we need it here yet
-    //glutPostRedisplay();
+    //refresh the display
+    glutPostRedisplay();
 }
 
 /* when the mouse isn't pressed down */
@@ -397,7 +397,7 @@ void mousedrag( int x, int y )
 }
 
 /**********************************************************************
-                            
+                        selectBorderColor
 **********************************************************************
 selectBorderColor examines where a button click was made to determine
 which section of the menu was selected. An X coordinate under 47
@@ -729,7 +729,7 @@ of 10 from the selected coordinate it is added to a temporary vector
 of shape pointers.
 
 Once the  vector of drawn shapes has been examined, the CurrentShape
-variable is set to the first shape in the temporary vector. he temporary
+variable is set to the first shape in the temporary vector. The temporary
 vector is then traversed. If a shape is found to have a smaller distance 
 from the selected coordinate than CurrentShape, CurrentShape is set to
 this new shape.
@@ -740,26 +740,18 @@ CurrentShape.
 
 parameters:     x - x value of the selected coordinate
                 y - y value of the selected coordinate
-
-returns:        int - the shape's position in the vector
 **********************************************************************/
-int selectDrawnShape (float x, float y)
+void selectDrawnShape (float x, float y)
 {
     vector<Shape*> tempShapeList;  //holds possibly selected shapes
-    vector<int> shapeLocation; //holds possibly selected shapes' index
     Shape* tempShape; //holds shape currently being examined
-    int deleteIndex = -1; //index of shape incase it is to be deleted
 
     // store shapes within 10 from selected point
     for( unsigned int i = 0; i < DrawnShapes.size(); i++ )
     {
         tempShape = DrawnShapes[i];
         if ( (abs(x - tempShape->getCenterX()) <= 10) && (abs(y - tempShape->getCenterY()) <= 10) )
-        {
                 tempShapeList.push_back(DrawnShapes[i]);
-                int index = i; //create a new object to be added to shapeLocation
-                shapeLocation.push_back(index);
-        }
     }
 
     // if there are shapes that are within range of selected point
@@ -767,8 +759,6 @@ int selectDrawnShape (float x, float y)
     {
         //set the current shape to the first shape in the temporary shape list
         CurrentShape = tempShapeList.front();
-    
-        deleteIndex = shapeLocation.front();
 
         //set CurrentShape to closest, most recent shape
         for( unsigned int i = 0; i < tempShapeList.size(); i++ )
@@ -777,11 +767,6 @@ int selectDrawnShape (float x, float y)
             if ( (abs(x - tempShape->getCenterX()) <= abs(x - CurrentShape->getCenterX()) ) 
                 && (abs(y - tempShape->getCenterY()) <= abs(y - CurrentShape->getCenterY())))
                 CurrentShape = tempShapeList[i];
-                deleteIndex = shapeLocation[i];
         }
     }
-    
-    //return index of CurrentShape in DrawnShapes
-    ///why are we returning it?
-    return deleteIndex;
 }

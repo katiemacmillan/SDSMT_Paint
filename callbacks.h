@@ -22,7 +22,7 @@ void changeCurrentIcon();
 
 void selectShape( float, float );
 void createShape();
-int selectDrawnShape (float, float);
+void selectDrawnShape (float, float);
 
 
 

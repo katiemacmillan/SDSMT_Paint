@@ -37,14 +37,12 @@ void Ellipses :: changeDimensions( float xR, float yR )
 	yRadius = yR;
     draw();
 }
-/*
 void Ellipses :: moveTo( float x, float y )
 {
     locX = x;
     locY = y;
     draw();
 }
-*/
 /**********************************************************************
 
 

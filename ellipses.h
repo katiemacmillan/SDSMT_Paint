@@ -38,7 +38,7 @@ class Ellipses : public Shape
         void changeDimensions( float, float );
 
         // move the ellipses, overridding the shape moveTo
-        //void moveTo( float, float );
+        void moveTo( float, float );
 
         // draw the ellipses, overridding the shape draw
         void draw() const;

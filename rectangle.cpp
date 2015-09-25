@@ -44,14 +44,14 @@ void Rectangle :: changeDimensions( float w, float h )
     height = h;
     draw();
 }
-/*
+
 void Rectangle :: moveTo( float x, float y )
 {
     locX = x;
     locY = y;
     draw();
 }
-*/
+
 void Rectangle :: draw() const
 {
     // if it's a filled shape, draw a filled shape first
