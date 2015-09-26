@@ -62,16 +62,36 @@ void Line :: moveTo( float x, float y )
 {
     //distance from center point to x & y coordinates to create offset
     float xdiff, ydiff;
-    x1 < x2 ? xdiff = x - x1 : xdiff = x - x2;
-    y1 < y2 ? ydiff = x - y1 : ydiff = y - y2;
+    
+       //Nex (x,y) coordinates are at offset from center point
+    if (x1 < x2)
+    {
+        xdiff = locX - x1;
+        x1 = x - xdiff;
+        x2 = x + xdiff;
+    }
+    else
+    {
+        xdiff = locX - x2;
+        x1 = x + xdiff;
+        x2 = x - xdiff;
+    }
+    if (y1 < y2)
+    {
+        ydiff = locY - y1;
+        y1 = y - ydiff;
+        y2 = y + ydiff;
+    }
+    else
+    {
+        ydiff = locY - y2;
+        y1 = y + ydiff;
+        y2 = y - ydiff;
+    }
+
     //Assign new center point
     locX = x;
     locY = y;
-    //Nex (x,y) coordinates are at offset from center point
-    x1 = x - xdiff;
-    x2 = x + xdiff;
-    y1 = y - ydiff;
-    y2 = y + ydiff;
     draw();
 }
 
