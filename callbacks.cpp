@@ -129,12 +129,7 @@ void display( void )
 
     if( DrawCount == 0 )
     {
-        glColor3fv( White );
-        glBegin( GL_LINES );
-            glVertex2f( X1, Y1 );
-            glVertex2f( X3, Y3 );
-        glEnd();
-        glFlush();
+        dragDraw();
     }
 
     // draw the current icon once one is selected
@@ -143,10 +138,36 @@ void display( void )
 
     // should do an implicit glFlush()
     glutSwapBuffers();
-
-    // flush graphical output
-    //glFlush();
 }
+
+/* follows the mouse to visualize the shape */
+void dragDraw()
+{
+    glColor3fv( White );
+
+    switch( CurrentShapeType )
+    {
+        case LINE_SHAPE:
+            glBegin( GL_LINES );
+                glVertex2f( X1, Y1 );
+                glVertex2f( X3, Y3 );
+            glEnd();
+            glFlush();
+            break;
+        case RECTANGLE_SHAPE:
+            glBegin( GL_LINE_LOOP );
+                glVertex2f( X1, Y1 );
+                glVertex2f( X1, Y3 );
+                glVertex2f( X3, Y3 );
+                glVertex2f( X3, Y1 );
+            glEnd();
+            glFlush();
+            break;
+        case ELLIPSES_SHAPE:
+            break;
+    }
+}
+
 
 /**********************************************************************
                             reshape
@@ -306,6 +327,8 @@ void mouseclick( int button, int state, int x, int y )
                         DrawCount = 0;
                         X1 = x;
                         Y1 = y;
+                        X3 = x;
+                        Y3 = y;
                     }
                     else
                     {
@@ -313,6 +336,7 @@ void mouseclick( int button, int state, int x, int y )
                         Y2 = y;
                         DrawCount = 1;
                         createShape();
+                        
                     }
                 }
             }
@@ -389,8 +413,6 @@ void mousedrag( int x, int y )
     glutPostRedisplay();
 
 }
-
-
 
 /**********************************************************************
                         selectBorderColor
@@ -770,7 +792,7 @@ void selectDrawnShape (float x, float y)
             }
         }
         
-        DrawnShapes.push_back(CurrentShape);
+        DrawnShapes.push_back( CurrentShape );
         DrawnShapes.erase( DrawnShapes.begin() + index );
 
     }

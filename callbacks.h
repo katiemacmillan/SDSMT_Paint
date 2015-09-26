@@ -19,6 +19,7 @@ void selectFillColor( float x, float y );
 void changeIconBorderColor();
 void changeIconFillColor();
 void changeCurrentIcon();
+void dragDraw();
 
 void selectShape( float, float );
 void createShape();
