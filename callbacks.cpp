@@ -347,7 +347,15 @@ void mouseclick( int button, int state, int x, int y )
     glutPostRedisplay();
 }
 
-/* when the mouse isn't pressed down */
+/**********************************************************************
+                        mousedragpassive
+**********************************************************************
+mousedragpassive follows where the mouse pointer is while no button is
+held down
+
+parameters:     x - the x value of the pointer's current location
+                y - the y value of the pointer's current location
+**********************************************************************/
 void mousedragpassive( int x, int y )
 {
     y = ScreenHeight - y;
@@ -357,20 +365,21 @@ void mousedragpassive( int x, int y )
         X3 = x;
         Y3 = y;
     }
-
-    cout << x << y << endl;
 }
 
-/* when the mouse button is held down */
+/**********************************************************************
+                        mousedrag
+**********************************************************************
+mousedrag follows where the mouse pointer is while the right button is
+held down, and redraws a selected shape at the point the mouse is
+at, creating the visual effect of dragging the shape to a new location
+
+parameters:     x - the x value of the pointer's current location
+                y - the y value of the pointer's current location
+**********************************************************************/
 void mousedrag( int x, int y )
 {
     /// if( IsMovingShape )
-    // move 
-    ///I know he said only use the right button, but I can't figure out
-    //right now how to test that because state and button can't be passed
-    //int this function. I think using either will be okay as long as 
-    //a shape is selected
-
     int tempy = ScreenHeight - y;
     if( GREENEGGS )
         CurrentShape -> moveTo( x, tempy );
@@ -738,7 +747,6 @@ void selectDrawnShape (float x, float y)
         {
             tempShapeList.push_back(DrawnShapes[i]);
             DrawnShapeIndex.push_back(i);
-            cout << "add " << i << endl;
         }
     }
 
@@ -757,7 +765,6 @@ void selectDrawnShape (float x, float y)
             {
                 CurrentShape = tempShapeList[i];
                 index = DrawnShapeIndex[i];
-                cout << index << endl;
             }
         }
         
