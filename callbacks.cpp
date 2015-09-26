@@ -98,6 +98,7 @@ Shape* CurrentIcon;
 Ellipses* FilledEllipsesIcon = new Ellipses( 69, 483, CurrentBorderColor, CurrentFillColor, IconSize / 2, IconSize / 2, true );
 Rectangle* FilledRectangleIcon = new Rectangle( 69, 529, CurrentBorderColor, CurrentFillColor, IconSize, IconSize, true );
 Line* LineIcon = new Line( 69, 575, CurrentBorderColor, 69 + ( IconSize / 2 ), 575 + IconSize / 2, 69 - IconSize / 2, 575 - IconSize / 2 );
+
 const Shape* PaletteIcons[] = { EllipsesIcon, RectangleIcon, FilledEllipsesIcon, FilledRectangleIcon, LineIcon };
 
 /**********************************************************************
@@ -127,6 +128,7 @@ void display( void )
     // write title on top of screen
     DrawTextString( (char*) "Chris and Kate Paint!", ScreenWidth / 2 - 92, ScreenHeight - 20, White );
 
+    // if drawing a shape, have drag lines layout where the shape will be made
     if( DrawCount == 0 )
     {
         dragDraw();
@@ -164,6 +166,7 @@ void dragDraw()
             glFlush();
             break;
         case ELLIPSES_SHAPE:
+            /* have not found way to implement this */
             break;
     }
 }
@@ -306,6 +309,7 @@ void mouseclick( int button, int state, int x, int y )
             // press
             if( state == GLUT_DOWN )
             {    
+                IsMovingShape = false;
                 CurrentMouseState = GLUT_DOWN;
                 // is a color or shape being selected?
                 if( x < PaletteSize * 2 )
@@ -362,11 +366,10 @@ void mouseclick( int button, int state, int x, int y )
                     // Test the xy for which shape you're on
                     ///checking to see if this causes the segfault in the mousedrag
                     // Only does this if there are shapes on the screen
-                    GREENEGGS = true;
+                    IsMovingShape = true;
                     if( DrawnShapes.size() > 0 )
                     {
                         selectDrawnShape(x,y);
-                        IsMovingShape = true;
                     }
                 }
             }
@@ -378,7 +381,6 @@ void mouseclick( int button, int state, int x, int y )
                 {
                     selectDrawnShape(x,y);                    
                     CurrentShape->moveTo(x,y);
-                    IsMovingShape = false;
                 }
             break;
     }
@@ -408,7 +410,7 @@ void mousedrag( int x, int y )
 {
     // correct the y coordinate
     y = ScreenHeight - y;
-    if( GREENEGGS )
+    if( IsMovingShape )
         CurrentShape -> moveTo( x, y );
     glutPostRedisplay();
 
@@ -794,6 +796,5 @@ void selectDrawnShape (float x, float y)
         
         DrawnShapes.push_back( CurrentShape );
         DrawnShapes.erase( DrawnShapes.begin() + index );
-
     }
 }
