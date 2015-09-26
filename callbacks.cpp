@@ -369,6 +369,7 @@ void mouseclick( int button, int state, int x, int y )
                     IsMovingShape = true;
                     if( DrawnShapes.size() > 0 )
                     {
+                        cout << "Select drawn shape" << endl;
                         selectDrawnShape(x,y);
                     }
                 }
@@ -379,7 +380,7 @@ void mouseclick( int button, int state, int x, int y )
                 CurrentMouseState = GLUT_UP;
                 if( IsMovingShape == true )
                 {
-                    selectDrawnShape(x,y);                    
+//                    selectDrawnShape(x,y);                    
                     CurrentShape->moveTo(x,y);
                 }
             break;
@@ -401,8 +402,6 @@ void mousedragpassive( int x, int y )
     }
 
     glutPostRedisplay();
-
-    cout << x << y << endl;
 }
 
 /* when the mouse button is held down */
@@ -744,14 +743,18 @@ void changeIconFillColor()
 **********************************************************************
 selectDrawnShape traverses the vector of drawn shapes, examining
 each shape's center point. If the center point is within a distance
-of 10 from the selected coordinate it is added to a temporary vector
-of shape pointers.
+of 10 from the selected coordinate it is then compared to the distance
+of the CurrentShape center point from the selected point.
 
-Once the  vector of drawn shapes has been examined, the CurrentShape
-variable is set to the first shape in the temporary vector. The temporary
-vector is then traversed. If a shape is found to have a smaller distance 
-from the selected coordinate than CurrentShape, CurrentShape is set to
-this new shape.
+If the shape being examined has a center point closer to the selected
+point than the CurrentShape, then CurrentShape is set to the shape
+being examined and a variable called index holds the location within
+the DrawnShapes vector where the examined shape was located.
+
+Once the list of shapes has been examined, the shape held in the
+CurrentShape variable is removed from its original position in the 
+vector using the index variable, and is added to the end of the
+DrawnShapes vector.
 
 If multiple shapes have the same distance from the selected coordiante,
 then the most recently drawn shape will be set as the value for
@@ -762,39 +765,31 @@ parameters:     x - x value of the selected coordinate
 **********************************************************************/
 void selectDrawnShape (float x, float y)
 {
-    vector<Shape*> tempShapeList;  //holds possibly selected shapes
-    Shape* tempShape; //holds shape currently being examined
-    vector<int> DrawnShapeIndex;
+    cout << "Inside Select Shape"<< endl;
+    //vector<Shape*> tempShapeList;  //holds possibly selected shapes
+    //Shape* tempShape; //holds shape currently being examined
+    int index;
+    float iX, iY, cX, cY;
     // store shapes within 10 from selected point
     for( unsigned int i = 0; i < DrawnShapes.size(); i++ )
     {
-        tempShape = DrawnShapes[i];
-        if ( (abs(x - tempShape->getCenterX()) <= 10) && (abs(y - tempShape->getCenterY()) <= 10) )
-        {
-            tempShapeList.push_back(DrawnShapes[i]);
-            DrawnShapeIndex.push_back(i);
-        }
-    }
-
-    // if there are shapes that are within range of selected point
-    if( tempShapeList.size() > 0 )
-    {
-        //set the current shape to the first shape in the temporary shape list
-        CurrentShape = tempShapeList.front();
-        int index = DrawnShapeIndex.front();
-        //set CurrentShape to closest, most recent shape
-        for( unsigned int i = 0; i < tempShapeList.size(); i++ )
-        {
-            tempShape = tempShapeList[i];
-            if ( (abs(x - tempShape->getCenterX()) <= abs(x - CurrentShape->getCenterX()) ) 
-                && (abs(y - tempShape->getCenterY()) <= abs(y - CurrentShape->getCenterY())))
-            {
-                CurrentShape = tempShapeList[i];
-                index = DrawnShapeIndex[i];
-            }
-        }
+        //Set temporary variables for comparisons
+        iX = DrawnShapes.at(i)->getCenterX();
+        iY = DrawnShapes.at(i)->getCenterY();
+        cX = CurrentShape->getCenterX();
+        cY = CurrentShape->getCenterY();
         
-        DrawnShapes.push_back( CurrentShape );
-        DrawnShapes.erase( DrawnShapes.begin() + index );
+        //evaluate shape distance from x and y
+        if ((((iX - x) <= 10) || ((iX - x) >= -10)) && (((iY - y) <= 10) || ((iY - y) >= -10)))
+        {
+            //evaluate if distance from x and y is smaller than that of CurrentShape
+            if ( (abs(x - iX) <= abs(x - cX )) && (abs(y - iY) <= abs(y - cY)))
+                {
+                    CurrentShape = DrawnShapes.at(i);
+                    index = i;
+                }
+        }
     }
+    DrawnShapes.push_back( CurrentShape );
+    DrawnShapes.erase( DrawnShapes.begin() + index );
 }

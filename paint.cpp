@@ -26,9 +26,7 @@ shape will stay in that new location.
 **********************************************************************
                             Known Bugs
 **********************************************************************
-On occation when selecting a shape to be moved, the program will
-instead move the previously moved shape to the newly selected point,
-rather than selecting a new shape. 
+When moving the line shape, it goes crazy.
 **********************************************************************/
 
 #include <GL/freeglut.h>
