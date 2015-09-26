@@ -27,6 +27,7 @@ vector<Shape*> DrawnShapes; // list of shapes that have been drawn
 int CurrentMouseState;
 int CurrentMouseButton;
 float X3, Y3; // current mouse pointer location
+
 bool GREENEGGS = false;
 
 /*****Flags*****/
@@ -91,12 +92,12 @@ const Shape* PaintPalette[] = { GrayColor, PurpleColor, BlueColor, CyanColor,
                                 FilledRectangleTool, LineTool };
 
 /*****Shapes drawn in paint palette*****/
-Shape* EllipsesIcon = new Ellipses( 23, 483, CurrentBorderColor, CurrentFillColor, IconSize / 2, IconSize / 2, false );
-Shape* RectangleIcon = new Rectangle( 23, 529, CurrentBorderColor, CurrentFillColor, IconSize, IconSize, false );
+Ellipses* EllipsesIcon = new Ellipses( 23, 483, CurrentBorderColor, CurrentFillColor, IconSize / 2, IconSize / 2, false );
+Rectangle* RectangleIcon = new Rectangle( 23, 529, CurrentBorderColor, CurrentFillColor, IconSize, IconSize, false );
 Shape* CurrentIcon;
-Shape* FilledEllipsesIcon = new Ellipses( 69, 483, CurrentBorderColor, CurrentFillColor, IconSize / 2, IconSize / 2, true );
-Shape* FilledRectangleIcon = new Rectangle( 69, 529, CurrentBorderColor, CurrentFillColor, IconSize, IconSize, true );
-Shape* LineIcon = new Line( 69, 575, CurrentBorderColor, 69 + ( IconSize / 2 ), 575 + IconSize / 2, 69 - IconSize / 2, 575 - IconSize / 2 );
+Ellipses* FilledEllipsesIcon = new Ellipses( 69, 483, CurrentBorderColor, CurrentFillColor, IconSize / 2, IconSize / 2, true );
+Rectangle* FilledRectangleIcon = new Rectangle( 69, 529, CurrentBorderColor, CurrentFillColor, IconSize, IconSize, true );
+Line* LineIcon = new Line( 69, 575, CurrentBorderColor, 69 + ( IconSize / 2 ), 575 + IconSize / 2, 69 - IconSize / 2, 575 - IconSize / 2 );
 const Shape* PaletteIcons[] = { EllipsesIcon, RectangleIcon, FilledEllipsesIcon, FilledRectangleIcon, LineIcon };
 
 /**********************************************************************
@@ -125,6 +126,20 @@ void display( void )
 
     // write title on top of screen
     DrawTextString( (char*) "Chris and Kate Paint!", ScreenWidth / 2 - 92, ScreenHeight - 20, White );
+
+    if( DrawCount == 0 )
+    {
+        glColor3fv( White );
+        glBegin( GL_LINES );
+            glVertex2f( X1, Y1 );
+            glVertex2f( X3, Y3 );
+        glEnd();
+        glFlush();
+    }
+
+    // draw the current icon once one is selected
+    if( IsShapeSelected )
+        CurrentIcon -> draw();
 
     // should do an implicit glFlush()
     glutSwapBuffers();
@@ -350,6 +365,7 @@ void mouseclick( int button, int state, int x, int y )
 /* when the mouse isn't pressed down */
 void mousedragpassive( int x, int y )
 {
+    // correct the y coordinate
     y = ScreenHeight - y;
 
     if( DrawCount == 0 )
@@ -358,22 +374,18 @@ void mousedragpassive( int x, int y )
         Y3 = y;
     }
 
+    glutPostRedisplay();
+
     cout << x << y << endl;
 }
 
 /* when the mouse button is held down */
 void mousedrag( int x, int y )
 {
-    /// if( IsMovingShape )
-    // move 
-    ///I know he said only use the right button, but I can't figure out
-    //right now how to test that because state and button can't be passed
-    //int this function. I think using either will be okay as long as 
-    //a shape is selected
-
-    int tempy = ScreenHeight - y;
+    // correct the y coordinate
+    y = ScreenHeight - y;
     if( GREENEGGS )
-        CurrentShape -> moveTo( x, tempy );
+        CurrentShape -> moveTo( x, y );
     glutPostRedisplay();
 
 }
@@ -473,15 +485,13 @@ void selectShape( float x, float y )
         {
             CurrentShapeType = ELLIPSES_SHAPE;
             CurrentFillValue = false;
-            //CurrentIcon = new Ellipses( EllipsesIcon );
-            //CurrentIcon -> setCenterCoordinate( 23, 575 );
+            CurrentIcon = new Ellipses( 23, 575, CurrentBorderColor, CurrentFillColor, IconSize / 2, IconSize / 2, CurrentFillValue );
         }
         else if( y < PaletteSize * 12 )
 	    {    
             CurrentShapeType = RECTANGLE_SHAPE;
             CurrentFillValue = false;
-            //CurrentIcon = new Rectangle( RectangleIcon );
-            //CurrentIcon -> setCenterCoordinate( 23, 575 );
+            CurrentIcon = new Rectangle( 23, 575, CurrentBorderColor, CurrentFillColor, IconSize, IconSize, CurrentFillValue );
         }
     }
     // second column shape
@@ -491,23 +501,21 @@ void selectShape( float x, float y )
         {
             CurrentShapeType = ELLIPSES_SHAPE;
             CurrentFillValue = true;   
-            //CurrentIcon = new Ellipses( FilledEllipsesIcon );
-            //CurrentIcon -> setCenterCoordinate( 23, 575 );
+            CurrentIcon = new Ellipses( 23, 575, CurrentBorderColor, CurrentFillColor, IconSize / 2, IconSize / 2, CurrentFillValue);
         }
         else if( y < PaletteSize * 12 )
         {
             CurrentShapeType = RECTANGLE_SHAPE;
             CurrentFillValue = true;
-            //CurrentIcon = new Rectangle( FilledRectangleIcon );
-            //CurrentIcon -> setCenterCoordinate( 23, 575 );        
+            CurrentIcon = new Rectangle( 23, 575, CurrentBorderColor, CurrentFillColor, IconSize, IconSize, CurrentFillValue);
         }
         else if( y < PaletteSize * 13 )
         {
             CurrentShapeType = LINE_SHAPE;
-            //CurrentIcon = new Line( LineIcon );
-            //CurrentIcon -> setCenterCoordinate( 23, 575 );
+            CurrentIcon = new Line( 23, 575, CurrentBorderColor, 23 + ( IconSize / 2 ), 575 + ( IconSize / 2 ), 23 - ( IconSize / 2 ), 575 - ( IconSize / 2 ) );
+
         }
-    }        
+    }
 }
 
 /**********************************************************************
@@ -683,6 +691,9 @@ void changeIconBorderColor()
     RectangleIcon -> setBorderColor( CurrentBorderColor );
     FilledRectangleIcon -> setBorderColor( CurrentBorderColor );
     LineIcon -> setBorderColor( CurrentBorderColor );
+
+    if( IsShapeSelected )
+        CurrentIcon -> setBorderColor( CurrentBorderColor );
  
     // refresh the screen   
     glutPostRedisplay();
@@ -738,7 +749,6 @@ void selectDrawnShape (float x, float y)
         {
             tempShapeList.push_back(DrawnShapes[i]);
             DrawnShapeIndex.push_back(i);
-            cout << "add " << i << endl;
         }
     }
 
@@ -757,7 +767,6 @@ void selectDrawnShape (float x, float y)
             {
                 CurrentShape = tempShapeList[i];
                 index = DrawnShapeIndex[i];
-                cout << index << endl;
             }
         }
         
