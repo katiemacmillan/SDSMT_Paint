@@ -142,10 +142,19 @@ void display( void )
     glutSwapBuffers();
 }
 
-/* follows the mouse to visualize the shape */
+/**********************************************************************
+                            dragDraw
+**********************************************************************
+drawDraw creates a temporary, white, unfilled responsive view of
+what is being drawn while the mouse is moved in between the 
+selection of X1,Y1, and X2,Y2
+**********************************************************************/
 void dragDraw()
 {
     glColor3fv( White );
+    float xC, yC, xRadius, yRadius, radius;
+   
+
 
     switch( CurrentShapeType )
     {
@@ -166,7 +175,27 @@ void dragDraw()
             glFlush();
             break;
         case ELLIPSES_SHAPE:
-            /* have not found way to implement this */
+            //set center
+            X1 < X3 ? xC = X1 + (X3-X1)/2 : xC = X3 + (X1-X3)/2;
+            Y1 < Y3 ? yC = Y1 + (Y3 - Y1 )/2 : yC = Y3 + (Y1 - Y3 )/2;
+
+            //set Radius
+            xC > X1 ? xRadius = xC - X1 : xRadius = xC - X3;
+            yC > Y1 ? yRadius = yC - Y1 : yRadius = yC - Y3;
+
+            //set radius
+            xRadius < yRadius ? radius = xRadius : radius = yRadius;    // stretch circle into ellipse
+
+            //draw that puppy
+            glMatrixMode( GL_MODELVIEW );
+            glLoadIdentity();
+            glTranslatef(xC, yC, 0 );
+            glScalef( xRadius / radius, yRadius / radius, 1.0 );
+            GLUquadricObj *disk = gluNewQuadric();
+            gluDisk( disk, radius - 1, radius, int( radius ), 1 );
+            gluDeleteQuadric( disk );
+            glLoadIdentity();
+            glFlush();
             break;
     }
 }

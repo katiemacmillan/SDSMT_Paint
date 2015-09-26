@@ -23,10 +23,6 @@ releasing the button will cause the shape to be dragged to a new
 location on the screen. When the right mouse button is release the 
 shape will stay in that new location. 
 
-**********************************************************************
-                            Known Bugs
-**********************************************************************
-When moving the line shape, it goes crazy.
 **********************************************************************/
 
 #include <GL/freeglut.h>
